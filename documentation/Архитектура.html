@@ -168,10 +168,10 @@ static void pushMouseEvent(MouseEvent e);</pre>
 	...
 }</pre>
 Класс, описывающий событие клавиатуры. Содержит методы:
-<pre>KeyEvent.Type getType(); // тип события
+<pre>KeyEvent.Types getType(); // тип события
 char keyChar();
 ControlKeys getKey();</pre>
-Вложенное перечисление KeyEvent.Type определяет тип события (клавиша нажата/отпущена, введён символ).
+Вложенное перечисление <code>KeyEvent.Types</code> определяет тип события (клавиша нажата/отпущена, введён символ).
 </div>
 
 <div class='unit'>
@@ -181,14 +181,14 @@ ControlKeys getKey();</pre>
 	...
 }</pre>
 Класс, описывающий событие мыши. Содержит методы:
-<pre>MouseEvent.Type getType(); // тип события
-MouseEvent.Button getButton(); // вызвавшая событие кнопка
+<pre>MouseEvent.Types getType(); // тип события
+MouseEvent.Buttons getButton(); // вызвавшая событие кнопка
 
 int getX(); // координаты мыши
 int getY();
 int getDelta(); // вращение колеса
 </pre>
-Вложенные перечисления MouseEvent.Type и MouseEvent.Button определяют соответственно тип события (кнопка нажата/отпущена, прокрутка, движение мыши) и кнопки мыши.
+Вложенные перечисления <code>MouseEvent.Type</code> и <code>MouseEvent.Button</code> определяют соответственно тип события (кнопка нажата/отпущена, прокрутка, движение мыши) и кнопки мыши.
 </div>
 
 <div class='unit'>

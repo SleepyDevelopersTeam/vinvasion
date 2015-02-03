@@ -1,4 +1,4 @@
-package ru.sdevteam.vinv.utils;
+package ru.sdevteam.vinv.main;
 
 public enum ControlKeys
 {
