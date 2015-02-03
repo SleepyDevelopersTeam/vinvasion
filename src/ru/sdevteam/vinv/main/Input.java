@@ -1,8 +1,5 @@
 package ru.sdevteam.vinv.main;
 
-import ru.sdevteam.vinv.utils.ControlKeys;
-import ru.sdevteam.vinv.utils.KeyEvent;
-import ru.sdevteam.vinv.utils.MouseEvent;
 
 // TODO: переделать архитектуру класса, слишком говнокодисто
 public class Input
@@ -12,11 +9,36 @@ public class Input
 	{
 		Object event;
 		QueueItem next;
+		
+		QueueItem(Object ev)
+		{
+			event=ev;
+		}
 	}
 	
 	private static QueueItem keyStart, keyEnd, mouseStart, mouseEnd;
 	
-	//...
+	static void pushKeyEvent(KeyEvent e)
+	{
+		if(keyStart==null)
+		{
+			keyStart=keyEnd=new Input().new QueueItem(e);
+			return;
+		}
+		keyEnd.next=new Input().new QueueItem(e);
+		keyEnd=keyEnd.next;
+	}
+	
+	static void pushMouseEvent(MouseEvent e)
+	{
+		if(mouseStart==null)
+		{
+			mouseStart=mouseEnd=new Input().new QueueItem(e);
+			return;
+		}
+		mouseEnd.next=new Input().new QueueItem(e);
+		mouseEnd=mouseEnd.next;
+	}
 	
 	private static int mx, my;
 	public static int getMouseX() { return mx; }
@@ -29,19 +51,25 @@ public class Input
 
 	public static boolean hasMoreKeyEvents()
 	{
-		return false;
+		return keyStart!=null;
 	}
 	public static KeyEvent getNextKeyEvent()
 	{
-		return null;
+		KeyEvent result=(KeyEvent)keyStart.event;
+		keyStart=keyStart.next;
+		if(keyStart==null) keyEnd=null;
+		return result;
 	}
 
 	public static boolean hasMoreMouseEvents()
 	{
-		return false;
+		return mouseStart!=null;
 	}
 	public static MouseEvent getNextMouseEvent()
 	{
-		return null;
+		MouseEvent result=(MouseEvent)mouseStart.event;
+		mouseStart=mouseStart.next;
+		if(mouseStart==null) mouseEnd=null;
+		return result;
 	}
 }

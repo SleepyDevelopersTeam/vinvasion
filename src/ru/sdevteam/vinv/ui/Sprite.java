@@ -1,6 +1,7 @@
 package ru.sdevteam.vinv.ui;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Sprite implements IDrawable, IUpdatable
@@ -43,7 +44,7 @@ public class Sprite implements IDrawable, IUpdatable
 	//
 	private boolean visible=true;
 	public boolean isVisible() { return visible; }
-	public void setVisible(boolean flag) { visible=flag; }
+	public void setVisibility(boolean flag) { visible=flag; }
 	public void show() { visible=true; }
 	public void hide() { visible=false; }
 	
@@ -52,8 +53,16 @@ public class Sprite implements IDrawable, IUpdatable
 	//
 	private boolean playing=false;
 	public boolean isPlaying() { return playing; }
-	public void play() { playing=true; }
-	public void pause() { playing=false; }
+	public void play()
+	{
+		playing=true;
+		lastChangeTime=System.currentTimeMillis();
+	}
+	public void pause()
+	{
+		playing=false;
+		timeWithoutChanges+=(int)(System.currentTimeMillis()-lastChangeTime);
+	}
 	
 	private int curFrame=0, totalFrames=0;
 	public int currentFrame() { return curFrame; }
@@ -62,19 +71,24 @@ public class Sprite implements IDrawable, IUpdatable
 		// TODO: use syncronized
 		curFrame++;
 		if(curFrame>=totalFrames) curFrame=0;
+		lastChangeTime=System.currentTimeMillis();
 	}
 	public void prevFrame()
 	{
 		// TODO: use syncronized
 		curFrame--;
 		if(curFrame<0) curFrame=totalFrames-1;
+		lastChangeTime=System.currentTimeMillis();
 	}
 	public void gotoFrame(int frame)
 	{
-		// TODO: implement
+		assert frame>=0 && frame<totalFrames: "Номер кадра должен быть неотрицательным и меньше количества кадров";
+		curFrame=frame;
+		lastChangeTime=System.currentTimeMillis();
 	}
 	
 	public int getFramesCount() { return totalFrames; }
+	private int fpw; // frames per width (of source img.)
 	private void countFrames()
 	{
 		if(source==null)
@@ -92,41 +106,116 @@ public class Sprite implements IDrawable, IUpdatable
 		}
 		// Работает корректно только для ровного количества кадров
 		totalFrames=(getSourceWidth()*getSourceHeight())/(w*h);
+		
+		fpw=getSourceWidth()/w;
 	}
 	
 	private int frameDur=33; // длительность одного кадра в миллисекундах
 	public int getFrameDuration() { return frameDur; }
 	public void setFrameDuration(int millis) { frameDur=millis; }
 	
+	private long lastChangeTime=-1;
+	private int timeWithoutChanges=0;
+	
 	
 	public Sprite()
 	{
 		countFrames();
+		cw=ch=0;
 	}
 	public Sprite(BufferedImage src)
 	{
 		source=src;
-		w=getSourceWidth();
-		h=getSourceHeight();
+		cw=w=getSourceWidth();
+		ch=h=getSourceHeight();
 		countFrames();
+		play();
 	}
 	public Sprite(BufferedImage src, int width, int height)
 	{
 		source=src;
-		w=width; h=height;
+		cw=w=width; ch=h=height;
 		countFrames();
+		play();
 	}
 	
 	
 	@Override
 	public void update()
 	{
-		// TODO: implement frame changing
+		if(source==null) return;
+		if(playing)
+		{
+			if(timeWithoutChanges>=frameDur)
+			{
+				nextFrame();
+				lastChangeTime=System.currentTimeMillis();
+				timeWithoutChanges-=frameDur;
+			}
+			else
+			{
+				timeWithoutChanges+=(int)(System.currentTimeMillis()-lastChangeTime);
+			}
+		}
 	}
 
 	@Override
 	public void paint(Graphics g)
 	{
 		// TODO: implement painting
+		int framex, framey;
+		framex=curFrame%fpw;
+		framey=curFrame/fpw;
+		
+		Image frame=source.getSubimage(framex, framey, w, h);
+		// TODO: здесь решить, как отрисовывать спрайты с дробными координатами
+		g.drawImage(frame, (int)x, (int)y, null);
+	}
+	
+	//
+	// Столкновения
+	//
+	
+	// collision rectangle
+	private int cx=0, cy=0, cw, ch;
+	
+	public void setCollisionRectangle(int x, int y, int width, int height)
+	{
+		cx=x; cy=y; cw=width; ch=height;
+	}
+	
+	// проверка столкновения с точкой (x;y)
+	public boolean contains(int x, int y)
+	{
+		if(x<this.x+cx) return false;
+		if(x>this.x+cx+cw) return false;
+		if(y<this.y+cy) return false;
+		if(y>this.y+cy+ch) return false;
+		return true;
+	}
+	
+	public boolean collidesWith(Sprite s)
+	{
+		if(x+cx<s.x+s.cx)
+		{
+			if(s.x+s.cx+s.cw<x+cx) return false;
+		}
+		else
+		{
+			if(s.x+s.cx>x+cx+cw) return false;
+		}
+		// столкновение по x прошло
+		
+		if(y+cy<s.y+s.cy)
+		{
+			if(s.y+s.cy+s.ch<y+cy) return false;
+		}
+		else
+		{
+			if(s.y+s.cy>y+cy+ch) return false;
+		}
+		// столкновение по y прошло
+		
+		return true;
 	}
 }
