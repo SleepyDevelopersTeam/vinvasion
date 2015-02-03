@@ -88,7 +88,7 @@ public class Sprite implements IDrawable, IUpdatable
 	}
 	
 	public int getFramesCount() { return totalFrames; }
-	private int fpw, fph;
+	private int fpw; // frames per width (of source img.)
 	private void countFrames()
 	{
 		if(source==null)
@@ -108,7 +108,6 @@ public class Sprite implements IDrawable, IUpdatable
 		totalFrames=(getSourceWidth()*getSourceHeight())/(w*h);
 		
 		fpw=getSourceWidth()/w;
-		fph=getSourceHeight()/h;
 	}
 	
 	private int frameDur=33; // длительность одного кадра в миллисекундах
@@ -122,19 +121,20 @@ public class Sprite implements IDrawable, IUpdatable
 	public Sprite()
 	{
 		countFrames();
+		cw=ch=0;
 	}
 	public Sprite(BufferedImage src)
 	{
 		source=src;
-		w=getSourceWidth();
-		h=getSourceHeight();
+		cw=w=getSourceWidth();
+		ch=h=getSourceHeight();
 		countFrames();
 		play();
 	}
 	public Sprite(BufferedImage src, int width, int height)
 	{
 		source=src;
-		w=width; h=height;
+		cw=w=width; ch=h=height;
 		countFrames();
 		play();
 	}
@@ -177,12 +177,45 @@ public class Sprite implements IDrawable, IUpdatable
 	//
 	
 	// collision rectangle
-	private int cx, cy, cw, ch;
+	private int cx=0, cy=0, cw, ch;
 	
 	public void setCollisionRectangle(int x, int y, int width, int height)
 	{
 		cx=x; cy=y; cw=width; ch=height;
 	}
 	
+	// проверка столкновения с точкой (x;y)
+	public boolean contains(int x, int y)
+	{
+		if(x<this.x+cx) return false;
+		if(x>this.x+cx+cw) return false;
+		if(y<this.y+cy) return false;
+		if(y>this.y+cy+ch) return false;
+		return true;
+	}
 	
+	public boolean collidesWith(Sprite s)
+	{
+		if(x+cx<s.x+s.cx)
+		{
+			if(s.x+s.cx+s.cw<x+cx) return false;
+		}
+		else
+		{
+			if(s.x+s.cx>x+cx+cw) return false;
+		}
+		// столкновение по x прошло
+		
+		if(y+cy<s.y+s.cy)
+		{
+			if(s.y+s.cy+s.ch<y+cy) return false;
+		}
+		else
+		{
+			if(s.y+s.cy>y+cy+ch) return false;
+		}
+		// столкновение по y прошло
+		
+		return true;
+	}
 }

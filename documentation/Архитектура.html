@@ -322,7 +322,12 @@ void prevFrame();
 
 // отображение
 boolean isVisible();
-void setVisibility(boolean flag);</pre>
+void setVisibility(boolean flag);
+
+// столкновения
+boolean collidesWith(Sprite s);
+boolean contains(float x, float y);
+void setCollisionRectangle(int x, int y, int width, int height);</pre>
 Конструктор без параметров создаёт спрайт размером 0*0 без исходного изображения. Отрисовываться такой спрайт будет, но никак (то есть, на экране ничего не будет отображаться).
 </div>
 
