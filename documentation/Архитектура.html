@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Архитектура</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script>
+function processText(code)
+{
+	code=code.replace(/(const|static) (.*?) (.*?)(?=[\=;\s\{\(\[])/g, "$1 $2 <i>$3</i>");
+	code=code.replace(/public/g, "<b>public</b>");
+	code=code.replace(/protected/g, "<b>protected</b>");
+	code=code.replace(/private/g, "<b>private</b>");
+	code=code.replace(/float/g, "<b>float</b>");
+	code=code.replace(/double/g, "<b>double</b>");
+	code=code.replace(/boolean/g, "<b>boolean</b>");
+	code=code.replace(/return/g, "<b>return</b>");
+	code=code.replace(/for/g, "<b>for</b>");
+	code=code.replace(/while/g, "<b>while</b>");
+	code=code.replace(/continue/g, "<b>continue</b>");
+	code=code.replace(/break/g, "<b>break</b>");
+	code=code.replace(/extends/g, "<b>extends</b>");
+	code=code.replace(/implements/g, "<b>implements</b>");
+	code=code.replace(/this/g, "<b>this</b>");
+	code=code.replace(/new/g, "<b>new</b>");
+	
+	code=code.replace(/class/g, "<em>class</em>");
+	code=code.replace(/interface/g, "<em>interface</em>");
+	code=code.replace(/void/g, "<em>void</em>");
+	code=code.replace(/abstract/g, "<em>abstract</em>");
+	
+	code=code.replace(/static/g, "<em><i>static</i></em>");
+	code=code.replace(/const/g, "<em><i>const</i></em>");
+	
+	code=code.replace(/int /g, "<b>int</b> ");
+	
+	
+	code=code.replace(/\/\/.*?\n/g, "<span class='comment'>$&</span>");
+	code=code.replace(/".*?"/g, "<span class='str'>$&</span>");
+	
+	return code;
+}
+
+</script>
+</head><body>
+<div id='nav'>
+<a href='#top'>Наверх</a>
+</div>
+<!--------------------------------------------------------------------------------------------------------------->
+
+<div class='page'>
+<a name="top"></a>
+<h1>Структура проекта</h1>
+<h3>Пространства имён и классы:</h3>
+<ul class='structure'>
+<li><a href="#ru.sdevteam.vinv.main">ru.sdevteam.vinv.main</a> – основа программы, базовые классы, слабо связанные с игровым процессом:
+	<ul>
+		<li><a href="#ru.sdevteam.vinv.main.Program">Program</a> – содержит метод <code>main</code></li>
+		<li><a href="#ru.sdevteam.vinv.main.MainFrame">MainFrame</a> – главная форма</li>
+		<li><a href="#ru.sdevteam.vinv.main.GameCanvas">GameCanvas</a> – игровой холст, занимает всю форму, на нём будет отрисовываться графика</li>
+		<li><a href="#ru.sdevteam.vinv.main.Timer">Timer</a> – служит для обновления состояния и перерисовки игры n раз в секунду</li>
+		<li><a href="#ru.sdevteam.vinv.main.OnTickListener">OnTickListener</a> – слушатель события <code>onTick</code> таймера</li>
+		<li><a href="#ru.sdevteam.vinv.main.Input">Input</a> – статический класс для обработки пользовательского ввода</li>
+		<li><a href="#ru.sdevteam.vinv.main.KeyEvent">KeyEvent</a> – хранит информацию о событии клавиатуры</li>
+		<li><a href="#ru.sdevteam.vinv.main.MouseEvent">MouseEvent</a> – хранит информацию о событии мыши</li>
+		<li><a href="#ru.sdevteam.vinv.main.ResourseManager">ResourseManager</a> – статический класс-хранилище для изображений, звуков и других ресурсов</li>
+	</ul>
+</li>
+<li><a href="#ru.sdevteam.vinv.ui">ru.sdevteam.vinv.ui</a> – классы, представляющие пользовательский интерфейс, и всё, что ответственно за графику:
+	<ul>
+		<li><a href="#ru.sdevteam.vinv.ui.Screen">Screen</a> – абстрактный класс, служит для отображения своего содержимого</li>
+		<li><a href="#ru.sdevteam.vinv.ui.GameScreen">GameScreen</a> – игровой экран (на нём рисуется уровень и сопутствующая графика)</li>
+		<li><a href="#ru.sdevteam.vinv.ui.LoadingScreen">LoadingScreen</a> – экран загрузки</li>
+		<li><a href="#ru.sdevteam.vinv.ui.MenuScreen" class='u'>MenuScreen</a> – возможно, абстрактный класс экрана, главным элементом которого является меню</li>
+		<li><a href="#ru.sdevteam.vinv.ui.Sprite">Sprite</a> – статическая/анимированная картинка с координатами</li>
+		<li><a href="#ru.sdevteam.vinv.ui.Menu" class='u'>Menu</a> – хранит данные о пунктах меню и взаимодействует с вводом пользователя</li>
+		<li><a href="#ru.sdevteam.vinv.ui.MenuItem" class='u'>MenuItem</a> – пункт меню</li>
+		<li><a href="#ru.sdevteam.vinv.ui.MessageBox">MessageBox</a> – окно с сообщением</li>
+		<li><a href="#ru.sdevteam.vinv.ui.IDrawable">IDrawable</a> – интерфейс отрисовываемого объекта</li>
+		<li><a href="#ru.sdevteam.vinv.ui.IUpdatable">IUpdatable</a> – интерфейс обновляемого объекта</li>
+	</ul>
+</li>
+<li><a href="#ru.sdevteam.vinv.game">ru.sdevteam.vinv.game</a> – классы игровой модели:
+	<ul>
+		<li><a href="#ru.sdevteam.vinv.game.Level">Level</a> – хранит информацию о уровне, существующих объектах и т.д.</li>
+		<li><a href="#ru.sdevteam.vinv.game.GameObject">GameObject</a> – абстрактный класс игрового объекта на поле</li>
+		<li><a href="#ru.sdevteam.vinv.game.Destructable">Destructable</a> – абстрактный класс разрушаемого игрового объекта</li>
+		<li><a href="#ru.sdevteam.vinv.game.Tower">Tower</a> – (в будущем абстрактный) класс, хранящий информацию о башне и её характеристиках</li>
+		<li><a href="#ru.sdevteam.vinv.game.Bug">Bug</a> - (в будущем абстрактный) класс, содержащий характеристики жука</li>
+		<li><a href="#ru.sdevteam.vinv.game.Bullet">Bullet</a> – класс, представляющий пулю</li>
+		<li><a href="#ru.sdevteam.vinv.game.Wire" class='u'>Wire</a> – провода на поле</li>
+		<li><a href="#ru.sdevteam.vinv.game.Generator" class='u'>Generator</a> – генератор электричества</li>
+		<li><a href="#ru.sdevteam.vinv.game.Player" class='u'>Player</a> – хранит информацию об игроке (кол-во денег, учёных и т.д.)</li>
+		<li><a href="#ru.sdevteam.vinv.game.Wave" class='u'>Wave</a> – волна вражеских юнитов</li>
+		<li><a href="#ru.sdevteam.vinv.game.IMoveable">IMoveable</a> – интерфейс передвигаемого объекта</li>
+	</ul>
+</li>
+<li><a href="#ru.sdevteam.vinv.game.logics">ru.sdevteam.vinv.game.logics</a> – классы-контроллеры игровой логики:
+	<ul>
+		<li><a href="#ru.sdevteam.vinv.game.logics.LevelController">LevelController</a> – обрабатывает логику обновления уровня</li>
+		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">Mover</a> – обрабатывает движение объектов</li>
+	</ul>
+</li>
+<li><a href="#ru.sdevteam.vinv.utils">ru.sdevteam.vinv.utils</a> – различные вспомогательные классы:
+	<ul>
+		<li><a href="#ru.sdevteam.vinv.utils.Pool" class='u'>Pool&lt;T&gt;</a> - пул (точно понадобится для пуль)</li>
+		<li><a href="#ru.sdevteam.vinv.utils.FileWriter" class='u'>FileWriter</a> – вспомогательный класс для записи в файл</li>
+		<li><a href="#ru.sdevteam.vinv.utils.FileReader" class='u'>FileReader</a> – для чтения из файла</li>
+	</ul>
+</li>
+</ul>
+<br /><br />
+
+<a name="ru.sdevteam.vinv.main"></a>
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.Program">ru.sdevteam.vinv.main.Program</a></h2>
+<pre>public class Program
+{
+	...
+}</pre>
+Содержит метод <code>static void main()</code>, в котором создаёт, настраивает и запускает форму приложения <code>MainFrame</code>.</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.MainFrame">ru.sdevteam.vinv.main.MainFrame</a></h2>
+<pre>public class MainFrame extends Frame implements MouseDownListener, ...
+{
+	... 
+}</pre>
+Главная форма приложения. На себе содержит <code>GameCanvas</code>, также слушает события мыши и клавиатуры, данные о которых затем передаёт в <code>Input</code>. При создании порождает основные потоки игры – поток обновления и поток отрисовки (через экземпляры класса <code>Timer</code>), запускает их и передаёт генерируемые ими события в экземпляр <code>GameCanvas</code>. Также при запуске вызывает инициализацию класса <code>ResourseManager</code>.
+</div>
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.GameCanvas">ru.sdevteam.vinv.main.GameCanvas</a></h2>
+<pre>public class GameCanvas extends Canvas implements IDrawable, IUpdatable
+{
+	...
+}</pre>
+Игровой холст, на нём будет отрисовываться вся графика. Содержит экземпляр класса <code>Screen</code>, на который передаёт вызовы методов <code>update()</code> и <code>paint(Graphics)</code>. Также реализует двойную буферизацию и адаптацию внутриигрового расширения к расширению экрана (если требуется). Для смены экранов предусмотреть метод <code>void setActiveScreen(Screen item)</code>.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.Input">ru.sdevteam.vinv.main.Input</a></h2>
+<pre>public static class Input
+{
+	...
+}</pre>
+Класс, хранящий информацию о событиях клавиатуры и мыши и предоставляющий к ним доступ в виде очереди (в порядке их поступления). После чтения события оно автоматически удаляется из очереди. Основные открытые методы:
+<pre>public static int getMouseX(); // текущие координаты мыши
+public static int getMouseY();
+public static boolean isKeyDown(ControlKeys key); // определяет, нажата ли клавиша key
+
+// проверяет, не пуста ли очередь событий
+public static boolean hasMoreKeyEvents();
+// возвращает следующее событие в очереди
+public static KeyEvent getNextKeyEvent();
+
+public static boolean hasMoreMouseEvents(); // аналогичные методы для событий мыши
+public static MouseEvent getNextMouseEvent();
+
+// методы с пакетной областью видимости!
+static void pushKeyEvent(KeyEvent e); // добавить событие в очередь
+static void pushMouseEvent(MouseEvent e);</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.KeyEvent">ru.sdevteam.vinv.main.KeyEvent</a></h2>
+<pre>public class KeyEvent
+{
+	...
+}</pre>
+Класс, описывающий событие клавиатуры. Содержит методы:
+<pre>KeyEvent.Type getType(); // тип события
+char keyChar();
+ControlKeys getKey();</pre>
+Вложенное перечисление KeyEvent.Type определяет тип события (клавиша нажата/отпущена, введён символ).
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.MouseEvent">ru.sdevteam.vinv.main.MouseEvent</a></h2>
+<pre>public class MouseEvent
+{
+	...
+}</pre>
+Класс, описывающий событие мыши. Содержит методы:
+<pre>MouseEvent.Type getType(); // тип события
+MouseEvent.Button getButton(); // вызвавшая событие кнопка
+
+int getX(); // координаты мыши
+int getY();
+int getDelta(); // вращение колеса
+</pre>
+Вложенные перечисления MouseEvent.Type и MouseEvent.Button определяют соответственно тип события (кнопка нажата/отпущена, прокрутка, движение мыши) и кнопки мыши.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.Timer">ru.sdevteam.vinv.main.Timer</a></h2>
+<pre>public class Timer implements Runnable
+{
+	...
+}</pre>
+Таймер, генерирующий событие <code>onTick</code> каждые n миллисекунд. Имеет следующие открытые методы:
+<pre>int getInterval(); // количество миллисекунд между соседними тиками
+void setInterval(int val); // устанавливает новое значение интервала
+
+void start(); // запускает таймер
+void pause();
+void unpause();
+boolean isRunning(); // определяет, запущен ли таймер
+
+void run(); // наследуется от Runnable, вызывает событие onTick
+
+// подписывает слушателя на событие
+void addOnTickListener(OnTickListener item); 
+void removeOnTickListener(OnTickListener item); // удаляет слушателя</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.OnTickListener">ru.sdevteam.vinv.main.OnTickListener</a></h2>
+<pre>public interface OnTickListener
+{
+	...
+}</pre>
+Интерфейс реализуется слушателями события <code>onTick</code> класса <code>Timer</code> и определяет единственный метод:
+<pre>void onTick();</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.main.ResourseManager">ru.sdevteam.vinv.main.ResourseManager</a></h2>
+<pre>public class ResourseManager
+{
+	...
+}</pre>
+Класс статически хранит ссылки на различные ресурсы (изображения, звуки, текст) и предоставляет статические методы для их получения. Содержит методы:
+<pre>static void init(); // инициализирует загрузку ресурсов
+static boolean isReady(); // проверяет готовность всех ресурсов
+static float getProgress(); // возвращает процент загрузки (от 0 до 1 вкл.)
+
+static Image getImage(String key); // возвращает изображение по ключу
+static BufferedImage getBufferedImage(String key);</pre>
+
+</div>
+
+<div class='separator'><a name="ru.sdevteam.vinv.ui"></a></div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.IDrawable">ru.sdevteam.vinv.ui.IDrawable</a></h2>
+<pre>public interface IDrawable
+{
+	...
+}</pre>
+От интерфейса следует наследовать любой класс, который можно отрисовать. Содержит единственный метод <code>void paint(Graphics g)</code>.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.IUpdatable">ru.sdevteam.vinv.ui.IUpdatable</a></h2>
+<pre>public interface IUpdatable
+{
+	...
+}</pre>
+От интерфейса следует наследовать любой класс, который можно обновить. Содержит единственный метод <code>void update()</code>.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.Screen">ru.sdevteam.vinv.ui.Screen</a></h2>
+<pre>public abstract class Screen implements IDrawable, IUpdatable
+{
+	...
+}</pre>
+Абстрактный класс, ответственный за отрисовку некоторой логической части игры. Является контейнером других элементов UI, например, окон сообщений или меню, и может самостоятельно отрисовывать произвольные элементы. Должен реализовывать методы:
+<pre>// отображает окно сообщения и при этом запрещает обновление всем
+// содержащимся на экране элементам, кроме окна сообщения
+void showMessageBox(MessageBox item); </pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.LoadingScreen">ru.sdevteam.vinv.ui.LoadingScreen</a></h2>
+<pre>public class LoadingScreen extends Screen
+{
+	...
+}</pre>
+Экран, появляющийся первым на холсте, сразу после запуска игры. Не содержит особых элементов интерфейса, только отображает ход загрузки. После её окончания переключается на следующий экран (<code>GameScreen</code> в первой рабочей сборке и <code>MainMenuScreen</code> в дальнейшем). 
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.GameScreen">ru.sdevteam.vinv.ui.GameScreen</a></h2>
+<pre>public class GameScreen extends Screen
+{
+	...
+}</pre>
+Экран служит для отображения собственно игрового процесса. Содержит экземпляр класса <code>LevelController</code>, порождаемый им в начале своей жизни. Различные данные игрока, которые необходимо передавать между уровнями, содержатся в статической ссылке <code>Player.getCurrentProfile()</code>.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.Sprite">ru.sdevteam.vinv.ui.Sprite</a></h2>
+<pre>public class Sprite implements IDrawable, IUpdatable
+{
+	...
+}</pre>
+Общий класс спрайта. Экземпляры могут быть как анимированными, так и статичными. Класс может быть применён для решения множества задач; имеет много наследников (<code>TowerSprite</code>, <code>BugSprite</code> и т.д.). Определяет следующие методы:
+<pre>// позиция и размеры
+float getX();
+float getY();
+int getWidth();
+int getHeight();
+int getSourceWidth();
+int getSourceHeight();
+
+// управление
+void moveTo(float nx, float ny);
+void moveBy(float dx, float dy);
+
+// воспроизведение
+void play();
+void pause();
+boolean isPlaying();
+int getFrameDuration(); // в миллисекундах
+void setFrameDuration(int millis);
+int getFramesCount();
+int currentFrame();
+void gotoFrame(int frame);
+void nextFrame();
+void prevFrame();
+
+// отображение
+boolean isVisible();
+void setVisibility(boolean flag);</pre>
+Конструктор без параметров создаёт спрайт размером 0*0 без исходного изображения. Отрисовываться такой спрайт будет, но никак (то есть, на экране ничего не будет отображаться).
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.TowerSprite">ru.sdevteam.vinv.ui.TowerSprite</a></h2>
+<pre>public class TowerSprite extends Sprite
+{
+	...
+}</pre>
+Класс для более удобного создания спрайтов башен. Будет использоваться в том числе и в <code>LevelController</code>, в методе <code>getSprites()</code>. Должен реализовывать конструктор
+<pre>TowerSprite(Tower t) { ... }</pre>
+Аналогично определяются классы BugSprite, BulletSprite и прочие им подобные.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.ui.MessageBox">ru.sdevteam.vinv.ui.MessageBox</a></h2>
+<pre>public class MessageBox implements IDrawable, IUpdatable
+{
+	...
+}</pre>
+Класс предназначен для вывода окна сообщения на экран. Окно может содержать от 0 до n кнопок, с помощью которых пользователь будет взаимодействовать с ним. В классах-потомках реализовать специализированные окна, вроде сообщения о загрузке <code>WaitingMessageBox</code>, окна-подтверждения <code>ConfirmationMessageBox</code> и т.д.
+</div>
+
+<div class='separator'><a name="ru.sdevteam.vinv.game"></a></div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.Level">ru.sdevteam.vinv.game.Level</a></h2>
+<pre>public class Level
+{
+	...
+}</pre>
+Класс, содержащий информацию об уровне и все находящиеся на игровом поле объекты, как интерактивные, так и статичные. Должен содержать следующие методы:
+<pre>// возвращает массив, содержащий все динамичные и статичные объекты уровня
+// (данный подход, возможно, будет заменён на использование итератора)
+GameObject[] getGameObjects();
+void addObject(GameObject item);
+void removeObject(GameObject item);
+Также, класс инкапсулирует в себе пул пуль, предоставляя следующие методы:
+// создаёт новую или возвращает неиспользуемую пулю
+Bullet getBullet(int x, int y, BulletType type);
+// помечает пулю как неиспользуемую
+void disposeBullet(Bullet item);</pre>
+Для создания экземпляров класса будет использоваться не конструктор, а статический метод, принимающий номер уровня и создающий его из данных файла:
+<pre>static Level createLevel(int num);</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.GameObject">ru.sdevteam.vinv.game.GameObject</a></h2>
+<pre>public abstract class GameObject implements IUpdatable, IMoveable
+{
+	...
+}</pre>
+Представляет любой (статичный или динамичный) объект, содержащийся на игровом поле. Метод <code>update()</code> содержит код, обновляющий состояние данного объекта вне зависимости от окружающих его (собственно говоря, он их и не видит). Взаимодействие объектов уровня осуществляется в методе <code>update()</code> класса <code>LevelController</code>.
+Класс объявляет/реализует методы:
+<pre>boolean isDynamic();
+Sprite getSprite(); // возвращает представляющий объект спрайт или null
+float getX();
+float getY();
+
+// внимание! соответствующие методы должны также изменять положение
+// связанного с объектом спрайта
+void setX(float nx);
+void setY(float ny);
+void moveTo(float nx, float ny);
+void moveBy(float dx, float dy);
+
+// вызывается перед уничтожением объекта (как участка памяти)
+void dispose(); </pre>
+Структура наследования игровых объектов (возможно) будет включать также производные от данного класса звенья вроде <code>DynamicGameObject</code>, <code>Destructable</code> (определяющий hp), <code>StaticGameObject</code> и т.д.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.Bullet">ru.sdevteam.vinv.game.Bullet</a></h2>
+<pre>public class Bullet extends GameObject
+{
+	...
+}</pre>
+Представляет <i>любую</i> пулю в игре. Может быть в любой момент сконвертирована в пулю другого типа. Реализует методы:
+<pre>void convertTo(Bullet.Type type);
+int getDamage();
+// возможно, будут пули, которые не будут уничтожаться при столкновении с вражинами
+boolean isUnstoppable();
+Bullet.Type getType();
+</pre>
+Вложенное перечисление Bullet.Type будет содержать все типы используемых в игре пуль.
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.Destructable">ru.sdevteam.vinv.game.Destructable</a></h2>
+<pre>public abstract class Destructable extends GameObject
+{
+	...
+}</pre>
+Абстрактный класс, даёт определение hp. Содержит методы:
+<pre>int getHp();
+int getMaxHp();
+float getHpRate(); // от 0 до 1, включительно
+boolean isDestructed();
+void hit(Bullet b); // будет отнимать здоровье, согласуясь с типом пули и собственным состоянием
+protected abstract void onDestroyed(); // должен вызываться при достижении показателем hp нуля
+</pre>
+Внимание! Значение hp не может быть меньше 0. Нулевое значение говорит о том, что объект уничтожен. Также значение hp должно быть не больше значения, возвращаемого <code>getMaxHp()</code>.
+</div>
+
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.Tower">ru.sdevteam.vinv.game.Tower</a></h2>
+<pre>public (abstract) class Tower extends Destructable
+{
+	...
+}</pre>
+Модель башни, содержит её характеристики и положение на поле. Наследуется от некоторого производного от <code>GameObject</code> класса, содержащего в себе определение hp. Метод <code>getSprite()</code> внутри себя использует класс <code>TowerSprite</code>, для выноса логики подбора изображения в конструктор этого класса. Содержит методы:
+<pre>// возвращает true, если прошло достаточно времени с последнего выстрела
+boolean canShoot();
+// тип выпускаемых снарядов
+BulletType getBulletType();
+// проверяет, атакует ли башня данный тип жука
+boolean canAttack(BugType type);
+boolean isRepairing();
+
+// характеристики башни
+int reloadTimeMillis(); // кол-во миллисекунд между выстрелами
+Price getPrice(); // цена башни
+String getName();
+String getDescription();
+(Buffered)Image getImage(); // возвращает изображение башни
+</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.Bug">ru.sdevteam.vinv.game.Bug</a></h2>
+<pre>public (abstract) class Bug extends Destructable
+{
+	...
+}</pre>
+Модель жука, содержит его характеристики и положение на поле. Наследуется от некоторого производного от <code>GameObject</code> класса, содержащего в себе определение hp. Метод <code>getSprite()</code> внутри себя использует класс <code>BugSprite</code>, для выноса логики подбора изображения в конструктор этого класса. Содержит методы:
+<pre>// для представления информации о данном типе жука пользователю
+// (можно сделать что-то вроде бестиария)
+String getName();
+String getDescription();
+(Buffered)Image getImage(); // возвращает изображение жука
+</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.IMoveable">ru.sdevteam.vinv.game.IMoveable</a></h2>
+<pre>public interface IMoveable
+{
+	...
+}</pre>
+Интерфейс объекта, способного перемещаться по игровому полю. Определяет методы:
+<pre>// координаты
+float getX();
+float getY();
+// и средства их изменения
+void setX(float nx);
+void setY(float ny);
+void moveTo(float nx, float ny);
+void moveBy(float dx, float dy);
+</pre>
+</div>
+
+<div class='separator'><a name="ru.sdevteam.vinv.game.logics"></a></div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.logics.LevelController">ru.sdevteam.vinv.game.logics.LevelController</a></h2>
+<pre>public class LevelController implements IUpdatable, IDrawable
+{
+	...
+}</pre>
+Экземпляр класса создаётся объектом <code>GameScreen</code> в начале его существования. <code>LevelController</code> при своём создании получает номер уровня, который необходимо построить, и инициализирует его модель (получает её с помощью <code>Level.createLevel(int num)</code>). Является связующим звеном между отрисовщиком (<code>GameScreen</code>) и моделью (<code>Level</code>). При вызове <code>update()</code> вызывает <code>update()</code> модели, а затем исполняет свой код, обрабатывающий взаимодействие игровых объектов (к таким не относятся самообновления объектов, т.е. такие действия, которые объект в состоянии выполнить сам). При вызове же <code>paint(Graphics g)</code> поочерёдно вызывает соответствующие методы для всех испольхуемых спрайтов, для чего использует <code>Level.getSprites()</code> либо (более предпочтительный вариант) получает массив объектов <code>GameObject</code>, а затем вызывает <code>.getSprite().paint(g)</code> каждого. Содержит единственный конструктор, принимающий номер создаваемого уровня:
+<pre>LevelController(int levelNum) { ... }
+</pre>
+Ещё один вариант взаимодействия: в конструктор будет передаваться уже созданный в конструкторе <code>GameScreen</code> экземпляр <code>Level</code> (внутри самого <code>GameScreen</code> этот экземпляр сохраняться не будет), e.g.
+<pre>public GameScreen(int levelNum)
+{
+	...
+	this.levelCtrl=new LevelController(Level.createLevel(levelNum));
+	...
+}
+</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.logics.Mover">ru.sdevteam.vinv.game.logics.Mover</a></h2>
+<pre>public abstract class Mover implements IUpdatable
+{
+	...
+}</pre>
+Вспомогательный класс, используемый только в <code>LevelController</code>. Наследники класса будут управлять движением отдельных объектов и/или групп согласно некоторым правилам (например, <code>PhysMover</code>, <code>PathMover</code>, ...). Метод update() вызывает изменение координат объектов. Содержит методы:
+<pre>void addMoveable(IMoveable item);
+void deleteMoveable(IMoveable item);
+int getControlledCount();
+</pre>
+</div>
+
+<h1>Некоторые пункты, заслуживающие особого внимания</h1>
+<h2>Основные потоки программы</h2>
+Основных потоков три: основной (в нём работает форма, и, значит, обрабатываются события клавиатуры и мыши, которые затем помещаются в класс <code>Input</code>), поток отрисовки (цепочка вызовов методов <code>paint</code>: <code>GameCanvas -> Screen -> ...</code> полностью отрисовывает все необходимые компоненты) и поток обновления игровой логики (та же цепочка вызовов, только методов <code>update</code>, позволяет обновить состояние игровой модели и/или компонентов UI, если они этого требуют).
+При этом, в основном потоке события клавиатуры и мыши только записываются в буферы класса <code>Input</code>; их последующая обработка классами <code>Screen</code> осуществляется внутри метода <code>update</code>, а значит, в потоке обновления игровой логики. 
+<h2>Смена экранов с возможностью последующего возврата к ним</h2>
+Потребность в подобной схеме может возникнуть, например, при переходе с экрана главного меню в экран настроек (если для этих целей будут предусмотрены разные экраны). В этом случае экран, теряющий активность, создаёт новый экран, тип которого поддерживает метод, например, <code>void setPreviousScreen(Screen item)</code>, и затем вызовом метода setActiveScreen класса GameCanvas лишается возможности обновляться в методах <code>update</code> и <code>paint</code>, однако при этом сохраняется в памяти посредством ссылки на него из нового экрана. Впоследствии экран может быть вызван к жизни передачей его в метод <code>setActiveScreen</code> класса <code>GameCanvas</code>, после чего другой экран уничтожается. Таким образом можно организовать стек экранов.
+<h2>Обработка движения спрайтов на уровне</h2>
+Для каждого типа движения создаётся класс-контроллер, реализующий методы для редактирования списка обрабатываемых спрайтов и метод <code>void move()</code>. Например: <code>PhysMover</code>, <code>PathMover</code> и т.д. Желательно проектировать класс так, чтобы требовалось создание всего лишь одного его экземпляра для многих обрабатываемых спрайтов. Ещё одним вариантом может служить создание контроллера и передача его непосредственно в спрайт, чтобы тот управлял им из его же метода <code>update()</code>. Однако этот подход, по-видимому, нарушает принципы MVC.
+<h2>Связь модели, представления и контроллера во время игры</h2>
+Спрайты объектов будут создаваться единожды, при создании соответствующих объектов (как правило). Затем объекты будут запоминать в себе ссылки на уже созданные спрайты и при последующих вызовах <code>getSprite()</code> будут возвращать их, а не создавать новые. Некоторые из созданных спрайтов, которые должны изменяться в соответствии с изменяющейся моделью, будут также сохранять в себе ссылки на эти модели, чтобы при вызове метода <code>paint(Graphics g)</code> (либо в методе <code>update()</code>) соответственно изменяться.<br />
+Контроллер уровня будет получать от экземпляра <code>Level</code> массив <code>GameObject[]</code>, вызывать <code>update()</code> каждого элемента, затем обрабатывать взаимодействие разных объектов (например, пуль и жуков, башен и пуль (под таковым понимать создание башнями определённых типов пуль) и т.д.). 
+<h2>Представление координат объектов</h2>
+Во-первых, все координаты имеют тип <code>float</code>. Отрисовка спрайтов с нецелыми координатами при этом - открытый вопрос, требующий решения. Во-вторых, координаты спрайта - это координаты его левого верхнего угла, координаты же <code>GameObject</code> - это координаты его фактического центра. Возможно предусмотреть для <code>Sprite</code> методы управления его опорной точкой; в любом случае, о неравнозначности координат игрового объекта и представляющего его спрайта следует помнить при взаимодействии с ними.
+<h2>Обработка событий</h2>
+События клавиатуры и мыши будут доставаться из соответствующих очередей класса <code>Input</code> в потоке обновления логики экземплярами класса <code>Screen</code>. При этом планируется, что они будут тут же и обрабатываться этими объектами, так как сразу после получения события ссылка на него удаляется из очереди событий в <code>Input</code>.
+События поступают в очередь через соответствующие методы класса <code>Input</code>. Кладёт события в очередь главная форма.
+
+</div>
+<script>
+var arr=document.getElementsByTagName("pre");
+for(var i=0; i<arr.length; i++)
+{
+	arr[i].innerHTML=processText(arr[i].innerHTML);
+}
+</script>
+</body></html>
