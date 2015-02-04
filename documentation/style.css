@@ -61,11 +61,13 @@ ul.structure a {
 	font-size: 12pt;
 }
 
-code {
+code, code a[href] {
 	color: #555;
 	font-family: Consolas, "Lucida Console", Monaco, monospace;
 	font-size: 12pt;
+	text-decoration: none;
 }
+code a[href]:hover { text-decoration: underline; }
 
 pre {
 	margin: 5px;
@@ -89,4 +91,43 @@ pre span.comment {
 }
 pre span.str {
 	color: #03F;
+}
+
+#top-lnk {
+	margin-right: 10px;
+}
+#search {
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+}
+#tips-wrapper {
+	position: relative;
+}
+#tips {
+	position: absolute;
+	left: 70px;
+	
+	list-style: none;
+	padding: 0px;
+	border: 1px solid #69F;
+	margin: 0px;
+	background: #f7f7f7;
+	visibility: hidden;
+}
+#tips li {
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+	color: #555;
+	cursor: pointer;
+}
+#tips li a {
+	color: #555;
+	text-decoration: none;
+	display: block;
+	margin: 0px;
+	padding: 3px 7px;
+}
+#tips li:hover {
+	background: #fff;
+}
+#tips li:hover a {
+	color: #c00;
 }
