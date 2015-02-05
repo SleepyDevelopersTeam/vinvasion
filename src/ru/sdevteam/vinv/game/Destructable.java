@@ -26,6 +26,7 @@ public abstract class Destructable extends GameObject
         if(hp<=0)
         {
             onDestroyed();
+            hp=0;
         }
     }
 

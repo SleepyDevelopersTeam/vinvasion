@@ -1,11 +1,10 @@
 package ru.sdevteam.vinv.game;
-import javax.swing.*;
-ru.sdevteam.vinv.ui.Sprite;
+import ru.sdevteam.vinv.ui.Sprite;
 
 public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
-                                            ru.sdevteam.vinv.game.IMoveble
+                                            ru.sdevteam.vinv.game.IMoveAble
 {
-    private Sprite objSprite= new Sprite();
+    private Sprite objSprite;
     public Sprite getSprite(){ return objSprite;}
 
     private boolean dynamic;
