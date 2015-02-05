@@ -144,10 +144,14 @@ function clearSearch()
 	<ul>
 		<li><a href="#ru.sdevteam.vinv.game.logics.LevelController">LevelController</a> – обрабатывает логику обновления уровня</li>
 		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">Mover</a> – обрабатывает движение объектов</li>
+		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">PathMover</a> – передвигает объекты по заданному пути</li>
+		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">Path</a> – вспомогательный класс</li>
 	</ul>
 </li>
 <li><a href="#ru.sdevteam.vinv.utils">ru.sdevteam.vinv.utils</a> – различные вспомогательные классы:
 	<ul>
+		<li><a href="#ru.sdevteam.vinv.utils.Vector2F">Vector2F</a> – хранит информацию о координатах</li>
+		<li><a href="#ru.sdevteam.vinv.utils.PhysObject">PhysObject</a> – реализует поведение физического объекта</li>
 		<li><a href="#ru.sdevteam.vinv.utils.Pool" class='u'>Pool&lt;T&gt;</a> - пул (точно понадобится для пуль)</li>
 		<li><a href="#ru.sdevteam.vinv.utils.FileWriter" class='u'>FileWriter</a> – вспомогательный класс для записи в файл</li>
 		<li><a href="#ru.sdevteam.vinv.utils.FileReader" class='u'>FileReader</a> – для чтения из файла</li>
@@ -384,7 +388,7 @@ void setCollisionRectangle(int x, int y, int width, int height);</pre>
 }</pre>
 Класс для более удобного создания спрайтов башен. Будет использоваться в том числе и в <code>LevelController</code>, в методе <code>getSprites()</code>. Должен реализовывать конструктор
 <pre>TowerSprite(Tower t) { ... }</pre>
-Аналогично определяются классы BugSprite, BulletSprite и прочие им подобные.
+Аналогично определяются классы <code>BugSprite</code>, <code>BulletSprite</code> и прочие им подобные.
 </div>
 
 <div class='unit'>
@@ -410,8 +414,13 @@ void setCollisionRectangle(int x, int y, int width, int height);</pre>
 GameObject[] getGameObjects();
 void addObject(GameObject item);
 void removeObject(GameObject item);
+
+// методы используются для более удобной обработки классом LevelController
+Tower[] getTowers();
+Bug[] getBugs();
+Bullet[] getBullets();</pre>
 Также, класс инкапсулирует в себе пул пуль, предоставляя следующие методы:
-// создаёт новую или возвращает неиспользуемую пулю
+<pre>// создаёт новую или возвращает неиспользуемую пулю
 Bullet getBullet(int x, int y, BulletType type);
 // помечает пулю как неиспользуемую
 void disposeBullet(Bullet item);</pre>
@@ -421,7 +430,7 @@ void disposeBullet(Bullet item);</pre>
 
 <div class='unit'>
 <h2><a name="ru.sdevteam.vinv.game.GameObject">ru.sdevteam.vinv.game.GameObject</a></h2>
-<pre>public abstract class GameObject implements IUpdatable, IMoveable
+<pre>public abstract class GameObject implements IDrawable, IUpdatable
 {
 	...
 }</pre>
@@ -463,8 +472,15 @@ int getDamage();
 // возможно, будут пули, которые не будут уничтожаться при столкновении с вражинами
 boolean isUnstoppable();
 Bullet.Type getType();
+
+// скорость пули, определяется её типом
+float getSpeed();
+
+// задаёт направление полёта пули
+void setDirection(float angle);
 </pre>
-Вложенное перечисление Bullet.Type будет содержать все типы используемых в игре пуль.
+Вложенное перечисление <code>Bullet.Type</code> будет содержать все типы используемых в игре пуль.<br />
+Для реализации поведения пули согласно заданной ей скорости рекомендуется использовать вспомогательный класс <code>PhysObject</code>. 
 </div>
 
 <div class='unit'>
@@ -497,7 +513,7 @@ boolean canShoot();
 // тип выпускаемых снарядов
 BulletType getBulletType();
 // проверяет, атакует ли башня данный тип жука
-boolean canAttack(BugType type);
+boolean canAttack(Bug.Type type);
 boolean isRepairing();
 
 // характеристики башни
@@ -550,7 +566,7 @@ void moveBy(float dx, float dy);
 {
 	...
 }</pre>
-Экземпляр класса создаётся объектом <code>GameScreen</code> в начале его существования. <code>LevelController</code> при своём создании получает номер уровня, который необходимо построить, и инициализирует его модель (получает её с помощью <code>Level.createLevel(int num)</code>). Является связующим звеном между отрисовщиком (<code>GameScreen</code>) и моделью (<code>Level</code>). При вызове <code>update()</code> вызывает <code>update()</code> модели, а затем исполняет свой код, обрабатывающий взаимодействие игровых объектов (к таким не относятся самообновления объектов, т.е. такие действия, которые объект в состоянии выполнить сам). При вызове же <code>paint(Graphics g)</code> (более предпочтительный вариант) получает массив объектов <code>GameObject</code>, а затем вызывает <code>.getSprite().paint(g)</code> каждого. В конструктор будет передаваться уже созданный в конструкторе <code>GameScreen</code> экземпляр <code>Level</code> (внутри самого <code>GameScreen</code> этот экземпляр сохраняться не будет), e.g.
+Экземпляр класса создаётся объектом <code>GameScreen</code> в начале его существования. <code>LevelController</code> при своём создании получает номер уровня, который необходимо построить, и инициализирует его модель (получает её с помощью <code>Level.createLevel(int num)</code>). Является связующим звеном между отрисовщиком (<code>GameScreen</code>) и моделью (<code>Level</code>). При вызове <code>update()</code> сначала обновляет каждый объект, а зетем исполняет код, обрабатывающий взаимодействие игровых объектов. При вызове же <code>paint(Graphics g)</code> (более предпочтительный вариант) получает массив объектов <code>GameObject</code>, а затем вызывает <code>.getSprite().paint(g)</code> каждого.<br /> В конструктор класса <code>LevelController</code> будет передаваться уже созданный в конструкторе <code>GameScreen</code> экземпляр <code>Level</code> (внутри самого <code>GameScreen</code> этот экземпляр сохраняться не будет), e.g.
 <pre>public GameScreen(int levelNum)
 {
 	...
@@ -573,6 +589,123 @@ int getControlledCount();
 </pre>
 </div>
 
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.logics.PathMover">ru.sdevteam.vinv.game.logics.PathMover</a></h2>
+<pre>public class PathMover extends Mover
+{
+	...
+}</pre>
+Наследник <code>Mover</code>. Передвигает подконтрольные ему объекты по некоторому заданному пути. Путь можно задавать напрямую - последовательностью точек, либо с помощью вспомогательного класса <code>Path</code>. Содержит методы:
+<pre>void setPath(Path path);
+Path getCurrentPath();
+
+// coords - массив координат точек, в формате
+// { x1, y1, x2, y2, ... }
+void setPath(float[] coords);
+// добавляет точку в конец пути
+// (используется для поточечного создания пути)
+void addPoint(float x, float y);
+</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.logics.Path">ru.sdevteam.vinv.game.logics.Path</a></h2>
+<pre>public class Path
+{
+	...
+}</pre>
+Вспомогательный класс для описания некоторого пути движения объектов на уровне. Определяет методы:
+<pre>
+// coords - массив координат точек, в формате
+// { x1, y1, x2, y2, ... }
+void setCoords(float[] coords);
+// добавляет точку в конец пути
+void addPoint(float x, float y);
+void clear(); // удаляет данные о всех точках пути
+
+// возвращает массив вида { x, y } координат точки с указанным индексом
+float[] getCoords(int pointIndex);
+void setCoords(int pointIndex, float[] newCoords);
+</pre>
+</div>
+
+<div class='separator'><a name="ru.sdevteam.vinv.utils"></a></div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.utils.Vector2F">ru.sdevteam.vinv.utils.Vector2F</a></h2>
+<pre>public class Vector2F
+{
+	...
+}</pre>
+Класс служит для хранения и более удобного обращения с координатами двумерного пространства. Содержит следующие методы:
+<pre>float getX();
+float getY();
+void setX(float val);
+void setY(float val);
+void moveTo(float nx, float ny);
+void moveBy(float dx, float dy);
+
+float getMagnitude();
+void setMagnitude(float val);
+
+float getDirection();
+void rotate(float angle);
+
+// арифметические операции
+void multiplyBy(float coeff);
+void divideBy(float coeff);
+void add(Vector2F v);
+void sub(Vector2F v);
+
+Vector2F copy();
+Vector2F getUnitary(); // единичный вектор
+</pre>
+Также, объявляет следующие константы:
+<pre>static final float UP=(float)Math.PI*3/2;
+static final float DOWN=(float)Math.PI/2;
+static final float LEFT=(float)Math.PI;
+static final float RIGHT=0F;
+
+static final Vector2F ex=new Vector2F(1, 0);
+static final Vector2F ey=new Vector2F(0, 1);
+static final Vector2F O=new Vector2F(0, 0);</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.utils.PhysObject">ru.sdevteam.vinv.utils.PhysObject</a></h2>
+<pre>public class PhysObject implements IUpdatable
+{
+	...
+}</pre>
+Класс реализует поведение объекта под действием законов кинематики, а также силы трения. Объявляет методы:
+<pre>// возвращают ссылки на копии векторов
+Vector2F getLocation();
+Vector2F getVelocity();
+Vector2F getAccel();
+
+void setLocation(Vector2F newr);
+void setVelocity(Vector2F newv);
+void setAccel(Vector2F newa);
+
+// возвращают ссылки на актуальные вектора
+Vector2F location();
+Vector2F velocity();
+Vector2F accel();
+
+// ограничитель модуля скорости
+float getMaxSpeed();
+void setMaxSpeed(float val);
+
+// трение
+float getFriction();
+void setFriction(float coeff);
+</pre>
+Метод <code>.update()</code> обновляет параметры объекта.<br />
+Особое внимание стоит уделить работе методов <code>getLocation()</code> и <code>location()</code> (и их аналогов для скорости и ускорения) - методы первого типа возвращают копию исходного вектора, то есть, изменение этих веторов никак не скажутся на самом объекте. Методы второго типа возвращают ссылку на исходный вектор и могут использоваться для цепочек вызовов вида <code>myPhysObject.velocity().setX(-50F);</code>
+</div>
+
+
+
 <h1>Некоторые пункты, заслуживающие особого внимания</h1>
 <h2>Основные потоки программы</h2>
 Основных потоков три: основной (в нём работает форма, и, значит, обрабатываются события клавиатуры и мыши, которые затем помещаются в класс <code>Input</code>), поток отрисовки (цепочка вызовов методов <code>paint</code>: <code>GameCanvas -> Screen -> ...</code> полностью отрисовывает все необходимые компоненты) и поток обновления игровой логики (та же цепочка вызовов, только методов <code>update</code>, позволяет обновить состояние игровой модели и/или компонентов UI, если они этого требуют).
@@ -580,7 +713,7 @@ int getControlledCount();
 <h2>Смена экранов с возможностью последующего возврата к ним</h2>
 Потребность в подобной схеме может возникнуть, например, при переходе с экрана главного меню в экран настроек (если для этих целей будут предусмотрены разные экраны). В этом случае экран, теряющий активность, создаёт новый экран, тип которого поддерживает метод, например, <code>void setPreviousScreen(Screen item)</code>, и затем вызовом метода setActiveScreen класса GameCanvas лишается возможности обновляться в методах <code>update</code> и <code>paint</code>, однако при этом сохраняется в памяти посредством ссылки на него из нового экрана. Впоследствии экран может быть вызван к жизни передачей его в метод <code>setActiveScreen</code> класса <code>GameCanvas</code>, после чего другой экран уничтожается. Таким образом можно организовать стек экранов.
 <h2>Обработка движения спрайтов на уровне</h2>
-Для каждого типа движения создаётся класс-контроллер, реализующий методы для редактирования списка обрабатываемых спрайтов и метод <code>void move()</code>. Например: <code>PhysMover</code>, <code>PathMover</code> и т.д. Необходимо проектировать класс так, чтобы требовалось создание всего лишь одного его экземпляра для многих обрабатываемых спрайтов.
+Для каждого типа движения создаётся класс-контроллер, реализующий методы для редактирования списка обрабатываемых спрайтов и метод <code>void move()</code>. Например, <code>PathMover</code>. Необходимо проектировать класс так, чтобы требовалось создание всего лишь одного его экземпляра для многих обрабатываемых спрайтов. Исключением будет являться движение объектов, определяемое с помощью заданного объекту ускорения или скорости. Такое движение обрабатывается с помощью экземпляров класса <code>PhysObject</code>.
 <h2>Связь модели, представления и контроллера во время игры</h2>
 Спрайты объектов будут создаваться единожды, при создании соответствующих объектов (как правило). Затем объекты будут запоминать в себе ссылки на уже созданные спрайты и при последующих вызовах <code>getSprite()</code> будут возвращать их, а не создавать новые. Некоторые из созданных спрайтов, которые должны изменяться в соответствии с изменяющейся моделью, будут также сохранять в себе ссылки на эти модели, чтобы при вызове метода <code>paint(Graphics g)</code> (либо в методе <code>update()</code>) соответственно изменяться.<br />
 Контроллер уровня будет получать от экземпляра <code>Level</code> массив <code>GameObject[]</code>, вызывать <code>update()</code> каждого элемента, затем обрабатывать взаимодействие разных объектов (например, пуль и жуков, башен и пуль (под таковым понимать создание башнями определённых типов пуль) и т.д.). 
