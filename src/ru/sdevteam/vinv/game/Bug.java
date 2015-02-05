@@ -3,13 +3,13 @@ package ru.sdevteam.vinv.game;
 public class Bug extends Destructable
 {
     private String name;
-    String getName(){return name;}
+    public String getName(){return name;}
 
     private int speed;
-    int getSpeed(){return speed;}
-    void setSpeed(int speed){this.speed=speed;}
+    public int getSpeed(){return speed;}
+    public void setSpeed(int speed){this.speed=speed;}
 
-    Bug()
+    public Bug()
     {
         speed=5;
     }

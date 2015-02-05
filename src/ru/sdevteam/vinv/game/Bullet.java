@@ -3,34 +3,33 @@ package ru.sdevteam.vinv.game;
 
 public class Bullet extends GameObject
 {
-    enum Type {NULL,NORMAL};
+    public enum Type {NULL,NORMAL};
 
     private Bullet.Type type;
-    Bullet.Type getType(){return type;}
+    public Bullet.Type getType(){return type;}
     
     private int damage;
-    int getDamage(){return damage;}
+    public int getDamage(){return damage;}
 
     private boolean unstoppable;
-    boolean isUnstoppable()
+    public boolean isUnstoppable()
     {
-        if(unstoppable==true){
-            return true;
-        }
-        return false;
+        if(unstoppable==true) return true;
+        else if(unstoppable==false) return false;
+        else return !true && !false;
     }
     private boolean using;
-    void setUsing(boolean using){this.using=using;}
-    boolean getUsing(){return using;}
+    public void setUsing(boolean using){this.using=using;}
+    public boolean getUsing(){return using;}
 
 
-    Bullet()
+    public Bullet()
     {
         convertTo(Type.NULL);
     }
 
 
-    void convertTo(Bullet.Type type)
+    public void convertTo(Bullet.Type type)
     {
         this.type=type;
         switch(this.type)

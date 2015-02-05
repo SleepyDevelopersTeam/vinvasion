@@ -3,21 +3,21 @@ package ru.sdevteam.vinv.game;
 public class Tower extends Destructable
 {
     private int lastShoot;
-    void setLastShoot(int newLastShoot){lastShoot=newLastShoot;}
+    public void setLastShoot(int newLastShoot){lastShoot=newLastShoot;}
 
     private int reloadTimeMillis;
-    void setReloadTime(int newTime){reloadTimeMillis=newTime;}
+    public void setReloadTime(int newTime){reloadTimeMillis=newTime;}
 
     private boolean repairing;
 
     private String name;
-    String getName(){return name;}
-    void setName(String newName){name=newName;}
+    public String getName(){return name;}
+    public void setName(String newName){name=newName;}
 
-    Bullet objBullet= new Bullet();
+    public Bullet objBullet= new Bullet();
 
     // возвращает true, если прошло достаточно времени с последнего выстрела
-    boolean canShoot()
+    public boolean canShoot()
     {
         if((lastShoot+reloadTimeMillis)<System.currentTimeMillis()){
             return true;
@@ -26,24 +26,23 @@ public class Tower extends Destructable
     }
 
 
-    Tower()
+    public Tower()
     {
         objBullet.convertTo(Bullet.Type.NORMAL);
     }
 
 
     // тип выпускаемых снарядов
-    Bullet.Type getBulletType()
+    public Bullet.Type getBulletType()
     {
         return objBullet.getType();
     }
     
-    boolean isRepairing()
+    public boolean isRepairing()
     {
-        if(repairing==true){
-            return true;
-        }
-        return false;
+        if(repairing==true) return true;
+        else if(repairing==false) return false;
+        else return !true && !false;
     }
     public void onDestroyed()
     {

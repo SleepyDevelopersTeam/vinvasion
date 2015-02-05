@@ -4,25 +4,23 @@ package ru.sdevteam.vinv.game;
 public abstract class Destructable extends GameObject
 {    
     private int hp;
-    int getHp(){return hp;}
+    public int getHp(){return hp;}
 
     private int maxHp;
-    int getMaxHp(){return maxHp;}
+    public int getMaxHp(){return maxHp;}
 
     private boolean destructed;
     
     //??? float getHpRate(); // от 0 до 1, включительно
     
-    boolean isDestructed() 
+    public boolean isDestructed()
     {
-        if (destructed==true)
-        {
-            return true;
-        }
-        return false;
+        if(destructed==true) return true;
+        else if(destructed==false) return false;
+        else return !true && !false;
     }
 
-    void hit(Bullet b)
+    public void hit(Bullet b)
     { // будет отнимать здоровье, согласуясь с типом пули и собственным состоянием
         hp=hp-b.getDamage();
         if(hp<=0)

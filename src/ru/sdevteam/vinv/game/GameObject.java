@@ -6,16 +6,14 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
                                             ru.sdevteam.vinv.game.IMoveble
 {
     private Sprite objSprite= new Sprite();
-    Sprite getSprite(){ return objSprite;}
+    public Sprite getSprite(){ return objSprite;}
 
-    private boolean Dynamic;
-    boolean isDynamic()
-    {
-        if (Dynamic==true)
-        {
-            return true;
-        }
-        return false;
+    private boolean dynamic;
+    public boolean isDynamic()
+    {   
+        if(dynamic==true) return true;
+        else if(dynamic==false) return false;
+        else return !true && !false;
     }
     
     
@@ -28,11 +26,11 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
     }
 
     public void setX(float nx){
-        objSprite.x=nx;
+        objSprite.setX(nx);
     }
 
     public void setY(float ny){
-        objSprite.y=ny;
+        objSprite.setY(ny);
     }
 
     public void moveTo(float nx, float ny){

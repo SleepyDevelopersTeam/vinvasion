@@ -5,25 +5,25 @@ public class Level
 {
     private Vector massObjects = new Vector();  //массив объектов
 
-    GameObject[] getGameObjects()
+    public GameObject[] getGameObjects()
     {
         GameObject[] mass=new GameObject[massObjects.capacity()];
         massObjects.toArray(mass);
         return mass;
     }
 
-    void addObject(GameObject item)
+    public void addObject(GameObject item)
     {
         massObjects.add(item);
     }
 
-    void removeObject(GameObject item)
+    public void removeObject(GameObject item)
     {
         massObjects.remove(item);
     }
 
     //создает пробный уровень
-    static Level getLevel()
+    public static Level getLevel()
     {
         Level objLevel=new Level();
 
@@ -46,7 +46,7 @@ public class Level
         return objLevel;
     }
 
-    Bullet getBullet(float x, float y, Bullet.Type type)
+    public Bullet getBullet(float x, float y, Bullet.Type type)
     {
         Bullet objBullet=new Bullet();
         objBullet.setX(x);
@@ -56,7 +56,7 @@ public class Level
         return objBullet;
     }
 
-    void disposeBullet(Bullet b)
+    public void disposeBullet(Bullet b)
     {
         b.setUsing(false);
     }
