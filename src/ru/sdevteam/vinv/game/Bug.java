@@ -18,7 +18,12 @@ public class Bug extends Destructable
     public  void onDestroyed(){
 
     }
+    public void update()
+    {
+
+    }
     //String getDescription();
     //(Buffered)Image getImage(); // возвращает изображение жука
+
 
 }

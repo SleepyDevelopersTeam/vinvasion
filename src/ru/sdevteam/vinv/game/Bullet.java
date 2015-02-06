@@ -18,9 +18,13 @@ public class Bullet extends GameObject
         else if(unstoppable==false) return false;
         else return !true && !false;
     }
+
     private boolean using;
     public void setUsing(boolean using){this.using=using;}
     public boolean getUsing(){return using;}
+
+    private int speed;
+    public int getSpeed(){return speed;}
 
 
     public Bullet()
@@ -36,10 +40,16 @@ public class Bullet extends GameObject
         {
             case NULL:   damage=0;
                          unstoppable=false;
+                         speed=0;
                          break;
             case NORMAL: damage=15;
                          unstoppable=false;
+                         speed=20;
                          break;
         }
+    }
+    public void update()
+    {
+        
     }
 }

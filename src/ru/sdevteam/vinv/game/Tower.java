@@ -52,6 +52,10 @@ public class Tower extends Destructable
     {
         
     };
+    public void update()
+    {
+        
+    }
 }
 
 
