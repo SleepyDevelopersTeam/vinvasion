@@ -4,11 +4,11 @@ public class KeyEvent
 {
 	public enum Type { PRESSED, RELEASED, TYPED }
 	
-	private ControlKeys key;
+	private ControlKey key;
 	private char keyChar;
 	private Type event;
 	
-	public KeyEvent(ControlKeys ckey, char keychar, Type eventType)
+	public KeyEvent(ControlKey ckey, char keychar, Type eventType)
 	{
 		key=ckey;
 		keyChar=keychar;
@@ -16,6 +16,6 @@ public class KeyEvent
 	}
 	
 	public char keyChar() { return keyChar; }
-	public ControlKeys getKey() { return key; }
+	public ControlKey getKey() { return key; }
 	public Type getType() { return event; }
 }

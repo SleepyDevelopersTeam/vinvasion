@@ -162,7 +162,6 @@ public class Sprite implements IDrawable, IUpdatable
 	@Override
 	public void paint(Graphics g)
 	{
-		// TODO: implement painting
 		int framex, framey;
 		framex=curFrame%fpw;
 		framey=curFrame/fpw;

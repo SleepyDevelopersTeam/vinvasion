@@ -2,14 +2,14 @@ package ru.sdevteam.vinv.main;
 
 public class MouseEvent
 {
-	public enum Types { MOTION, PRESSED, RELEASED, SCROLL }
-	public enum Buttons { NONE, LEFT, RIGHT, WHEEL }
+	public enum Type { MOTION, PRESSED, RELEASED, SCROLL }
+	public enum Button { NONE, LEFT, RIGHT, WHEEL }
 	
 	private int mx, my, delta;
-	private Types event;
-	private Buttons button;
+	private Type event;
+	private Button button;
 	
-	public MouseEvent(int mx, int my, int delta, Types type, Buttons button)
+	public MouseEvent(int mx, int my, int delta, Type type, Button button)
 	{
 		event=type; this.button=button;
 		this.mx=mx; this.my=my; this.delta=delta;
@@ -19,6 +19,6 @@ public class MouseEvent
 	public int getMouseY() { return my; }
 	public int getDelta() { return delta; }
 	
-	public Types getType() { return event; }
-	public Buttons getButton() { return button; }
+	public Type getType() { return event; }
+	public Button getButton() { return button; }
 }

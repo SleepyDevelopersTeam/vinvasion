@@ -1,7 +1,5 @@
 package ru.sdevteam.vinv.main;
 
-
-// TODO: переделать архитектуру класса, слишком говнокодисто
 public class Input
 {
 	private Input() {}
@@ -44,7 +42,7 @@ public class Input
 	public static int getMouseX() { return mx; }
 	public static int getMouseY() { return my; }
 	
-	public static boolean isKeyDown(ControlKeys key)
+	public static boolean isKeyDown(ControlKey key)
 	{
 		return false;
 	}
