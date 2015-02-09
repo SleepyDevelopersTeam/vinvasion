@@ -3,7 +3,8 @@ package ru.sdevteam.vinv.main;
 import java.awt.Canvas;
 import java.awt.Graphics;
 
-import ru.sdevteam.vinv.ui;
+import ru.sdevteam.vinv.ui.IDrawable;
+import ru.sdevteam.vinv.ui.IUpdatable;
 
 public class GameCanvas extends Canvas implements IDrawable, IUpdatable 
 {
@@ -21,6 +22,6 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 
 	public void setActiveScreen (Screen item)
 	{
-		return;
+		this.screen = item;
 	}
 }
