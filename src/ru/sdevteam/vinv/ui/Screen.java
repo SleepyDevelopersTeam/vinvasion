@@ -1,5 +1,5 @@
 package ru.sdevteam.vinv.ui;
 
-public class Screen {
-
+public abstract class Screen implements IDrawable, IUpdatable {
+	
 }
