@@ -43,11 +43,9 @@ public class Tower extends Destructable
    
     public boolean isRepairing()
     {
-        if(repairing==true) return true;
-        else if(repairing==false) return false;
-        else return !true && !false;
+        return repairing;
     }
-
+    
     public void onDestroyed()
     {
         

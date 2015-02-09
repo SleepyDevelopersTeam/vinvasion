@@ -14,9 +14,7 @@ public class Bullet extends GameObject
     private boolean unstoppable;
     public boolean isUnstoppable()
     {
-        if(unstoppable==true) return true;
-        else if(unstoppable==false) return false;
-        else return !true && !false;
+        return unstoppable;
     }
 
     private boolean using;

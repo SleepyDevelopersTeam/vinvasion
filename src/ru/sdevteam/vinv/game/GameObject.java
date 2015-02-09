@@ -10,9 +10,7 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
     private boolean dynamic;
     public boolean isDynamic()
     {   
-        if(dynamic==true) return true;
-        else if(dynamic==false) return false;
-        else return !true && !false;
+        return dynamic;
     }
     
     
