@@ -25,7 +25,6 @@ public class PhysObject implements IUpdatable
 	
 	public void setMaxSpeed(float val)
 	{
-		assert val>=0: "ћодуль скорости не может быть меньше нул€!";
 		vmax=val;
 	}
 	
