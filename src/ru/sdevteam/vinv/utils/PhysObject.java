@@ -8,6 +8,8 @@ public class PhysObject implements IUpdatable
 	protected float vmax;
 	float friction;
 	
+	Vector2F g;
+	
 	public Vector2F getLocation() { return r.copy(); }
 	public Vector2F getVelocity() { return v.copy(); }
 	public Vector2F getAccel() { return a.copy(); }

@@ -1,7 +1,7 @@
 package ru.sdevteam.vinv.utils;
 
 public class Vector2F
-{	
+{
 	public static final float 	UP		=(float)Math.PI*3/2,
 								DOWN	=(float)Math.PI/2,
 								LEFT	=(float)Math.PI,
