@@ -18,6 +18,7 @@ public class BugSprite extends Sprite
 	{
 		super.update();
 		
+		
 		// TODO: обновлять спрайт в соответствии с instanse
 	}
 }
