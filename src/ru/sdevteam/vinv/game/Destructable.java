@@ -5,19 +5,28 @@ public abstract class Destructable extends GameObject
 {    
     private int hp;
     public int getHp(){return hp;}
+    protected void setHp(int hp)
+    {
+        this.hp=hp;
+    }
 
     private int maxHp;
     public int getMaxHp(){return maxHp;}
+    protected void setMaxHp(int maxHp)
+    {
+        this.maxHp=maxHp;
+    }
 
     private boolean destructed;
     
-    //??? float getHpRate(); // от 0 до 1, включительно
-    
+    public float getHpRate() // от 0 до 1, включительно
+    {
+        return (hp/maxHp);
+    }
+
     public boolean isDestructed()
     {
-        if(destructed==true) return true;
-        else if(destructed==false) return false;
-        else return !true && !false;
+        return destructed;
     }
 
     public void hit(Bullet b)
