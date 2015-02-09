@@ -4,17 +4,17 @@ import java.util.*;
 public class Level
 {
     private Vector massTowers = new Vector();  //массив объектов
-    public GameObject[] getTowerObjects()
+    public Tower[] getTowerObjects()
     {
-        GameObject[] mass=new GameObject[massTowers.capacity()];
+        Tower[] mass=new Tower[massTowers.capacity()];
         massTowers.toArray(mass);
         return mass;
     }
 
     private Vector massBugs = new Vector();
-    public GameObject[] getBugObjects()
+    public Bug[] getBugObjects()
     {
-        GameObject[] mass=new GameObject[massBugs.capacity()];
+        Bug[] mass=new Bug[massBugs.capacity()];
         massBugs.toArray(mass);
         return mass;
     }
