@@ -27,7 +27,7 @@ public class LevelController implements IUpdatable, IDrawable
 			}
 			Tower[] arrayOfTowers=this.modelOfLevel.getTowerObjects();
 			Bug[] arrayOfBugs=this.modelOfLevel.getBugObjects();
-			//Bullet[] arrayOfBullets=this.modelOflevel.getBulletObjects();
+			Bullet[] arrayOfBullets=this.modelOfLevel.getBulletsObject();
 			for(int i=0;i<arrayOfTowers.length;i++)
 			{
 				arrayOfTowers[i].getSprite().paint(g);
@@ -52,7 +52,7 @@ public class LevelController implements IUpdatable, IDrawable
 
 		Tower[] arrayOfTowers = this.modelOfLevel.getTowerObjects();
 		Bug[] arrayOfBugs = this.modelOfLevel.getBugObjects();
-		// Bullet[] ArrayOfBullets=this.modelOflevel.getBulletObjects();
+		Bullet[] arrayOfBullets=this.modelOfLevel.getBulletsObject();
 
 		for (int i = 0; i < arrayOfBullets.length; i++) 
 		{
