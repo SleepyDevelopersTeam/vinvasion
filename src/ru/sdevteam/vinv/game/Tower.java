@@ -10,11 +10,6 @@ public class Tower extends Destructable
 
     private boolean repairing;
 
-    public void shoot()
-    {
-        setLastShoot(System.currentTimeMillis());
-    }
-
     private String name;
     public String getName(){return name;}
     public void setName(String newName){name=newName;}
@@ -29,9 +24,15 @@ public class Tower extends Destructable
     public Tower()
     {
      type=Bullet.Type.NORMAL;
+     objSprite= new TowerSprite(this);
     }
 
-   
+
+     public void shoot()
+    {
+        setLastShoot(System.currentTimeMillis());
+    }
+
     public boolean isRepairing()
     {
         return repairing;
