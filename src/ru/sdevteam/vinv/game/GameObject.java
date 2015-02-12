@@ -15,23 +15,23 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
     
     
     public float getX(){
-        return (objSprite.getX()+objSprite.getWidth()/2);
+        return objSprite.getX();
     }
     
     public float getY(){
-        return (objSprite.getY()+objSprite.getHeight()/2);
+        return objSprite.getY();
     }
 
     public void setX(float nx){
-        objSprite.setX(nx-objSprite.getWidth()/2);
+        objSprite.setX(nx);
     }
 
     public void setY(float ny){
-        objSprite.setY(ny-objSprite.getHeight()/2);
+        objSprite.setY(ny);
     }
 
     public void moveTo(float nx, float ny){
-        objSprite.moveTo(nx-objSprite.getWidth()/2,ny-objSprite.getHeight()/2);
+        objSprite.moveTo(nx,ny);
     }
 
     public void moveBy(float dx, float dy){

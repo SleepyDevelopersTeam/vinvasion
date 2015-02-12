@@ -1,4 +1,4 @@
-package ru.sdevteam.vinv.game.logics;
+package ru.sdevteam.vinv.game.logics.LevelController;
 
 import java.awt.Graphics;
 import java.util.Vector;
@@ -61,7 +61,7 @@ public class LevelController implements IUpdatable, IDrawable
 				if (arrayOfBullets[i].getSprite().collidesWith(arrayOfBugs[j].getSprite())) 
 				{
 					arrayOfBugs[j].hit(arrayOfBullets[i]);
-					modelOfLevel.disposeBullet(arrayOfBullets[i]);
+					modelOfLevel.disposeBullet(arrayOfBullets[i]); // !!!!!!!
 				}
 			}
 		}
