@@ -4,7 +4,7 @@ import ru.sdevteam.vinv.ui.Sprite;
 public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
                                             ru.sdevteam.vinv.game.IMoveAble
 {
-    private Sprite objSprite;
+    protected Sprite objSprite;
     public Sprite getSprite(){ return objSprite;}
 
     private boolean dynamic;
