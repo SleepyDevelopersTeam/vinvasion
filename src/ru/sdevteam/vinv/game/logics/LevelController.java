@@ -7,6 +7,7 @@ import ru.sdevteam.vinv.game.GameObject;
 import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.*;
+import ru.sdevteam.vinv.utils.*;
 
 public class LevelController implements IUpdatable, IDrawable 
 {
@@ -60,10 +61,14 @@ public class LevelController implements IUpdatable, IDrawable
 				if (arrayOfBullets[i].getSprite().collidesWith(arrayOfBugs[j].getSprite())) 
 				{
 					arrayOfBugs[j].hit(arrayOfBullets[i]);
-					modelOfLevel.disposeBullet(arrayOfBullets[i]);
+					if (!arrayOfBullets[i].isUnstoppable())
+					{
+						modelOfLevel.disposeBullet(arrayOfBullets[i]);
+					}
 				}
 			}
 		}
+		
 		for (int i = 0; i < arrayOfTowers.length; i++) 
 		{
 			for (int j = 0; j < arrayOfBugs.length; i++) 
@@ -73,16 +78,23 @@ public class LevelController implements IUpdatable, IDrawable
 				// //bug into radius of Tower )
 				{
 					if (arrayOfTowers[i].canShoot()) 
-					{
-						// ArrayOfTowers[i].
-						Bullet bullet = null;
-						bullet.convertTo(arrayOfTowers[i].getBulletType());
-						bullet.setX(arrayOfTowers[i].getX());
-						bullet.setY(arrayOfTowers[i].getY());
+					{	
+						Bullet b = modelOfLevel.getBullet(arrayOfTowers[i].getX(), arrayOfTowers[i].getY(), arrayOfTowers[i].getBulletType());
+						Vector2F vectorOfBulletSpeed = new Vector2F(new Vector2F(arrayOfBugs[j].getX()-arrayOfTowers[i].getX(),arrayOfBugs[j].getY()-arrayOfTowers[i].getY()),b.getSpeed());
+						b.setVelocity(vectorOfBulletSpeed);
 					}
 				}
 			}
 		}
+		
+		for (int i = 0; i < arrayOfBullets.length; i++)
+		{
+			if ((arrayOfBullets[i].getX()<-30) || (arrayOfBullets[i].getX()>130) || (arrayOfBullets[i].getY()<-30) || (arrayOfBullets[i].getX()>130))
+			{
+				modelOfLevel.disposeBullet(arrayOfBullets[i]);
+			}
+		}
+		
 
 	}
 
