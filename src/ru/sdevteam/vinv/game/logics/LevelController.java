@@ -21,23 +21,18 @@ public class LevelController implements IUpdatable, IDrawable
 
 	public void paint(Graphics g) 
 		{
-			GameObject[] arrayOfGameObjects=modelOfLevel.getBugObjects();
-			for (int i=0;i<arrayOfGameObjects.length;i++)
-			{
-				arrayOfGameObjects[i].getSprite().paint(g);
-			}
 			Tower[] arrayOfTowers=this.modelOfLevel.getTowerObjects();
 			Bug[] arrayOfBugs=this.modelOfLevel.getBugObjects();
-			//Bullet[] arrayOfBullets=this.modelOflevel.getBulletObjects();
+			Bullet[] arrayOfBullets=this.modelOfLevel.getBulletObjects();
 			for(int i=0;i<arrayOfTowers.length;i++)
 			{
 				arrayOfTowers[i].getSprite().paint(g);
 			}
-			for(int i=0;i<arrayOfBugs.length);i++)
+			for(int i=0;i<arrayOfBugs.length;i++)
 			{
 				arrayOfBugs[i].getSprite().paint(g);
 			}
-			for(int i=0;i<arrayOfBullets.length);i++)
+			for(int i=0;i<arrayOfBullets.length;i++)
 			{
 				arrayOfBullets[i].getSprite().paint(g);
 			}
@@ -53,7 +48,7 @@ public class LevelController implements IUpdatable, IDrawable
 
 		Tower[] arrayOfTowers = this.modelOfLevel.getTowerObjects();
 		Bug[] arrayOfBugs = this.modelOfLevel.getBugObjects();
-		// Bullet[] ArrayOfBullets=this.modelOflevel.getBulletObjects();
+		Bullet[] ArrayOfBullets=this.modelOfLevel.getBulletObjects();
 
 		for (int i = 0; i < arrayOfBullets.length; i++) 
 		{
@@ -95,8 +90,6 @@ public class LevelController implements IUpdatable, IDrawable
 				modelOfLevel.disposeBullet(arrayOfBullets[i]);
 			}
 		}
-		
-
 	}
 
 }
