@@ -19,15 +19,6 @@ public class Tower extends Destructable
     public String getName(){return name;}
     public void setName(String newName){name=newName;}
 
-    // возвращает true, если прошло достаточно времени с последнего выстрела
-    public boolean canShoot()
-    {
-        if((lastShoot+reloadTimeMillis)<System.currentTimeMillis()){
-            return true;
-        }
-        return false;
-    }
-
     private Bullet.Type type;
     public Bullet.Type getBulletType()
     {
@@ -44,6 +35,15 @@ public class Tower extends Destructable
     public boolean isRepairing()
     {
         return repairing;
+    }
+
+    // возвращает true, если прошло достаточно времени с последнего выстрела
+    public boolean canShoot()
+    {
+        if((lastShoot+reloadTimeMillis)<System.currentTimeMillis()){
+            return true;
+        }
+        return false;
     }
     
     public void onDestroyed()

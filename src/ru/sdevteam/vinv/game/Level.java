@@ -23,7 +23,7 @@ public class Level
 
 
     //создает пробный уровень
-    public static Level getLevel()
+    public static Level getLevel(int num)
     {
         Level objLevel=new Level();
 
