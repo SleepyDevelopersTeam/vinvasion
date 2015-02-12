@@ -1,7 +1,6 @@
 package ru.sdevteam.vinv.game.logics;
 
 import java.awt.Graphics;
-import java.util.Vector;
 import ru.sdevteam.vinv.game.Bug;
 import ru.sdevteam.vinv.game.Bullet;
 import ru.sdevteam.vinv.game.GameObject;
@@ -32,11 +31,11 @@ public class LevelController implements IUpdatable, IDrawable
 			{
 				arrayOfTowers[i].getSprite().paint(g);
 			}
-			for(int i=0;i<arrayOfBugs.length);i++)
+			for(int i=0;i<arrayOfBugs.length;i++)
 			{
 				arrayOfBugs[i].getSprite().paint(g);
 			}
-			for(int i=0;i<arrayOfBullets.length);i++)
+			for(int i=0;i<arrayOfBullets.length;i++)
 			{
 				arrayOfBullets[i].getSprite().paint(g);
 			}
