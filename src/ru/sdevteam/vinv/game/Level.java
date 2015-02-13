@@ -61,6 +61,10 @@ public class Level
     {
         poolBullet.dispose(b);
     }
+    public Bullet[] getBulletsObject()
+    {
+        return poolBullet.getArray();
+    }
 
      public void addTower(GameObject item)
     {
