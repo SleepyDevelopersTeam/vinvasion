@@ -3,10 +3,8 @@ package ru.sdevteam.vinv.game;
 public class Tower extends Destructable
 {
     private long lastShoot;
-    private void setLastShoot(long newLastShoot){lastShoot=newLastShoot;}
 
     private long reloadTimeMillis;
-    private void setReloadTime(long newTime){reloadTimeMillis=newTime;}
 
     private boolean repairing;
 
@@ -30,7 +28,10 @@ public class Tower extends Destructable
 
      public void shoot()
     {
-        setLastShoot(System.currentTimeMillis());
+        if(canShoot())
+        {
+            lastShoot=System.currentTimeMillis();
+        }
     }
 
     public boolean isRepairing()
@@ -41,7 +42,8 @@ public class Tower extends Destructable
     // возвращает true, если прошло достаточно времени с последнего выстрела
     public boolean canShoot()
     {
-        if((lastShoot+reloadTimeMillis)<System.currentTimeMillis()){
+        if((lastShoot+reloadTimeMillis)<System.currentTimeMillis())
+        {
             return true;
         }
         return false;
@@ -50,7 +52,8 @@ public class Tower extends Destructable
     public void onDestroyed()
     {
         
-    };
+    }
+    
     public void update()
     {
         

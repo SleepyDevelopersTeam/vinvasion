@@ -16,8 +16,6 @@ public abstract class Destructable extends GameObject
     {
         this.maxHp=maxHp;
     }
-
-    private boolean destructed;
     
     public float getHpRate() // от 0 до 1, включительно
     {
@@ -26,17 +24,16 @@ public abstract class Destructable extends GameObject
 
     public boolean isDestructed()
     {
-        return destructed;
+        return hp==0;
     }
 
     public void hit(Bullet b)
     { // будет отнимать здоровье, согласуясь с типом пули и собственным состоянием
-        hp=hp-b.getDamage();
+        hp-=b.getDamage();
         if(hp<=0)
         {
             onDestroyed();
             hp=0;
-            destructed=true;
         }
     }
 

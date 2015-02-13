@@ -12,11 +12,11 @@ public class Bug extends Destructable
 
     private int speed;
     public int getSpeed(){return speed;}
-    public void setSpeed(int speed){this.speed=speed;}
+
 
     public Bug()
     {
-        setType(Bug.Type.NULL);
+        setType(Type.NULL);
         objSprite= new BugSprite(this);
     }
 
@@ -29,7 +29,7 @@ public class Bug extends Destructable
 
     }
 
-    public void setType(Bug.Type type)
+    public void setType(Type type)
     {
         this.type=type;
         switch(this.type)

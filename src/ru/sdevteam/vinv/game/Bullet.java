@@ -16,6 +16,11 @@ public class Bullet extends GameObject
         phys.setVelocity(new Vector2F(x,y));
     }
 
+    public void setVelocity(Vector2F val)
+    {
+        phys.setVelocity(val);
+    }
+    
     private int damage;
     public int getDamage(){return damage;}
 
@@ -24,10 +29,6 @@ public class Bullet extends GameObject
     {
         return unstoppable;
     }
-
-    private boolean using;
-    public void setUsing(boolean using){this.using=using;}
-    public boolean getUsing(){return using;}
 
     private int speed;
     public int getSpeed(){return speed;}
@@ -57,6 +58,40 @@ public class Bullet extends GameObject
     }
     public void update()
     {
-        
+        phys.update();
+        moveTo(phys.location().getX(),phys.location().getY());
     }
+
+    @Override
+    public void setX(float nx)
+    {
+        super.setX(nx);
+        phys.location().setX(nx);
+    }
+
+    @Override
+    public void setY(float ny)
+    {
+        super.setY(ny);
+        phys.location().setY(ny);
+    }
+
+    @Override
+    public void moveTo(float nx, float ny)
+    {
+        super.moveTo(nx, ny);
+        phys.location().moveTo(nx, ny);
+    }
+
+    @Override
+    public void moveBy(float dx, float dy)
+    {
+        super.moveBy(dx, dy);
+        phys.location().moveBy(dx, dy);
+    }
+
+
 }
+
+
+
