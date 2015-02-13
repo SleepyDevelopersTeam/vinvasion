@@ -2,7 +2,7 @@ package ru.sdevteam.vinv.game;
 import ru.sdevteam.vinv.ui.Sprite;
 
 public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
-                                            ru.sdevteam.vinv.game.IMoveAble
+                                            ru.sdevteam.vinv.game.IMoveable
 {
     protected Sprite objSprite;
     public Sprite getSprite(){ return objSprite;}
@@ -15,23 +15,23 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
     
     
     public float getX(){
-        return objSprite.getX();
+        return (objSprite.getX()+objSprite.getWidth()/2);
     }
     
     public float getY(){
-        return objSprite.getY();
+        return (objSprite.getY()+objSprite.getHeight()/2);
     }
 
     public void setX(float nx){
-        objSprite.setX(nx);
+        objSprite.setX(nx-objSprite.getWidth()/2);
     }
 
     public void setY(float ny){
-        objSprite.setY(ny);
+        objSprite.setY(ny-objSprite.getHeight()/2);
     }
 
     public void moveTo(float nx, float ny){
-        objSprite.moveTo(nx,ny);
+        objSprite.moveTo(nx+objSprite.getWidth()/2,ny+objSprite.getHeight()/2);
     }
 
     public void moveBy(float dx, float dy){
