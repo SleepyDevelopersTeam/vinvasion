@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Level
 {
-    private Vector massTowers = new Vector();  //массив объектов
+    private Vector<Tower> massTowers = new Vector();  //массив объектов
     public Tower[] getTowerObjects()
     {
         Tower[] mass=new Tower[massTowers.capacity()];
@@ -11,7 +11,7 @@ public class Level
         return mass;
     }
 
-    private Vector massBugs = new Vector();
+    private Vector<Bug> massBugs = new Vector();
     public Bug[] getBugObjects()
     {
         Bug[] mass=new Bug[massBugs.capacity()];
@@ -66,22 +66,22 @@ public class Level
         poolBullet.dispose(b);
     }
 
-     public void addTower(GameObject item)
+     public void addTower(Tower item)
     {
         massTowers.add(item);
     }
 
-    public void removeTower(GameObject item)
+    public void removeTower(Tower item)
     {
         massTowers.remove(item);
     }
 
-    public void addBug(GameObject item)
+    public void addBug(Bug item)
     {
         massBugs.add(item);
     }
 
-    public void removeBug(GameObject item)
+    public void removeBug(Bug item)
     {
         massBugs.remove(item);
     }
