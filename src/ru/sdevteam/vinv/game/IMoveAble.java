@@ -1,6 +1,6 @@
 package ru.sdevteam.vinv.game;
 
-public interface IMoveAble
+public interface IMoveable
 {
     float getX();
     float getY();

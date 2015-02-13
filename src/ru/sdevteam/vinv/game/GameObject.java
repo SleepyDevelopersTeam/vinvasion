@@ -2,7 +2,7 @@ package ru.sdevteam.vinv.game;
 import ru.sdevteam.vinv.ui.Sprite;
 
 public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
-                                            ru.sdevteam.vinv.game.IMoveAble
+                                            ru.sdevteam.vinv.game.IMoveable
 {
     protected Sprite objSprite;
     public Sprite getSprite(){ return objSprite;}
