@@ -57,6 +57,10 @@ public class Level
         return (poolBullet.getNewObject(obj));
     }
 
+    public Bullet[] getBulletObjects()
+    {
+        return poolBullet.getArray();
+    }
     public void disposeBullet(Bullet b)
     {
         poolBullet.dispose(b);
