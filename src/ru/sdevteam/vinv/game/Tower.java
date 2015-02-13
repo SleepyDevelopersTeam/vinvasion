@@ -10,23 +10,9 @@ public class Tower extends Destructable
 
     private boolean repairing;
 
-    public void shoot()
-    {
-        setLastShoot(System.currentTimeMillis());
-    }
-
     private String name;
     public String getName(){return name;}
     public void setName(String newName){name=newName;}
-
-    // возвращает true, если прошло достаточно времени с последнего выстрела
-    public boolean canShoot()
-    {
-        if((lastShoot+reloadTimeMillis)<System.currentTimeMillis()){
-            return true;
-        }
-        return false;
-    }
 
     private Bullet.Type type;
     public Bullet.Type getBulletType()
@@ -38,12 +24,27 @@ public class Tower extends Destructable
     public Tower()
     {
      type=Bullet.Type.NORMAL;
+     objSprite= new TowerSprite(this);
     }
 
-   
+
+     public void shoot()
+    {
+        setLastShoot(System.currentTimeMillis());
+    }
+
     public boolean isRepairing()
     {
         return repairing;
+    }
+
+    // возвращает true, если прошло достаточно времени с последнего выстрела
+    public boolean canShoot()
+    {
+        if((lastShoot+reloadTimeMillis)<System.currentTimeMillis()){
+            return true;
+        }
+        return false;
     }
     
     public void onDestroyed()

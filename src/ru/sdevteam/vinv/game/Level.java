@@ -3,30 +3,30 @@ import java.util.*;
 
 public class Level
 {
-    private Vector massTowers = new Vector();  //массив объектов
-    public Tower[] getTowerObjects()
+    private Vector<Tower> massTowers = new Vector<Tower>();  //массив объектов
+    public Tower[] getTowers()
     {
         Tower[] mass=new Tower[massTowers.capacity()];
         massTowers.toArray(mass);
         return mass;
     }
 
-    private Vector massBugs = new Vector();
-    public Bug[] getBugObjects()
+    private Vector<Bug> massBugs = new Vector<Bug>();
+    public Bug[] getBugs()
     {
         Bug[] mass=new Bug[massBugs.capacity()];
         massBugs.toArray(mass);
         return mass;
     }
 
-    Pool poolBullet=new Pool(300);
+    Pool poolBullet;
 
 
     //создает пробный уровень
-    public static Level getLevel()
+    public static Level getLevel(int num)
     {
         Level objLevel=new Level();
-
+        objLevel.poolBullet=new Pool(300);
         Tower aTower=new Tower();
         aTower.setX(200);
         aTower.setY(200);
@@ -57,31 +57,31 @@ public class Level
         return (poolBullet.getNewObject(obj));
     }
 
+    public Bullet[] getBullets()
+    {
+        return poolBullet.getArray();
+    }
     public void disposeBullet(Bullet b)
     {
         poolBullet.dispose(b);
     }
-    public Bullet[] getBulletsObject()
-    {
-        return poolBullet.getArray();
-    }
 
-     public void addTower(GameObject item)
+     public void addTower(Tower item)
     {
         massTowers.add(item);
     }
 
-    public void removeTower(GameObject item)
+    public void removeTower(Tower item)
     {
         massTowers.remove(item);
     }
 
-    public void addBug(GameObject item)
+    public void addBug(Bug item)
     {
         massBugs.add(item);
     }
 
-    public void removeBug(GameObject item)
+    public void removeBug(Bug item)
     {
         massBugs.remove(item);
     }

@@ -1,4 +1,6 @@
 package ru.sdevteam.vinv.game;
+import ru.sdevteam.vinv.utils.PhysObject;
+import ru.sdevteam.vinv.utils.Vector2F;
 
 
 public class Bullet extends GameObject
@@ -7,7 +9,13 @@ public class Bullet extends GameObject
 
     private Bullet.Type type;
     public Bullet.Type getType(){return type;}
-    
+
+    public PhysObject phys;
+    public void setVelocity(float x,float y)
+    {
+        phys.setVelocity(new Vector2F(x,y));
+    }
+
     private int damage;
     public int getDamage(){return damage;}
 
@@ -27,6 +35,7 @@ public class Bullet extends GameObject
 
     public Bullet()
     {
+        phys=new PhysObject();
         convertTo(Type.NULL);
     }
 

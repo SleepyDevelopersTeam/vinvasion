@@ -144,8 +144,8 @@ function clearSearch()
 	<ul>
 		<li><a href="#ru.sdevteam.vinv.game.logics.LevelController">LevelController</a> – обрабатывает логику обновления уровня</li>
 		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">Mover</a> – обрабатывает движение объектов</li>
-		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">PathMover</a> – передвигает объекты по заданному пути</li>
-		<li><a href="#ru.sdevteam.vinv.game.logics.Mover">Path</a> – вспомогательный класс</li>
+		<li><a href="#ru.sdevteam.vinv.game.logics.PathMover">PathMover</a> – передвигает объекты по заданному пути</li>
+		<li><a href="#ru.sdevteam.vinv.game.logics.Path">Path</a> – вспомогательный класс</li>
 	</ul>
 </li>
 <li><a href="#ru.sdevteam.vinv.utils">ru.sdevteam.vinv.utils</a> – различные вспомогательные классы:
@@ -285,7 +285,7 @@ static float getProgress(); // возвращает процент загруз�
 
 static Image getImage(String key); // возвращает изображение по ключу
 static BufferedImage getBufferedImage(String key);</pre>
-
+Строковым ключом для ресурса является путь к нему относительно папки res, без указания расширения файла. Т.е., например, для изображения башни <code>.../res/towers/laser_turret.png</code> строковым ключом будет <code>"towers/laser_turret"</code>.
 </div>
 
 <div class='separator'><a name="ru.sdevteam.vinv.ui"></a></div>
@@ -411,19 +411,19 @@ void setCollisionRectangle(int x, int y, int width, int height);</pre>
 Класс, содержащий информацию об уровне и все находящиеся на игровом поле объекты, как интерактивные, так и статичные. Должен содержать следующие методы:
 <pre>// возвращает массив, содержащий все динамичные и статичные объекты уровня
 // (данный подход, возможно, будет заменён на использование итератора)
-GameObject[] getGameObjects();
-void addObject(GameObject item);
-void removeObject(GameObject item);
+public GameObject[] getDecorations();
+public void addObject(GameObject item);
+public void removeObject(GameObject item);
 
 // методы используются для более удобной обработки классом LevelController
-Tower[] getTowers();
-Bug[] getBugs();
-Bullet[] getBullets();</pre>
+public Tower[] getTowers();
+public Bug[] getBugs();
+public Bullet[] getBullets();</pre>
 Также, класс инкапсулирует в себе пул пуль, предоставляя следующие методы:
 <pre>// создаёт новую или возвращает неиспользуемую пулю
-Bullet getBullet(int x, int y, BulletType type);
+public Bullet getBullet(int x, int y, BulletType type);
 // помечает пулю как неиспользуемую
-void disposeBullet(Bullet item);</pre>
+public void disposeBullet(Bullet item);</pre>
 Для создания экземпляров класса будет использоваться не конструктор, а статический метод, принимающий номер уровня и создающий его из данных файла:
 <pre>static Level createLevel(int num);</pre>
 </div>
@@ -467,17 +467,20 @@ float getRotation();</pre>
 	...
 }</pre>
 Представляет <i>любую</i> пулю в игре. Может быть в любой момент сконвертирована в пулю другого типа. Реализует методы:
-<pre>void convertTo(Bullet.Type type);
-int getDamage();
+<pre>public void convertTo(Bullet.Type type);
+public int getDamage();
 // возможно, будут пули, которые не будут уничтожаться при столкновении с вражинами
-boolean isUnstoppable();
-Bullet.Type getType();
+public boolean isUnstoppable();
+public Bullet.Type getType();
 
 // скорость пули, определяется её типом
-float getSpeed();
+public float getSpeed();
 
 // задаёт направление полёта пули
-void setDirection(float angle);
+public void setDirection(float angle);
+// и её скорость
+public void setVelocity(float vx, float vy);
+public void setVelocity(Vector2F val);
 </pre>
 Вложенное перечисление <code>Bullet.Type</code> будет содержать все типы используемых в игре пуль.<br />
 Для реализации поведения пули согласно заданной ей скорости рекомендуется использовать вспомогательный класс <code>PhysObject</code>. 
@@ -509,19 +512,22 @@ protected abstract void onDestroyed(); // должен вызываться пр
 }</pre>
 Модель башни, содержит её характеристики и положение на поле. Метод <code>getSprite()</code> внутри себя использует класс <code>TowerSprite</code>, для выноса логики подбора изображения в конструктор этого класса. В первой сборке класс не будет абстрактным. С добавлением нескольких типов башен, реализованных как наследники данного класса, абстрактность будет необходимо добавить. Содержит методы:
 <pre>// возвращает true, если прошло достаточно времени с последнего выстрела
-boolean canShoot();
+public boolean canShoot();
 // тип выпускаемых снарядов
-BulletType getBulletType();
+public BulletType getBulletType();
 // проверяет, атакует ли башня данный тип жука
-boolean canAttack(Bug.Type type);
-boolean isRepairing();
+public boolean canAttack(Bug.Type type);
+public boolean isRepairing();
 
 // характеристики башни
-int reloadTimeMillis(); // кол-во миллисекунд между выстрелами
-Price getPrice(); // цена башни
-String getName();
-String getDescription();
-(Buffered)Image getImage(); // возвращает изображение башни
+public int reloadTimeMillis(); // кол-во миллисекунд между выстрелами
+public Price getPrice(); // цена башни
+public String getName();
+public String getDescription();
+public float getShootingRadius();
+
+// вряд ли потребуется этот метод, хотя кто знает
+public (Buffered)Image getImage(); // возвращает изображение башни
 </pre>
 </div>
 
