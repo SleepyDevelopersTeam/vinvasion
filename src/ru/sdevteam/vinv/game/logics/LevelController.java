@@ -1,7 +1,6 @@
 package ru.sdevteam.vinv.game.logics;
 
 import java.awt.Graphics;
-import java.util.Vector;
 import ru.sdevteam.vinv.game.Bug;
 import ru.sdevteam.vinv.game.Bullet;
 import ru.sdevteam.vinv.game.GameObject;
@@ -9,7 +8,6 @@ import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.IDrawable;
-import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.utils.Vector2F;
 
 public class LevelController implements IUpdatable, IDrawable 
