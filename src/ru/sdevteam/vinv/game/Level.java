@@ -19,8 +19,6 @@ public class Level
         return mass;
     }
 
-    Pool poolBullet;
-
 
     //создает пробный уровень
     public static Level getLevel(int num)
@@ -46,6 +44,7 @@ public class Level
         return objLevel;
     }
     
+    private Pool poolBullet;
 
     public Bullet getBullet(float x, float y, Bullet.Type type)
     {
