@@ -5,19 +5,24 @@ import java.awt.Graphics;
 
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.IUpdatable;
+import ru.sdevteam.vinv.ui.Screen;
+import ru.sdevteam.vinv.ui.LoadingScreen;
 
 public class GameCanvas extends Canvas implements IDrawable, IUpdatable 
 {
 	Screen screen;
-	
+	public GameCanvas()
+	{
+		this.screen = new LoadingScreen();
+	}
 	public void update()
 	{
-		return;
+		this.screen.update();
 	}
 	
 	public void paint (Graphics item)
 	{
-		return;
+		this.screen.paint(item);
 	}
 
 	public void setActiveScreen (Screen item)

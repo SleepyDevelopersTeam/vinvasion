@@ -1,6 +1,6 @@
 package ru.sdevteam.vinv.game;
 
-import ru.sdevteam.vinv.main.ResourseManager;
+import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.Sprite;
 
 public class BugSprite extends Sprite
@@ -9,7 +9,7 @@ public class BugSprite extends Sprite
 	
 	public BugSprite(Bug b)
 	{
-		super(ResourseManager.getBufferedImage("bugs/test_bug"), 256, 256);
+		super(ResourceManager.getBufferedImage("bugs/test_bug"), 256, 256);
 		instanse=b;
 	}
 	
