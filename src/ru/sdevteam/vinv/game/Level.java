@@ -7,7 +7,7 @@ public class Level
     public Tower[] getTowers()
     {
         Tower[] mass=new Tower[massTowers.capacity()];
-        massTowers.toArray(mass);
+        massTowers.copyInto(mass);
         return mass;
     }
 
@@ -15,7 +15,7 @@ public class Level
     public Bug[] getBugs()
     {
         Bug[] mass=new Bug[massBugs.capacity()];
-        massBugs.toArray(mass);
+        massBugs.copyInto(mass);
         return mass;
     }
 
