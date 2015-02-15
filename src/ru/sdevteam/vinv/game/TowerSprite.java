@@ -1,6 +1,6 @@
 package ru.sdevteam.vinv.game;
 
-import ru.sdevteam.vinv.main.ResourseManager;
+import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.Sprite;
 
 public class TowerSprite extends Sprite
@@ -9,7 +9,7 @@ public class TowerSprite extends Sprite
 	
 	public TowerSprite(Tower t)
 	{
-		super(ResourseManager.getBufferedImage("towers/test_tower"), 256, 256);
+		super(ResourceManager.getBufferedImage("towers/test_tower"), 256, 256);
 		instanse=t;
 	}
 	

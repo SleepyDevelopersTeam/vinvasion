@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 
 
-public class ResourseManager 
+public class ResourceManager 
 {
 	public static void init()
 	{
