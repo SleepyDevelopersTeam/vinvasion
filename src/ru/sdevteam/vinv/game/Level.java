@@ -25,15 +25,18 @@ public class Level
     {
         Level objLevel=new Level();
         objLevel.poolBullet=new Pool(300);
+
         Tower aTower=new Tower();
         aTower.setX(200);
         aTower.setY(200);
 
         Bug aBug=new Bug();
+        aBug.setType(Bug.Type.NORMAL);
         aBug.setX(100);
         aBug.setY(100);
 
         Bug bBug=new Bug();
+        bBug.setType(Bug.Type.NORMAL);
         bBug.setX(300);
         bBug.setY(300);
         
