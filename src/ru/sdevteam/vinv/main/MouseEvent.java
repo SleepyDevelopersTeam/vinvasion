@@ -9,6 +9,8 @@ public class MouseEvent
 	private Type event;
 	private Button button;
 	
+	private InputState actualState;
+	
 	public MouseEvent(int mx, int my, int delta, Type type, Button button)
 	{
 		event=type; this.button=button;
@@ -21,4 +23,7 @@ public class MouseEvent
 	
 	public Type getType() { return event; }
 	public Button getButton() { return button; }
+	
+	public InputState getActualState() { return actualState; }
+	void setActualState(InputState s) { actualState=s; }
 }

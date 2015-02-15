@@ -14,10 +14,30 @@ public class Input
 		}
 	}
 	
+	private static InputState current=new InputState();
+	public static InputState getCurrentState() { return current; }
+	
 	private static QueueItem keyStart, keyEnd, mouseStart, mouseEnd;
 	
 	static void pushKeyEvent(KeyEvent e)
 	{
+		// Изменяем состояние ввода
+		switch(e.getType())
+		{
+		case PRESSED:
+			current.markKeyDown(e.getKey());
+			break;
+		case RELEASED:
+			current.markKeyUp(e.getKey());
+			break;
+		default:
+			break;
+		}
+		
+		// Сохраняем копию состояния в событии
+		e.setActualState(current.copy());
+		
+		// Добавляем в очередь
 		if(keyStart==null)
 		{
 			keyStart=keyEnd=new Input().new QueueItem(e);
@@ -29,6 +49,48 @@ public class Input
 	
 	static void pushMouseEvent(MouseEvent e)
 	{
+		// Обновляем состояние ввода
+		switch(e.getType())
+		{
+		case PRESSED:
+			switch(e.getButton())
+			{
+			case LEFT:
+				current.setLeftDown(true);
+				break;
+			case RIGHT:
+				current.setRightDown(true);
+				break;
+			case WHEEL:
+				current.setWheelDown(true);
+				break;
+			default: break;
+			}
+			break;
+		case RELEASED:
+			switch(e.getButton())
+			{
+			case LEFT:
+				current.setLeftDown(false);
+				break;
+			case RIGHT:
+				current.setRightDown(false);
+				break;
+			case WHEEL:
+				current.setWheelDown(false);
+				break;
+			default: break;
+			}
+			break;
+		default: break;
+		}
+		current.setWheelDelta(e.getDelta());
+		current.setMouseCoords(e.getMouseX(), e.getMouseY());
+		
+		// Запихиваем копию текущего состояния в событие
+		e.setActualState(current.copy());
+		
+		// Добавляем событие в очередь
 		if(mouseStart==null)
 		{
 			mouseStart=mouseEnd=new Input().new QueueItem(e);
@@ -38,13 +100,12 @@ public class Input
 		mouseEnd=mouseEnd.next;
 	}
 	
-	private static int mx, my;
-	public static int getMouseX() { return mx; }
-	public static int getMouseY() { return my; }
+	public static int getMouseX() { return current.getMouseX(); }
+	public static int getMouseY() { return current.getMouseY(); }
 	
 	public static boolean isKeyDown(ControlKey key)
 	{
-		return false;
+		return current.isKeyDown(key);
 	}
 
 	public static boolean hasMoreKeyEvents()

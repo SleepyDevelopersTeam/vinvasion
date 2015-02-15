@@ -1,54 +1,87 @@
 package ru.sdevteam.vinv.main;
 
-public class Timer implements Runnable
+import java.util.Vector;
+
+public class Timer extends Thread
 {
-	int interval;
+	private int interval;
+	private Vector<OnTickListener> listeners;
+	private boolean paused;
+	
+	public Timer(String name)
+	{
+		super(name);
+		this.listeners = new Vector<OnTickListener>();
+		paused = true;
+	}
 	
 	public int getInterval()
 	{
-		return 0;
+		return this.interval;
 	}
 	
 	public void setInterval(int val)
 	{
 		interval = val;
-		return;
 	}
 	
 	public void start()
 	{
-		return;
+		super.start();
+		this.paused = false;
 	}
 	
 	public void pause()
 	{
-		return;
+		this.paused = true;
 	}
 
 	public void unpause()
 	{
-		return;
+		this.paused = false;
 	}
-	
-	public boolean isRunning()
+		
+	public boolean isPaused()
 	{
-		return false;
+		return this.paused;
 	}
 
 	@Override
 	public void run()
 	{
-		return;
+		while (true)
+		{
+			if (this.isPaused()) { continue; }
+			long curr = System.currentTimeMillis();
+			for (int i=0; i < this.listeners.size(); i++)
+			{
+				this.listeners.elementAt(i).onTick();
+			}
+			
+			try
+			{
+				int dur = (int)(System.currentTimeMillis() - curr);
+				if (dur < this.interval)
+				{
+					sleep(this.interval - dur);
+				}
+			}
+			catch (InterruptedException io)
+			{
+				System.out.println("Interrupted exception" + io);
+				break;
+			}	
+		}
 	}
 
 	public void addOnTickListener(OnTickListener item)
 	{
-		return;
+		this.listeners.add(item);
 	}
 
 	public void removeOnTickListener(OnTickListener item)
 	{
-		return;
+		this.listeners.remove(item);
 	}
 
 	
