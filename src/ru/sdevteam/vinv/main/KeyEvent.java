@@ -4,18 +4,23 @@ public class KeyEvent
 {
 	public enum Type { PRESSED, RELEASED, TYPED }
 	
-	private ControlKey key;
+	private int key;
 	private char keyChar;
 	private Type event;
 	
-	public KeyEvent(ControlKey ckey, char keychar, Type eventType)
+	private InputState actualState;
+	
+	public KeyEvent(int keyCode, char keychar, Type eventType)
 	{
-		key=ckey;
+		key=keyCode;
 		keyChar=keychar;
 		event=eventType;
 	}
 	
 	public char keyChar() { return keyChar; }
-	public ControlKey getKey() { return key; }
+	public int getKey() { return key; }
 	public Type getType() { return event; }
+	
+	public InputState getActualState() { return actualState; }
+	void setActualState(InputState s) { actualState=s; }
 }

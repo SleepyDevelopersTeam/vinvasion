@@ -217,4 +217,30 @@ public class Sprite implements IDrawable, IUpdatable
 		
 		return true;
 	}
+	
+	// проверка столкновения с прямоугольником
+	public boolean collidesWith(float rx, float ry, float rWidth, float rHeight)
+	{
+		if(x+cx<rx)
+		{
+			if(rx+rWidth<x+cx) return false;
+		}
+		else
+		{
+			if(rx>x+cx+cw) return false;
+		}
+		// столкновение по x прошло
+		
+		if(y+cy<ry)
+		{
+			if(ry+rHeight<y+cy) return false;
+		}
+		else
+		{
+			if(ry>y+cy+ch) return false;
+		}
+		// столкновение по y прошло
+		
+		return true;
+	}
 }
