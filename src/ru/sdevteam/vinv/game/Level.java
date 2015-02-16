@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Level
 {
-    private Vector<Tower> massTowers = new Vector<Tower>();  //массив объектов
+    private Vector<Tower> massTowers;  //массив объектов
     public Tower[] getTowers()
     {
         Tower[] mass=new Tower[massTowers.capacity()];
@@ -11,7 +11,7 @@ public class Level
         return mass;
     }
 
-    private Vector<Bug> massBugs = new Vector<Bug>();
+    private Vector<Bug> massBugs;
     public Bug[] getBugs()
     {
         Bug[] mass=new Bug[massBugs.capacity()];
@@ -25,6 +25,8 @@ public class Level
     {
         Level objLevel=new Level();
         objLevel.poolBullet=new Pool(300);
+        objLevel.massBugs = new Vector<Bug>();
+        objLevel.massTowers = new Vector<Tower>();
 
         Tower aTower=new Tower();
         aTower.setX(200);
@@ -51,12 +53,12 @@ public class Level
 
     public Bullet getBullet(float x, float y, Bullet.Type type)
     {
-
-        Bullet obj=new Bullet();
+        Bullet obj;
+        obj=poolBullet.getNewObject();
         obj.setX(x);
         obj.setY(y);
         obj.convertTo(type);
-        return (poolBullet.getNewObject(obj));
+        return (obj);
     }
 
     public Bullet[] getBullets()
@@ -114,7 +116,7 @@ class Pool
     }
 
 
-    public Bullet getNewObject(Bullet obj)
+    public Bullet getNewObject()
     {
         for (int i = 0; i < created; i++)
         {
@@ -136,6 +138,7 @@ class Pool
             return pool[0];
         }
         used[created] = true;
+        Bullet obj=new Bullet();
         pool[created] = obj;
         //EventBroker.invoke("debugMsgChanged", "created "+created);
 
