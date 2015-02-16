@@ -20,6 +20,8 @@ public class Bullet extends GameObject
     {
         phys.setVelocity(val);
     }
+
+
     
     private int damage;
     public int getDamage(){return damage;}

@@ -13,15 +13,20 @@ public class Tower extends Destructable
     public void setName(String newName){name=newName;}
 
     private Bullet.Type type;
-    public Bullet.Type getBulletType()
-    {
-        return type;
-    }
+    public Bullet.Type getBulletType(){return type;}
+
+    private int price;
+    public int getPrice(){return price;}
+
+    private int shootingRadius;
+    public float getShootingRadius(){return shootingRadius;}
 
 
     public Tower()
     {
      type=Bullet.Type.NORMAL;
+     price=10;
+     shootingRadius=100;
      objSprite= new TowerSprite(this);
     }
 

@@ -12,8 +12,11 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
     {   
         return dynamic;
     }
-    
-    
+
+    private float angle;
+    public void rotate(float angle){this.angle=angle;}
+    public float getRotation(){return angle;}
+
     public float getX()
     {
         return (objSprite.getX()+objSprite.getWidth()/2);
