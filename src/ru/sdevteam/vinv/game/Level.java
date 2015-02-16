@@ -21,7 +21,7 @@ public class Level
 
 
     //создает пробный уровень
-    public static Level getLevel(int num)
+    public static Level createLevel(int num)
     {
         Level objLevel=new Level();
         objLevel.poolBullet=new Pool(300);
