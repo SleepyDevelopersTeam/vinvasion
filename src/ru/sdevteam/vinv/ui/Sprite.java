@@ -3,8 +3,9 @@ package ru.sdevteam.vinv.ui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import ru.sdevteam.vinv.game.IMoveable;
 
-public class Sprite implements IDrawable, IUpdatable
+public class Sprite implements IDrawable, IUpdatable, IMoveable
 {
 	//
 	// Координаты
@@ -66,25 +67,26 @@ public class Sprite implements IDrawable, IUpdatable
 	
 	private int curFrame=0, totalFrames=0;
 	public int currentFrame() { return curFrame; }
-	public void nextFrame()
+	public synchronized void nextFrame()
 	{
-		// TODO: use syncronized
 		curFrame++;
 		if(curFrame>=totalFrames) curFrame=0;
 		lastChangeTime=System.currentTimeMillis();
+		onEnterFrame();
 	}
-	public void prevFrame()
+	public synchronized void prevFrame()
 	{
-		// TODO: use syncronized
 		curFrame--;
 		if(curFrame<0) curFrame=totalFrames-1;
 		lastChangeTime=System.currentTimeMillis();
+		onEnterFrame();
 	}
-	public void gotoFrame(int frame)
+	public synchronized void gotoFrame(int frame)
 	{
 		assert frame>=0 && frame<totalFrames: "Номер кадра должен быть неотрицательным и меньше количества кадров";
 		curFrame=frame;
 		lastChangeTime=System.currentTimeMillis();
+		onEnterFrame();
 	}
 	
 	public int getFramesCount() { return totalFrames; }
@@ -141,7 +143,7 @@ public class Sprite implements IDrawable, IUpdatable
 	
 	
 	@Override
-	public void update()
+	public synchronized void update()
 	{
 		if(source==null) return;
 		if(playing)
@@ -151,6 +153,7 @@ public class Sprite implements IDrawable, IUpdatable
 				nextFrame();
 				lastChangeTime=System.currentTimeMillis();
 				timeWithoutChanges-=frameDur;
+				onEnterFrame();
 			}
 			else
 			{
@@ -160,7 +163,7 @@ public class Sprite implements IDrawable, IUpdatable
 	}
 
 	@Override
-	public void paint(Graphics g)
+	public synchronized void paint(Graphics g)
 	{
 		int framex, framey;
 		framex=curFrame%fpw;
@@ -169,6 +172,11 @@ public class Sprite implements IDrawable, IUpdatable
 		Image frame=source.getSubimage(framex, framey, w, h);
 		// TODO: здесь решить, как отрисовывать спрайты с дробными координатами
 		g.drawImage(frame, (int)x, (int)y, null);
+	}
+	
+	protected void onEnterFrame()
+	{
+		// ...
 	}
 	
 	//

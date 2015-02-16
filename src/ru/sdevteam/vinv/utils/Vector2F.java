@@ -58,7 +58,12 @@ public class Vector2F
 		if(y==0 && x==0) return Float.NaN;
 		if(y==0) return x>0? RIGHT : LEFT;
 		if(x==0) return y>0? DOWN : UP;
-		return (float)Math.atan2(y, x);
+		// приводим из (-п;п) к промежутку (0; 2п)
+		// (2п никогда не будет возвращено по причине,
+		// что это значение отлавливается одним из
+		// условий выше)
+		return (float)Math.atan2(y, x)+LEFT;
+		// (LEFT==(float)п)
 	}
 	
 	public void setMagnitude(float mag)
@@ -108,9 +113,23 @@ public class Vector2F
 		v.setMagnitude(1);
 		/* or
 		float a=v.getDirection();
-		v.x=Math.cos(a);
-		v.y=Math.sin(a);
+		v.x=(float)Math.cos(a);
+		v.y=(float)Math.sin(a);
 		*/
 		return v;
+	}
+	
+	//
+	// STATIC MATH
+	//
+	
+	// Метод округляет значение angle до некоторого угла из дискретного спектра
+	// мощности spectrumWidth
+	public static int getDiscreteRotation(int spectrumWidth, float angle)
+	{
+		// ширина сегмента (расстояние между соседними значениями спектра)
+		float segmentWidth=(float)Math.PI*2/spectrumWidth;
+		// округляем
+		return (int)(angle/segmentWidth+0.5F);
 	}
 }

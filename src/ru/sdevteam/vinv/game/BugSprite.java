@@ -19,5 +19,11 @@ public class BugSprite extends Sprite
 		super.update();
 		
 		// TODO: обновлять спрайт в соответствии с instanse
+		// test bug has 8 rotation images
+		
+		//int frame=Vector2F.getDiscreteRotation(8, instanse.getRotation());
+		//frame+=2; // мой небольшой косяк в порядке кадров на картинке
+		//if(frame>=8) frame-=8;
+		//gotoFrame(frame);
 	}
 }
