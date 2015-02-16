@@ -12,6 +12,7 @@ public class Path
 	}
 	public void setCoords(float[] coords)
 	{
+		path.clear();
 		for (int i=0;i<coords.length;i++)
 		{
 			if (i/2==0)
@@ -20,9 +21,13 @@ public class Path
 			}
 		}
 	}
-	public void setCoords(Vector2F coords)
+	public void setCoords(Vector2F[] coords)
 	{
-		path.addElement(coords);
+		path.clear();
+		for (int i=0;i<coords.length;i++)
+		{
+			path.addElement(coords[i]);
+		}
 	}
 	public void addPoint(float x, float y)
 	{
@@ -38,7 +43,7 @@ public class Path
 	}
 	public void setCoords(int pointIndex, Vector2F newCoords)
 	{
-		path.insertElementAt(newCoords, pointIndex);
+		path.set(pointIndex,newCoords);
 	}
 	public float getPathX(int pointIndex)
 	{
