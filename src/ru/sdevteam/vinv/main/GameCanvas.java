@@ -9,7 +9,7 @@ import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.Screen;
 import ru.sdevteam.vinv.ui.LoadingScreen;
 
-public class GameCanvas extends Canvas implements IDrawable, IUpdatable 
+public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 {
 	Screen screen;
 	private Image buffer;
@@ -38,4 +38,5 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	{
 		this.screen = item;
 	}
+
 }
