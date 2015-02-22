@@ -9,8 +9,18 @@ import java.awt.event.MouseListener;
 
 public class MainFrame extends Frame implements MouseListener, KeyListener
 {
-	public GameCanvas canvas;
-	public Timer timer;
+	private GameCanvas canvas;
+	private Timer timer;
+	private int width;
+	private int height;
+	
+	public MainFrame()
+	{
+		timer = new Timer("mainTimer");
+		canvas = new GameCanvas();
+		 
+		
+	}
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
