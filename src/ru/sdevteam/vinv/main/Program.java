@@ -9,22 +9,16 @@ public class Program
 	
 	public static void main(String[] args)
 	{
-		EventQueue.invokeLater(new Runnable()
+		MainFrame frame = new MainFrame();
+				
+		frame.addWindowListener(new WindowAdapter()
 		{
-			public void run()
+			public void windowClosing(WindowEvent e) 
 			{
-				MainFrame frame = new MainFrame();
-				
-				frame.addWindowListener(new WindowAdapter()
-				{
-				      public void windowClosing(WindowEvent e) 
-				      {
-				        System.exit(0);
-				      }
-				});
-				
-				frame.setVisible(true);
-			}
+				System.exit(0);
+	        }
 		});
+				
+		frame.setVisible(true);
 	}
 }

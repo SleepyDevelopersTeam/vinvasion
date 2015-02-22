@@ -30,8 +30,8 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	
 	public void paint (Graphics item)
 	{
-		item.drawImage(buffer, 0, 0, null);
 		this.screen.paint(buffer.getGraphics());
+		item.drawImage(buffer, 0, 0, null);
 	}
 
 	public void setActiveScreen (Screen item)

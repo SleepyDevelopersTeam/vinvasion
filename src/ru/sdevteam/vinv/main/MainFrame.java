@@ -27,8 +27,6 @@ public class MainFrame extends Frame implements MouseListener, KeyListener
 		
 		addKeyListener(this);
 		addMouseListener(this);
-				      
-		ResourceManager.init();
 		
 		updateTimer.setInterval(30);
 		updateTimer.addOnTickListener(new OnTickListener() 
