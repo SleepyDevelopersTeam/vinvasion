@@ -5,10 +5,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+
+import javax.swing.SwingUtilities;
 
 
 
-public class MainFrame extends Frame implements MouseListener, KeyListener
+public class MainFrame extends Frame implements MouseListener, KeyListener, MouseWheelListener, MouseMotionListener
 {
 	private GameCanvas canvas;
 	private Timer updateTimer;
@@ -75,7 +80,9 @@ public class MainFrame extends Frame implements MouseListener, KeyListener
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		// TODO Auto-generated method stub	
+		
+		
+		
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) 
@@ -90,11 +97,52 @@ public class MainFrame extends Frame implements MouseListener, KeyListener
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
-		// TODO Auto-generated method stub
+		if(SwingUtilities.isLeftMouseButton(e))
+		{
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
+			Input.pushMouseEvent(m);
+		}
+		else if (SwingUtilities.isRightMouseButton(e))
+		{
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
+			Input.pushMouseEvent(m);
+		}
 	}
 	@Override
-	public void mouseReleased(MouseEvent arg0) 
+	public void mouseReleased(MouseEvent e) 
 	{
+		if(SwingUtilities.isLeftMouseButton(e))
+		{
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+					ru.sdevteam.vinv.main.MouseEvent.Type.RELEASED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
+			Input.pushMouseEvent(m);
+		}
+		else if (SwingUtilities.isRightMouseButton(e))
+		{
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+					ru.sdevteam.vinv.main.MouseEvent.Type.RELEASED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
+			Input.pushMouseEvent(m);
+		}
+	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) 
+	{
+		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+				ru.sdevteam.vinv.main.MouseEvent.Type.MOTION, ru.sdevteam.vinv.main.MouseEvent.Button.NONE);
+		Input.pushMouseEvent(m);
+	}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) 
+	{
+		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), e.getWheelRotation(), 
+				ru.sdevteam.vinv.main.MouseEvent.Type.SCROLL , ru.sdevteam.vinv.main.MouseEvent.Button.WHEEL);
+		Input.pushMouseEvent(m);
 	}
 }
