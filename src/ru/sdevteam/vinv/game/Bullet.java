@@ -1,4 +1,6 @@
 package ru.sdevteam.vinv.game;
+import ru.sdevteam.vinv.main.ResourceManager;
+import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.utils.PhysObject;
 import ru.sdevteam.vinv.utils.Vector2F;
 
@@ -21,7 +23,6 @@ public class Bullet extends GameObject
         phys.setVelocity(val);
     }
 
-
     
     private int damage;
     public int getDamage(){return damage;}
@@ -40,6 +41,7 @@ public class Bullet extends GameObject
     {
         phys=new PhysObject();
         convertTo(Type.NULL);
+        this.sprite=new Sprite(ResourceManager.getBufferedImage("bullets/test_bullet"));
     }
 
 
