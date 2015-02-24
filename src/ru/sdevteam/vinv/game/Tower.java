@@ -27,7 +27,7 @@ public class Tower extends Destructable
      type=Bullet.Type.NORMAL;
      price=10;
      shootingRadius=100;
-     objSprite= new TowerSprite(this);
+     sprite= new TowerSprite(this);
     }
 
 

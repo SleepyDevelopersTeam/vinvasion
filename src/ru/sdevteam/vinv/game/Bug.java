@@ -17,7 +17,7 @@ public class Bug extends Destructable
     public Bug()
     {
         setType(Type.NULL);
-        objSprite= new BugSprite(this);
+        sprite= new BugSprite(this);
     }
 
 
