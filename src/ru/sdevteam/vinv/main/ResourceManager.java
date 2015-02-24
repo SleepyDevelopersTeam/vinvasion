@@ -74,7 +74,7 @@ public class ResourceManager
 	
 	public static void init()
 	{
-		String[] bullets = {};
+		String[] bullets = {"test_bullet"};
 		String[] towers = { "test_tower" };
 		String[] decos = {};
 		String[] bugs = { "test_bug" };
@@ -90,6 +90,7 @@ public class ResourceManager
 		}
 		addImages(towers, "/towers/");
 		addImages(bugs, "/bugs/");
+		addImages(bullets, "/bullets/");
 		
 		ready = true;
 	}

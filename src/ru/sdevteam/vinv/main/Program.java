@@ -9,7 +9,7 @@ public class Program
 	public static void main(String[] args)
 	{
 		MainFrame frame = new MainFrame();
-				
+		
 		frame.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e) 

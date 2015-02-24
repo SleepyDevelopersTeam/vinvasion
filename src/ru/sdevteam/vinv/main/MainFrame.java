@@ -81,8 +81,6 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	public void mouseClicked(MouseEvent e) 
 	{
 		
-		
-		
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) 
