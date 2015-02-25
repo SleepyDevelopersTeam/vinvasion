@@ -28,6 +28,7 @@ public class Tower extends Destructable
      price=10;
      shootingRadius=100;
      sprite= new TowerSprite(this);
+     reloadTimeMillis=500;
     }
 
 

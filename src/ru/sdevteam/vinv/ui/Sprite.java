@@ -3,6 +3,7 @@ package ru.sdevteam.vinv.ui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+
 import ru.sdevteam.vinv.game.IMoveable;
 
 public class Sprite implements IDrawable, IUpdatable, IMoveable
@@ -90,7 +91,7 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 	}
 	
 	public int getFramesCount() { return totalFrames; }
-	private int fpw; // frames per width (of source img.)
+	private int fpw=1; // frames per width (of source img.)
 	private void countFrames()
 	{
 		if(source==null)
@@ -166,6 +167,7 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 	public synchronized void paint(Graphics g)
 	{
 		int framex, framey;
+		
 		framex=curFrame%fpw;
 		framey=curFrame/fpw;
 		
@@ -203,52 +205,28 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 	
 	public boolean collidesWith(Sprite s)
 	{
-		if(x+cx<s.x+s.cx)
-		{
-			if(s.x+s.cx+s.cw<x+cx) return false;
-		}
-		else
-		{
-			if(s.x+s.cx>x+cx+cw) return false;
-		}
+		if(s.x+s.cx+s.cw<x+cx) return false;
+		if(s.x+s.cx>x+cx+w) return false;
 		// столкновение по x прошло
 		
-		if(y+cy<s.y+s.cy)
-		{
-			if(s.y+s.cy+s.ch<y+cy) return false;
-		}
-		else
-		{
-			if(s.y+s.cy>y+cy+ch) return false;
-		}
+		if(s.y+s.cy+s.ch<y+cy) return false;
+		if(s.y+s.cy>y+cy+h) return false;
 		// столкновение по y прошло
-		
+		System.out.println("Collision detected");
 		return true;
 	}
 	
 	// проверка столкновения с прямоугольником
 	public boolean collidesWith(float rx, float ry, float rWidth, float rHeight)
 	{
-		if(x+cx<rx)
-		{
-			if(rx+rWidth<x+cx) return false;
-		}
-		else
-		{
-			if(rx>x+cx+cw) return false;
-		}
+		if(rx+rWidth<x+cx) return false;
+		if(rx>x+cx+w) return false;
 		// столкновение по x прошло
 		
-		if(y+cy<ry)
-		{
-			if(ry+rHeight<y+cy) return false;
-		}
-		else
-		{
-			if(ry>y+cy+ch) return false;
-		}
+		if(ry+rHeight<y+cy) return false;
+		if(ry>y+cy+h) return false;
 		// столкновение по y прошло
-		
+		System.out.println("Collision detected");
 		return true;
 	}
 }

@@ -6,7 +6,7 @@ public class Level
     private Vector<Tower> massTowers;  //РјР°СЃСЃРёРІ РѕР±СЉРµРєС‚РѕРІ
     public Tower[] getTowers()
     {
-        Tower[] mass=new Tower[massTowers.capacity()];
+        Tower[] mass=new Tower[massTowers.size()];
         massTowers.copyInto(mass);
         return mass;
     }
@@ -14,7 +14,7 @@ public class Level
     private Vector<Bug> massBugs;
     public Bug[] getBugs()
     {
-        Bug[] mass=new Bug[massBugs.capacity()];
+        Bug[] mass=new Bug[massBugs.size()];
         massBugs.copyInto(mass);
         return mass;
     }
@@ -123,6 +123,7 @@ class Pool
             if (!used[i])
             {
                 used[i] = true;
+                System.out.println(i);
                 //EventBroker.invoke("debugMsgChanged", "returned "+i);
                 return pool[i];
             }
@@ -131,6 +132,7 @@ class Pool
         {
             //mark everything as unused, except the first that would be returned
             //that should make all first objects to disappear and to be converted to latest objs
+        	System.out.println("Всему пизда");
             for (int i = 1; i < pool.length; i++)
             {
                 used[i] = false;
@@ -141,7 +143,7 @@ class Pool
         Bullet obj=new Bullet();
         pool[created] = obj;
         //EventBroker.invoke("debugMsgChanged", "created "+created);
-
+        
         return pool[created++];
     }
 
@@ -173,7 +175,7 @@ class Pool
         int j=0;
         for(int i=0;i<pool.length;i++)
         {
-            if (used[i]=true)
+            if (used[i])
             {
                 count++;
             }
@@ -181,7 +183,7 @@ class Pool
         Bullet[] mass=new Bullet[count];
         for(int i=0;i<pool.length;i++)
         {
-            if (used[i]=true)
+            if (used[i])
             {
                 mass[j]=pool[i];
                 j++;

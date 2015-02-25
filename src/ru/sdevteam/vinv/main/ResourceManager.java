@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 public class ResourceManager 
 {
 	
+	private ResourceManager() {}
+	
 	class Resource
 	{
 		String name;
@@ -30,9 +32,9 @@ public class ResourceManager
 	}
 	
 	static Vector<Resource> imges, sounds, fonts;
-	static Image splash;
+	static BufferedImage splash=null;
 	static boolean ready = false;
-	static int countOfFiles;
+	static int countOfFiles=1;
 	static int countOfReadyFiles = 0;
 	
 	static String path = "/ru/sdevteam/vinv/res/";
@@ -70,7 +72,7 @@ public class ResourceManager
 		return null;
 	}
 	
-	public Image getSplash() { return splash; }
+	public static Image getSplash() { return splash; }
 	
 	public static void init()
 	{
@@ -81,16 +83,18 @@ public class ResourceManager
 		String[] fonts = {};
 		countOfFiles = bullets.length + towers.length + decos.length + bugs.length + fonts.length;
 		
-		splash = I(path + "splash.png");
+		splash = BI(path + "splash.png");
 		
 		for(String name: fonts)
 		{
 			loadFont(name);
 			countOfReadyFiles++;
 		}
-		addImages(towers, "/towers/");
-		addImages(bugs, "/bugs/");
-		addImages(bullets, "/bullets/");
+		imges=new Vector<Resource>();
+		
+		addImages(towers, "towers/");
+		addImages(bugs, "bugs/");
+		addImages(bullets, "bullets/");
 		
 		ready = true;
 	}
@@ -133,7 +137,7 @@ public class ResourceManager
 	{
 		for(Resource r: imges)
 		{
-			if (r.name == key)
+			if (r.name.equals(key))
 			{
 				return (Image)r.data;
 			}
@@ -145,7 +149,7 @@ public class ResourceManager
 	{
 		for(Resource r: imges)
 		{
-			if (r.name == key)
+			if (r.name.equals(key))
 			{
 				return (BufferedImage)r.data;
 			}

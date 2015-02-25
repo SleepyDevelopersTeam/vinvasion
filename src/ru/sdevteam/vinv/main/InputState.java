@@ -80,6 +80,6 @@ public class InputState
 	
 	void markKeyUp(int vk)
 	{
-		down.remove(vk);
+		down.remove(new Integer(vk));
 	}
 }

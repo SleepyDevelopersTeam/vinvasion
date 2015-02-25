@@ -13,6 +13,7 @@ public class Timer extends Thread
 		super(name);
 		this.listeners = new Vector<OnTickListener>();
 		paused = true;
+		setDaemon(true);
 	}
 	
 	public int getInterval()

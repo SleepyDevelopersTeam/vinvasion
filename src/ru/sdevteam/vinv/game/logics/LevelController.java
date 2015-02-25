@@ -61,7 +61,7 @@ public class LevelController implements IUpdatable, IDrawable
 
 		for (int i = 0; i < arrayOfBullets.length; i++) 
 		{
-			for (int j = 0; j < arrayOfBugs.length; i++) 
+			for (int j = 0; j < arrayOfBugs.length; j++) 
 			{
 				if (arrayOfBullets[i].getSprite().collidesWith(arrayOfBugs[j].getSprite())) 
 				{
@@ -76,7 +76,7 @@ public class LevelController implements IUpdatable, IDrawable
 		
 		for (int i = 0; i < arrayOfTowers.length; i++) 
 		{
-			for (int j = 0; j < arrayOfBugs.length; i++) 
+			for (int j = 0; j < arrayOfBugs.length; j++) 
 			{
 				// if
 				// (ArrayOfTowers[i].getShootingRadius()>=((ArrayOfBugs[j].getX()-ArrayOfTowers[i].getX())*(ArrayOfBugs[j].getX()-ArrayOfTowers[i].getX()+(ArrayOfBugs[j].getY()-ArrayOfTowers[i].getY())*(ArrayOfBugs[j].getY()-ArrayOfTowers[i].getY()))))
@@ -91,6 +91,7 @@ public class LevelController implements IUpdatable, IDrawable
 						
 						Vector2F vectorOfBulletSpeed = new Vector2F(new Vector2F(arrayOfBugs[j].getX()-arrayOfTowers[i].getX(),arrayOfBugs[j].getY()-arrayOfTowers[i].getY()),b.getSpeed());
 						b.setVelocity(vectorOfBulletSpeed);
+						arrayOfTowers[i].shoot();
 					}
 				}
 			}
@@ -98,7 +99,7 @@ public class LevelController implements IUpdatable, IDrawable
 		
 		for (int i = 0; i < arrayOfBullets.length; i++)
 		{
-			if ((arrayOfBullets[i].getX()<-30) || (arrayOfBullets[i].getX()>130) || (arrayOfBullets[i].getY()<-30) || (arrayOfBullets[i].getX()>130))
+			if ((arrayOfBullets[i].getX()<-30) || (arrayOfBullets[i].getX()>1030) || (arrayOfBullets[i].getY()<-30) || (arrayOfBullets[i].getY()>1030))
 			{
 				modelOfLevel.disposeBullet(arrayOfBullets[i]);
 			}

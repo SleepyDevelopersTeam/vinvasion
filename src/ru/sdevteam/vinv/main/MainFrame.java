@@ -1,6 +1,8 @@
 package ru.sdevteam.vinv.main;
 
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -18,6 +20,8 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	private GameCanvas canvas;
 	private Timer updateTimer;
 	private Timer paintTimer;
+	private int height;
+	private int width;
 	
 
 	
@@ -25,7 +29,19 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	{
 		paintTimer = new Timer("Update");
 		updateTimer = new Timer("Paint");
-		canvas = new GameCanvas();
+		
+		Toolkit tool = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tool.getScreenSize();
+		height = screenSize.height;
+		width = screenSize.width;
+		setSize(width, height);
+		
+		canvas = new GameCanvas(width, height);
+		canvas.setSize(this.getSize());
+		
+		this.add(canvas);
+		
+		
 		
 		setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -33,7 +49,7 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		addKeyListener(this);
 		addMouseListener(this);
 		
-		updateTimer.setInterval(30);
+		updateTimer.setInterval(33);
 		updateTimer.addOnTickListener(new OnTickListener() 
 		{
 			
@@ -44,17 +60,19 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 			}
 		});
 		
-		paintTimer.setInterval(30);
+		paintTimer.setInterval(33);
 		paintTimer.addOnTickListener(new OnTickListener() {
 			
 			@Override
 			public void onTick() 
 			{
-				repaint();
+				canvas.repaint();
 			}
 		});
 		updateTimer.start();
 		paintTimer.start();
+		
+		ResourceManager.init();
 	}
 	@Override
 	public void keyPressed(KeyEvent e) 

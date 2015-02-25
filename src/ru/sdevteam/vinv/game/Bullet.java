@@ -1,4 +1,6 @@
 package ru.sdevteam.vinv.game;
+import java.awt.image.BufferedImage;
+
 import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.utils.PhysObject;
@@ -56,7 +58,7 @@ public class Bullet extends GameObject
                          break;
             case NORMAL: damage=15;
                          unstoppable=false;
-                         speed=20;
+                         speed=10;
                          break;
         }
     }

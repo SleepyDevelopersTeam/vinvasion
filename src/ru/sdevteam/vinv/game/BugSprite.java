@@ -9,8 +9,9 @@ public class BugSprite extends Sprite
 	
 	public BugSprite(Bug b)
 	{
-		super(ResourceManager.getBufferedImage("bugs/test_bug"), 256, 256);
+		super(ResourceManager.getBufferedImage("bugs/test_bug"), 128, 128);
 		instanse=b;
+		setCollisionRectangle(32, 32, 64, 64);
 	}
 	
 	@Override
