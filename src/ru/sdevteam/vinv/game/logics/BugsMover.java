@@ -72,6 +72,17 @@ public class BugsMover
 	{
 		path.addPoint(x, y);
 	}
+	public Vector2F getBugVelocity(Bug a)
+	{
+		for(int i=0;i<items.size();++i)
+		{
+			if (items.elementAt(i).bug==a)
+			{
+				return items.elementAt(i).velocity.copy();
+			}
+		}
+		return 0;
+	}
 
 	public void update() 
 	{
