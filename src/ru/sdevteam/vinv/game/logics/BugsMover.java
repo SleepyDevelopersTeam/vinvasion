@@ -81,7 +81,7 @@ public class BugsMover
 				return items.elementAt(i).velocity.copy();
 			}
 		}
-		return 0;
+		return null;
 	}
 
 	public void update() 
