@@ -14,16 +14,17 @@ public class LevelController implements IUpdatable, IDrawable
 {
 	private Level modelOfLevel;
 	private GameScreen screen;
-	private BugsMover items;
+	private BugsMover mover;
 	
 	public LevelController(GameScreen a, Level l) 
-	{
+	{  
 		modelOfLevel = l;
 		screen=a;
 		Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
+		BugsMover mover= new BugsMover();
 		for(int i=0;i<arrayOfBugs.length;i++)
 		{
-			items.addBug(arrayOfBugs[i]);
+			//mover.addBug(arrayOfBugs[i]); //
 		}
 	}
 
@@ -97,7 +98,7 @@ public class LevelController implements IUpdatable, IDrawable
 															arrayOfTowers[i].getBulletType());
 						Vector2F distanceBugToTower=new Vector2F(arrayOfBugs[j].getX()-arrayOfTowers[i].getX(),arrayOfBugs[j].getY()-arrayOfTowers[i].getY());
 						float flightTime=distanceBugToTower.getMagnitude()/b.getSpeed();
-						Vector2F displacement= items.getBugVelocity(arrayOfBugs[j]);
+						Vector2F displacement= mover.getBugVelocity(arrayOfBugs[j]);
 						displacement.multipleBy(flightTime);
 						distanceBugToTower.add(displacement);
 						arrayOfTowers[i].rotate(distanceBugToTower.getDirection());
