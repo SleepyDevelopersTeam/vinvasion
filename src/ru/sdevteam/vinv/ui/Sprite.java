@@ -168,8 +168,8 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 	{
 		int framex, framey;
 		
-		framex=curFrame%fpw;
-		framey=curFrame/fpw;
+		framex=(curFrame%fpw)*this.w;
+		framey=(curFrame/fpw)*this.h;
 		
 		Image frame=source.getSubimage(framex, framey, w, h);
 		// TODO: здесь решить, как отрисовывать спрайты с дробными координатами
@@ -212,7 +212,6 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 		if(s.y+s.cy+s.ch<y+cy) return false;
 		if(s.y+s.cy>y+cy+h) return false;
 		// столкновение по y прошло
-		System.out.println("Collision detected");
 		return true;
 	}
 	
@@ -226,7 +225,6 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 		if(ry+rHeight<y+cy) return false;
 		if(ry>y+cy+h) return false;
 		// столкновение по y прошло
-		System.out.println("Collision detected");
 		return true;
 	}
 }

@@ -23,9 +23,7 @@ public class TowerSprite extends Sprite
 		// TODO: обновляем спрайт в соответствии с состоянием instanse
 		// test tower has 12 rotation images
 		
-		//int frame=Vector2F.getDiscreteRotation(12, instanse.getRotation());
-		//frame+=3; // мой небольшой косяк в порядке кадров на картинке
-		//if(frame>=12) frame-=12;
-		//gotoFrame(frame);
+		int frame=Vector2F.getDiscreteRotation(12, instanse.getRotation());
+		gotoFrame(frame);
 	}
 }

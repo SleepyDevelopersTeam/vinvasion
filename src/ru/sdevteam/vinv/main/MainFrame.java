@@ -27,8 +27,8 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	
 	public MainFrame()
 	{
-		paintTimer = new Timer("Update");
-		updateTimer = new Timer("Paint");
+		paintTimer = new Timer("Paint");
+		updateTimer = new Timer("Update");
 		
 		Toolkit tool = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tool.getScreenSize();

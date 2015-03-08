@@ -16,18 +16,23 @@ public class BugsMover
 		path = new Path();
 	}
 	
-	private Vector2F getVelocityFor(int part, float speed)
+	private Vector2F getVelocityFor(float x, float y, int part, float speed)
 	{
-		Vector2F deltaR= new Vector2F((path.getPathX(part+1)-path.getPathX(part)),(path.getPathY(part+1)-path.getPathY(part)));
+		Vector2F deltaR=new Vector2F(	(path.getPathX(part+1)-/*path.getPathX(part)*/x),
+										(path.getPathY(part+1)-/*path.getPathY(part)*/y));
 		deltaR.setMagnitude(speed);
 		return deltaR;
 	}
 	public void addBug(Bug item)
 	{
 		BugsMoverItem a = new BugsMoverItem(item);
-		a.velocity = getVelocityFor(0, item.getSpeed());
 		item.setX(path.getPathX(0));
 		item.setY(path.getPathY(0));
+		
+		a.velocity = getVelocityFor(item.getX(), item.getY(), 0, item.getSpeed());
+		
+		item.rotate(a.velocity.getDirection());
+		
 		items.addElement(a);
 	}
 	
@@ -107,7 +112,8 @@ public class BugsMover
 			if (vecBugTosec/vecSec1Tosec>vecBugTosec2/vecSec2Tosec1)
 			{
 				b.section++;
-				b.velocity=getVelocityFor(b.section,b.bug.getSpeed());
+				b.velocity=getVelocityFor(b.bug.getX(), b.bug.getY(), b.section, b.bug.getSpeed());
+				
 				b.bug.rotate(b.velocity.getDirection());
 				if (path.getPointsCount()-2==b.section)
 				{

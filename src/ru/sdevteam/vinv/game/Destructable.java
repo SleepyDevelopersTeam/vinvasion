@@ -39,4 +39,9 @@ public abstract class Destructable extends GameObject
 
     protected abstract void onDestroyed(); //??? должен вызываться при достижении показателем hp нуля
 
+    @Override
+    public void update()
+    {
+    	super.update();
+    }
 }

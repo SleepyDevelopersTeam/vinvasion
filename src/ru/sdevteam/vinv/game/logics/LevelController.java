@@ -21,10 +21,12 @@ public class LevelController implements IUpdatable, IDrawable
 		modelOfLevel = l;
 		screen=a;
 		Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
-		BugsMover mover= new BugsMover();
+		
+		mover=new BugsMover();
+		mover.setPath(l.getLevelPath());
 		for(int i=0;i<arrayOfBugs.length;i++)
 		{
-			//mover.addBug(arrayOfBugs[i]); //
+			mover.addBug(arrayOfBugs[i]);
 		}
 	}
 
@@ -81,30 +83,35 @@ public class LevelController implements IUpdatable, IDrawable
 			}
 		}
 		
+		mover.update();
+		
 		for (int i = 0; i < arrayOfTowers.length; i++) 
 		{
 			for (int j = 0; j < arrayOfBugs.length; j++) 
 			{
-				 if
-				/* (ArrayOfTowers[i].getShootingRadius()*/(20>=((arrayOfBugs[j].getX()-
-						arrayOfTowers[i].getX())*(arrayOfBugs[j].getX()-arrayOfTowers[i].getX()+(arrayOfBugs[j].getY()-
-						arrayOfTowers[i].getY())*(arrayOfBugs[j].getY()-arrayOfTowers[i].getY()))))
+				Vector2F distanceBugToTower=new Vector2F(arrayOfBugs[j].getX()-arrayOfTowers[i].getX(),
+						arrayOfBugs[j].getY()-arrayOfTowers[i].getY());
+				 if(distanceBugToTower.getMagnitude()<200F)
 				// //bug into radius of Tower )
-				 {	 
+				 {
 					if (arrayOfTowers[i].canShoot()) 
 					{	
 						Bullet b = modelOfLevel.getBullet(	arrayOfTowers[i].getX(),
 															arrayOfTowers[i].getY(),
 															arrayOfTowers[i].getBulletType());
-						Vector2F distanceBugToTower=new Vector2F(arrayOfBugs[j].getX()-arrayOfTowers[i].getX(),arrayOfBugs[j].getY()-arrayOfTowers[i].getY());
+						
+						
 						float flightTime=distanceBugToTower.getMagnitude()/b.getSpeed();
-						Vector2F displacement= mover.getBugVelocity(arrayOfBugs[j]);
+						
+						Vector2F displacement=mover.getBugVelocity(arrayOfBugs[j]);
 						displacement.multipleBy(flightTime);
 						distanceBugToTower.add(displacement);
-						arrayOfTowers[i].rotate(distanceBugToTower.getDirection());
-						Vector2F vectorOfBulletSpeed = new Vector2F(distanceBugToTower,b.getSpeed());
+						
+						Vector2F vectorOfBulletSpeed = new Vector2F(distanceBugToTower, b.getSpeed());
 						b.setVelocity(vectorOfBulletSpeed);
 						arrayOfTowers[i].shoot();
+						
+						arrayOfTowers[i].rotate(distanceBugToTower.getDirection());
 					}
 				}
 			}

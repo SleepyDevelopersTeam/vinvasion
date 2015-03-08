@@ -62,12 +62,13 @@ public class Vector2F
 		// (2п никогда не будет возвращено по причине,
 		// что это значение отлавливается одним из
 		// условий выше)
-		return (float)Math.atan2(y, x)+LEFT;
+		return (float)Math.atan2(y, x)+(y<0?LEFT*2:0F);
 		// (LEFT==(float)п)
 	}
 	
 	public void setMagnitude(float mag)
 	{
+		assert mag>0: "Magnitude should be positive or zero";
 		multipleBy(mag/getMagnitude());
 	}
 	public void rotate(float newAngle)
@@ -119,6 +120,12 @@ public class Vector2F
 		return v;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return "("+x+"; "+y+")";
+	}
+	
 	//
 	// STATIC MATH
 	//
@@ -130,6 +137,8 @@ public class Vector2F
 		// ширина сегмента (расстояние между соседними значениями спектра)
 		float segmentWidth=(float)Math.PI*2/spectrumWidth;
 		// округляем
-		return (int)(angle/segmentWidth+0.5F);
+		int dr=(int)(angle/segmentWidth+0.5F);
+		if(dr==spectrumWidth) dr=0;
+		return dr;
 	}
 }

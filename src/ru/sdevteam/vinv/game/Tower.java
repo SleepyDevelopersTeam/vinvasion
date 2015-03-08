@@ -24,15 +24,15 @@ public class Tower extends Destructable
 
     public Tower()
     {
-     type=Bullet.Type.NORMAL;
-     price=10;
-     shootingRadius=100;
-     sprite= new TowerSprite(this);
-     reloadTimeMillis=500;
+		type=Bullet.Type.NORMAL;
+		price=10;
+		shootingRadius=100;
+		sprite= new TowerSprite(this);
+		reloadTimeMillis=500;
     }
 
 
-     public void shoot()
+	public void shoot()
     {
         if(canShoot())
         {
@@ -62,7 +62,7 @@ public class Tower extends Destructable
     
     public void update()
     {
-        
+        super.update();
     }
 }
 

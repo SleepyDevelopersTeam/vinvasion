@@ -1,6 +1,8 @@
 package ru.sdevteam.vinv.game;
 import java.util.*;
 
+import ru.sdevteam.vinv.game.logics.Path;
+
 public class Level
 {
     private Vector<Tower> massTowers;  //РјР°СЃСЃРёРІ РѕР±СЉРµРєС‚РѕРІ
@@ -17,6 +19,13 @@ public class Level
         Bug[] mass=new Bug[massBugs.size()];
         massBugs.copyInto(mass);
         return mass;
+    }
+    
+    private Path levelPath;
+    
+    public Path getLevelPath()
+    {
+    	return levelPath;
     }
 
 
@@ -45,6 +54,33 @@ public class Level
         objLevel.addTower(aTower);
         objLevel.addBug(aBug);
         objLevel.addBug(bBug);
+        
+        objLevel.levelPath=new Path();
+        /*objLevel.levelPath.addPoint(25F, 50F);
+        objLevel.levelPath.addPoint(25F, 325F);
+        objLevel.levelPath.addPoint(50F, 350F);
+        objLevel.levelPath.addPoint(325F, 350F);*/
+        objLevel.levelPath.addPoint(350F, 325F);
+        objLevel.levelPath.addPoint(350F, 50F);
+        objLevel.levelPath.addPoint(325F, 25F);
+        objLevel.levelPath.addPoint(50F, 25F);
+        objLevel.levelPath.addPoint(25F, 50F);
+        objLevel.levelPath.addPoint(25F, 325F);
+        objLevel.levelPath.addPoint(50F, 350F);
+        objLevel.levelPath.addPoint(325F, 350F);
+        objLevel.levelPath.addPoint(350F, 325F);
+        objLevel.levelPath.addPoint(350F, 50F);
+        objLevel.levelPath.addPoint(325F, 25F);
+        objLevel.levelPath.addPoint(50F, 25F);
+        objLevel.levelPath.addPoint(25F, 50F);
+        objLevel.levelPath.addPoint(25F, 325F);
+        objLevel.levelPath.addPoint(50F, 350F);
+        objLevel.levelPath.addPoint(325F, 350F);
+        objLevel.levelPath.addPoint(350F, 325F);
+        objLevel.levelPath.addPoint(350F, 50F);
+        objLevel.levelPath.addPoint(325F, 25F);
+        objLevel.levelPath.addPoint(50F, 25F);
+        objLevel.levelPath.addPoint(1050F, 1050F);
 
         return objLevel;
     }
@@ -123,7 +159,6 @@ class Pool
             if (!used[i])
             {
                 used[i] = true;
-                System.out.println(i);
                 //EventBroker.invoke("debugMsgChanged", "returned "+i);
                 return pool[i];
             }
@@ -132,7 +167,7 @@ class Pool
         {
             //mark everything as unused, except the first that would be returned
             //that should make all first objects to disappear and to be converted to latest objs
-        	System.out.println("Всему пизда");
+        	System.out.println("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
             for (int i = 1; i < pool.length; i++)
             {
                 used[i] = false;

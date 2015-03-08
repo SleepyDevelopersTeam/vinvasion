@@ -46,5 +46,10 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
     {
         sprite.moveBy(dx,dy);
     }
-
+    
+    @Override
+    public void update()
+    {
+    	sprite.update();
+    }
 }

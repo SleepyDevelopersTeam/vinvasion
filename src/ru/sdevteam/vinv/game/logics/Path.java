@@ -6,10 +6,14 @@ import ru.sdevteam.vinv.utils.Vector2F;
 public class Path
 {
 	private Vector <Vector2F> path;
-	Path()
+	
+	
+	public Path()
 	{
 		path = new Vector<Vector2F>();
 	}
+	
+	
 	public void setCoords(float[] coords)
 	{
 		path.clear();
