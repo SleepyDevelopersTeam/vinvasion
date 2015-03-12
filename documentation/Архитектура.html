@@ -131,6 +131,7 @@ function clearSearch()
 <li><a href="#ru.sdevteam.vinv.game">ru.sdevteam.vinv.game</a> – классы игровой модели:
 	<ul>
 		<li><a href="#ru.sdevteam.vinv.game.Level">Level</a> – хранит информацию о уровне, существующих объектах и т.д.</li>
+		<li><a href="#ru.sdevteam.vinv.game.Level.Iterator">Level.Iterator</a> – итератор объектов уровня</li>
 		<li><a href="#ru.sdevteam.vinv.game.GameObject">GameObject</a> – абстрактный класс игрового объекта на поле</li>
 		<li><a href="#ru.sdevteam.vinv.game.Destructable">Destructable</a> – абстрактный класс разрушаемого игрового объекта</li>
 		<li><a href="#ru.sdevteam.vinv.game.Tower">Tower</a> – (в будущем абстрактный) класс, хранящий информацию о башне и её характеристиках</li>
@@ -177,7 +178,7 @@ function clearSearch()
 {
 	... 
 }</pre>
-Главная форма приложения. На себе содержит <code>GameCanvas</code>, также слушает события мыши и клавиатуры, данные о которых затем передаёт в <code>Input</code>. При создании порождает основные потоки игры – поток обновления и поток отрисовки (через экземпляры класса <code>Timer</code>), запускает их и передаёт генерируемые ими события в экземпляр <code>GameCanvas</code>. Также при запуске вызывает инициализацию класса <code>ResourseManager</code>.
+Главная форма приложения. На себе содержит <code>GameCanvas</code>, также слушает события мыши и клавиатуры, данные о которых затем передаёт в <code>Input</code>. При создании порождает основные потоки игры – поток обновления и поток отрисовки (через экземпляры класса <code>Timer</code>), запускает их и передаёт генерируемые ими события в экземпляр <code>GameCanvas</code>. Также при запуске вызывает <code>.start()</code> экземпляра <code>GameCanvas</code> и инициализацию класса <code>ResourseManager</code>.
 </div>
 <div class='unit'>
 <h2><a name="ru.sdevteam.vinv.main.GameCanvas">ru.sdevteam.vinv.main.GameCanvas</a></h2>
@@ -185,7 +186,7 @@ function clearSearch()
 {
 	...
 }</pre>
-Игровой холст, на нём будет отрисовываться вся графика. Содержит экземпляр класса <code>Screen</code>, на который передаёт вызовы методов <code>update()</code> и <code>paint(Graphics)</code>. Также реализует двойную буферизацию и адаптацию внутриигрового расширения к расширению экрана (если требуется). Для смены экранов предусмотреть метод <code>void setActiveScreen(Screen item)</code>.
+Игровой холст, на нём будет отрисовываться вся графика. Содержит экземпляр класса <code>Screen</code>, на который передаёт вызовы методов <code>update()</code> и <code>paint(Graphics)</code>. Также реализует двойную буферизацию и адаптацию внутриигрового расширения к расширению экрана (если требуется). Для смены экранов предусмотреть метод <code>void setActiveScreen(Screen item)</code>. Определяет метод <code>.start()</code>, который используется вызывающей стороной по готовности запустить экран загрузки (т.е., после его полной инициализации).
 </div>
 
 <div class='unit'>
@@ -354,7 +355,7 @@ void showMessageBox(MessageBox item); </pre>
 {
 	...
 }</pre>
-Экран, появляющийся первым на холсте, сразу после запуска игры. Не содержит особых элементов интерфейса, только отображает ход загрузки. После её окончания переключается на следующий экран (<code>GameScreen</code> в первой рабочей сборке и <code>MainMenuScreen</code> в дальнейшем). 
+Экран, появляющийся первым на холсте, сразу после запуска игры. Не содержит особых элементов интерфейса, только отображает ход загрузки. После её окончания переключается на следующий экран (<code>GameScreen</code> в первой рабочей сборке и <code>MainMenuScreen</code> в дальнейшем).
 </div>
 
 <div class='unit'>
@@ -608,15 +609,32 @@ protected abstract void onActivated();</pre>
 }</pre>
 Класс, содержащий информацию об уровне и все находящиеся на игровом поле объекты, как интерактивные, так и статичные. Должен содержать следующие методы:
 <pre>// возвращает массив, содержащий все динамичные и статичные объекты уровня
-// (данный подход, возможно, будет заменён на использование итератора)
+// (данный подход заменён на использование итератора)
+@Obsolete
 public GameObject[] getDecorations();
+@Obsolete
 public void addObject(GameObject item);
+@Obsolete
 public void removeObject(GameObject item);
 
 // методы используются для более удобной обработки классом LevelController
+@Obsolete
 public Tower[] getTowers();
+@Obsolete
 public Bug[] getBugs();
+@Obsolete
 public Bullet[] getBullets();
+
+// Возвращает итераторы, перечисляющие все !активные! -
+// башни
+public Level.Iterator getTowersIterator();
+// жуков
+public Level.Iterator getBugsIterator();
+// пуль
+public Level.Iterator getBulletsIterator();
+// и декораций
+// [реализацию отложить]
+public Level.Iterator getDecosIterator();
 
 // возвращает объект для отрисовки фона
 public TiledLayer getFone();
@@ -633,6 +651,46 @@ public Bullet getBullet(int x, int y, BulletType type);
 public void disposeBullet(Bullet item);</pre>
 Для создания экземпляров класса будет использоваться не конструктор, а статический метод, принимающий номер уровня и создающий его из данных файла:
 <pre>static Level createLevel(int num);</pre>
+</div>
+
+<div class='unit'>
+<h2><a name="ru.sdevteam.vinv.game.Level.Iterator">ru.sdevteam.vinv.game.Level.Iterator</a></h2>
+<pre>public class Level
+{
+	...
+	
+	public abstract class Iterator
+	{
+		...
+	}
+}</pre>
+Объявляет методы для итератора типа GameObject, которые затем будут использоваться классами <code>Level</code> и <code>LevelController</code>. Методы и конструкторы:
+<pre>// конструктор принимает обслуживаемый итератором уровень
+public Iterator(Level lvl);
+
+// передвигается к следующему объекту и возращает его либо null
+public abstract GameObject next();
+// возвращает текущий объект
+public abstract GameObject current();
+// проверяет, остались ли ещё непройденные объекты
+public abstract boolean hasMoreObjects();
+// возвращает итератор в начальную позицию
+public abstract void reset();
+</pre>
+От данного класса наследуются анонимные классы (по одному на каждый требуемый метод - для башен, жуков, ...), экземпляры которых создаются в конструкторе уровня и сохраняются в соответствующих полях. При вызове метода <code>getXXXXIterator</code>, эти итераторы сбрасываются и затем возвращаются вызывающей стороне. Пример создания итератора:
+<pre>private Level()
+{
+	this.towersIterator=this.new Iterator()
+	{
+		@Override
+		public GameObject next()
+		{
+			...
+		}
+		
+		...
+	}
+}</pre>
 </div>
 
 <div class='unit'>
@@ -659,8 +717,8 @@ void moveBy(float dx, float dy);
 void dispose();
 
 // вращение объекта
-// (эта часть пока в разработке, её не трогать)
 // подробнее о вращении см. внизу
+// [под вопросом]
 abstract boolean isRotatable();
 void rotate(float angle);
 float getRotation();</pre>
