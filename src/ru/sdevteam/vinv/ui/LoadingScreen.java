@@ -24,8 +24,6 @@ public class LoadingScreen extends Screen
 		splash=null;
 		hightCanvas = loadingCanvas.getHeight();
 		widthCanvas = loadingCanvas.getWidth();
-		System.out.println(hightCanvas+" "+widthCanvas);
-
 	}
 
 	@Override
