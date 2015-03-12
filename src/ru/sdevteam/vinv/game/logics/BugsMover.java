@@ -9,11 +9,13 @@ public class BugsMover
 {
 	private Path path;
 	private Vector <BugsMoverItem> items;
+	private LevelController lvlctrl;
 	
-	public BugsMover()
+	public BugsMover(LevelController a)
 	{
 		items = new Vector<BugsMoverItem>();
 		path = new Path();
+		lvlctrl=a;
 	}
 	
 	private Vector2F getVelocityFor(float x, float y, int part, float speed)
@@ -117,7 +119,7 @@ public class BugsMover
 				b.bug.rotate(b.velocity.getDirection());
 				if (path.getPointsCount()-2==b.section)
 				{
-					//TODO: lvlctrl
+					lvlctrl.onPathEndReached(b.bug);
 					items.remove(b);
 					i--;
 				}

@@ -8,21 +8,32 @@ import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.utils.Vector2F;
-import ru.sdevteam.vinv.ui.GameScreen;;
-
+import ru.sdevteam.vinv.ui.GameScreen;
+import ru.sdevteam.vinv.game.Player;
 public class LevelController implements IUpdatable, IDrawable 
 {
 	private Level modelOfLevel;
 	private GameScreen screen;
 	private BugsMover mover;
+	private Player player;
 	
+	public void onPathEndReached(Bug invoker)
+	{
+		//set hp of invoker to 0;
+		//dicrease people on the mainBase
+	}
+	
+	public Player getPlayer()
+	{
+		return player;
+	}
 	public LevelController(GameScreen a, Level l) 
 	{  
 		modelOfLevel = l;
 		screen=a;
 		Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
 		
-		mover=new BugsMover();
+		mover=new BugsMover(this);
 		mover.setPath(l.getLevelPath());
 		for(int i=0;i<arrayOfBugs.length;i++)
 		{
