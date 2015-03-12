@@ -25,23 +25,16 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 		//buffer = createImage(width, height);
 		buffer=new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 		buffg=buffer.getGraphics();
-<<<<<<< HEAD
 	}
 	
 	public void start()
 	{
-=======
->>>>>>> ad8062d94ca437c7a1ec9816a45319dc2aa5df79
 		this.screen = new LoadingScreen(this);
 	}
 	
 	public void update()
 	{
-<<<<<<< HEAD
 		if(this.screen != null) this.screen.update();
-=======
-		this.screen.update();
->>>>>>> ad8062d94ca437c7a1ec9816a45319dc2aa5df79
 	}
 	
 	@Override
@@ -52,10 +45,7 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	
 	public void paint (Graphics item)
 	{
-<<<<<<< HEAD
 		if(this.screen == null) return;
-=======
->>>>>>> ad8062d94ca437c7a1ec9816a45319dc2aa5df79
 		buffg.setColor(Color.black);
 		buffg.fillRect(0, 0, getWidth(), getHeight());
 		this.screen.paint(buffg);

@@ -72,6 +72,8 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		updateTimer.start();
 		paintTimer.start();
 		
+		canvas.start();
+		
 		ResourceManager.init();
 	}
 	@Override
