@@ -39,7 +39,7 @@ public class TiledLayer implements IMoveable
 
 	protected BufferedImage getTileImage(int index)
 	{
-		return;
+		return null;
 	}
 
 	public void paint(Graphics g, float x, float y, float w, float h)
@@ -49,11 +49,11 @@ public class TiledLayer implements IMoveable
 	
 	public int getPixelsWidth()
 	{
-		return ;
+		return 0;
 	}
 	public int getPixelsHeight()
 	{
-		return;
+		return 0;
 	}
 
 	public int getTileWidth()
