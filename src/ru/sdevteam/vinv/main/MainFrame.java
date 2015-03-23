@@ -46,8 +46,10 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
 		
-		addKeyListener(this);
-		addMouseListener(this);
+		canvas.addKeyListener(this);
+		canvas.addMouseListener(this);
+		canvas.addMouseMotionListener(this);
+		canvas.addMouseWheelListener(this);
 		
 		updateTimer.setInterval(33);
 		updateTimer.addOnTickListener(new OnTickListener() 
@@ -88,7 +90,7 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	{
 		ru.sdevteam.vinv.main.KeyEvent key = new ru.sdevteam.vinv.main.KeyEvent(e.getKeyCode(), e.getKeyChar(), 
 				ru.sdevteam.vinv.main.KeyEvent.Type.RELEASED);
-		Input.pushKeyEvent(key);	
+		Input.pushKeyEvent(key);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) 
@@ -100,32 +102,34 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		
+		//Nothing to do here...
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) 
 	{
-		// TODO Auto-generated method stub
+		//Nothing to do here...
 	}
 	@Override
 	public void mouseExited(MouseEvent arg0) 
 	{
-		// TODO Auto-generated method stub	
+		//Nothing to do here...
 	}
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
 		if(SwingUtilities.isLeftMouseButton(e))
 		{
+			System.out.println("LMB is pressed");
 			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
 					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
-			Input.pushMouseEvent(m);
+			Input.pushMouseEvent(m);	
 		}
 		else if (SwingUtilities.isRightMouseButton(e))
 		{
 			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
 					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
 			Input.pushMouseEvent(m);
+			System.out.println("RMB is pressed");
 		}
 	}
 	@Override
@@ -145,9 +149,11 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		}
 	}
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseDragged(MouseEvent e)
+	{
+		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+				ru.sdevteam.vinv.main.MouseEvent.Type.MOTION, ru.sdevteam.vinv.main.MouseEvent.Button.NONE);
+		Input.pushMouseEvent(m);
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) 
