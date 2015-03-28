@@ -6,6 +6,13 @@ import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 {
+	private Player player;
+	public Player createPlayer()
+	{
+		return null;
+	}
+
+
 	private Iterator towersIterator;
 	public Level.Iterator getTowersIterator()
 	{
