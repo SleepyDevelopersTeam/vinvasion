@@ -1,0 +1,23 @@
+ru.sdevteam.vinv.main.MouseEvent
+
+`[Общая информация]
+`(Java
+public class KeyEvent
+{
+	...
+}
+`)
+
+
+Класс, описывающий событие клавиатуры. Вложенное перечисление `.KeyEvent.Types`
+определяет тип события (клавиша нажата/отпущена, введён символ).
+`[Определяемые методы]
+`(Java
+KeyEvent.Types getType(); // тип события
+char keyChar();
+ControlKeys getKey();
+`)
+`@
+`{main/Input.build2.txt}Input`
+`{main/MouseEvent.build2.txt}MouseEvent`
+`{notes/Обработка ввода пользователя.build2.txt}Об обработке ввода пользователя`

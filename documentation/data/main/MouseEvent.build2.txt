@@ -1,0 +1,26 @@
+ru.sdevteam.vinv.main.MouseEvent
+
+`[Общая информация]
+`(Java
+public class MouseEvent
+{
+	...
+}
+`)
+Класс, описывающий событие мыши. Вложенные перечисления `.MouseEvent.Type` и
+`.MouseEvent.Button` определяют соответственно тип события (кнопка нажата/отпущена,
+прокрутка, движение мыши) и задействованные кнопки мыши.
+
+`[Определяемые методы]
+`(Java
+MouseEvent.Types getType(); // тип события
+MouseEvent.Buttons getButton(); // вызвавшая событие кнопка
+
+int getX(); // координаты мыши
+int getY();
+int getDelta(); // вращение колеса
+`)
+`@
+`{main/Input.build2.txt}Input`
+`{main/KeyEvent.build2.txt}KeyEvent`
+`{notes/Обработка ввода пользователя.build2.txt}Об обработке ввода пользователя`

@@ -1,0 +1,60 @@
+ru.sdevteam.vinv.utils.Vector2F
+
+`[Общие сведения]
+`(Java
+public class Vector2F
+{
+	...
+}
+`)
+
+Класс служит для хранения и более удобного обращения с координатами двумерного
+пространства. Предоставляет средства для работы в декартовой прямоугольной и
+полярной системах координат.
+
+Поскольку объекты всегда передаются как ссылка на соответствующий участок памяти,
+а данный класс представляет из себя просто удобное хранилище нескольких значений,
+то `.Vector2F` определяет метод `..copy()`, возвращающий новый объект, во всём,
+кроме занимаемой области памяти, идентичный исходному.
+
+`[Определяемые методы]
+`(Java
+float getX();
+float getY();
+void setX(float val);
+void setY(float val);
+void moveTo(float nx, float ny);
+void moveBy(float dx, float dy);
+
+float getMagnitude();
+void setMagnitude(float val);
+
+float getDirection();
+void rotate(float angle);
+
+// арифметические операции
+void multiplyBy(float coeff);
+void divideBy(float coeff);
+void add(Vector2F v);
+void sub(Vector2F v);
+
+Vector2F copy();
+Vector2F getUnitary(); // единичный вектор
+`)
+
+Также, объявляет следующие константы:
+
+`(Java
+static final float UP=(float)Math.PI*3/2;
+static final float DOWN=(float)Math.PI/2;
+static final float LEFT=(float)Math.PI;
+static final float RIGHT=0F;
+
+static final Vector2F ex=new Vector2F(1, 0);
+static final Vector2F ey=new Vector2F(0, 1);
+static final Vector2F O=new Vector2F(0, 0);
+`)
+
+`@
+package `{utils/utils.build2.txt}utils`
+`{utils/PhysObject.build2.txt}PhysObject` (как пример использования)

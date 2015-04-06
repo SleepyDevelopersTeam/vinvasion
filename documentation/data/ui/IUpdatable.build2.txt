@@ -1,0 +1,21 @@
+ru.sdevteam.vinv.ui.IUpdatable
+
+`[Общие сведения]
+`(Java
+public interface IUpdatable
+{
+	...
+}
+`)
+
+Интерфейс является родителем всех классов, которые можно отрисовать.
+
+`[Объявляемые методы]
+`(Java
+public void update();
+`)
+
+`@
+`{ui/Sprite.build2.txt}Sprite` (как пример реализующего класса)
+`{ui/IDrawable.build2.txt}IDrawable`
+`{notes/Основные потоки программы.build2.txt}Основные потоки программы`

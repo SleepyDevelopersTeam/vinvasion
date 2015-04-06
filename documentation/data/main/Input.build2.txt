@@ -1,0 +1,36 @@
+ru.sdevteam.vinv.main.Input
+
+`[ќбща€ информаци€]
+`(Java
+public static class Input
+{
+	...
+}
+`)
+ ласс, хран€щий информацию о событи€х клавиатуры и мыши и предоставл€ющий к ним доступ в виде
+очереди (в пор€дке их поступлени€). ѕосле чтени€ событи€ оно автоматически удал€етс€ из очереди.
+
+“акже позвол€ет получить доступ к текущему состо€нию устройств ввода.
+
+`[ќпредел€емые методы]
+`(Java
+public static int getMouseX(); // текущие координаты мыши
+public static int getMouseY();
+public static boolean isKeyDown(ControlKeys key); // определ€ет, нажата ли клавиша key
+
+// провер€ет, не пуста ли очередь событий
+public static boolean hasMoreKeyEvents();
+// возвращает следующее событие в очереди
+public static KeyEvent getNextKeyEvent();
+
+public static boolean hasMoreMouseEvents(); // аналогичные методы дл€ событий мыши
+public static MouseEvent getNextMouseEvent();
+
+// методы с пакетной областью видимости!
+static void pushKeyEvent(KeyEvent e); // добавить событие в очередь
+static void pushMouseEvent(MouseEvent e);
+`)
+`@
+`{main/MouseEvent.build2.txt}MouseEvent`
+`{main/KeyEvent.build2.txt}KeyEvent`
+`{notes/ќбработка ввода пользовател€.build2.txt}ќб обработке ввода пользовател€`

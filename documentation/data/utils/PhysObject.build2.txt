@@ -1,0 +1,48 @@
+ru.sdevteam.vinv.utils.PhysObject
+
+`[Общие сведения]
+`(Java
+public class PhysObject implements IUpdatable
+{
+	...
+}
+`)
+
+Класс реализует поведение объекта под действием законов кинематики, а также силы трения.
+
+`[Определяемые методы]
+`(Java
+// возвращают ссылки на копии векторов
+Vector2F getLocation();
+Vector2F getVelocity();
+Vector2F getAccel();
+
+void setLocation(Vector2F newr);
+void setVelocity(Vector2F newv);
+void setAccel(Vector2F newa);
+
+// возвращают ссылки на актуальные вектора
+Vector2F location();
+Vector2F velocity();
+Vector2F accel();
+
+// ограничитель модуля скорости
+float getMaxSpeed();
+void setMaxSpeed(float val);
+
+// трение
+float getFriction();
+void setFriction(float coeff);
+`)
+
+Метод `..update()` обновляет параметры объекта.
+Особое внимание стоит уделить работе методов `..getLocation()` и `..location()` (и их
+аналогов для скорости и ускорения) - `*методы первого типа возвращают копию` исходного
+вектора, то есть, изменение этих веторов никак не скажутся на самом объекте. `*Методы
+второго типа возвращают ссылку на исходный вектор` и могут использоваться для цепочек
+вызовов вида `.myPhysObject.velocity().setX(-50F)`;
+
+`@
+package `{utils/utils.build2.txt}utils`
+`{utils/Vector2F.build2.txt}Vector2F`
+`{game/Bullet.build2.txt}Bullet` (как пример использования)

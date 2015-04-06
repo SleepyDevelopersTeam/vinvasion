@@ -1,0 +1,63 @@
+ru.sdevteam.vinv.ui.Sprite
+
+`[Общие сведения]
+`(Java
+public class Sprite implements IDrawable, IUpdatable
+{
+	...
+}
+`)
+
+Общий класс спрайта. Экземпляры могут быть как анимированными, так и статичными. Класс
+может быть применён для решения множества задач; имеет много наследников
+(`{game/TowerSprite.build2.txt}TowerSprite`, `{game/BugSprite.build2.txt}BugSprite` и т.д.).
+
+Конструктор без параметров создаёт спрайт размером 0*0 без исходного изображения.
+Отрисовываться такой спрайт будет, но никак (то есть, на экране ничего не будет
+отображаться). 
+
+`[Определяемые методы]
+`(Java
+// позиция и размеры
+float getX();
+float getY();
+int getWidth();
+int getHeight();
+int getSourceWidth();
+int getSourceHeight();
+
+// управление
+void moveTo(float nx, float ny);
+void moveBy(float dx, float dy);
+
+// воспроизведение
+void play();
+void pause();
+boolean isPlaying();
+int getFrameDuration(); // в миллисекундах
+void setFrameDuration(int millis);
+int getFramesCount();
+int currentFrame();
+void gotoFrame(int frame);
+void nextFrame();
+void prevFrame();
+
+// отображение
+boolean isVisible();
+void setVisibility(boolean flag);
+
+// столкновения
+boolean collidesWith(Sprite s);
+boolean contains(float x, float y);
+// проверяет факт столкновения спрайта с заданным прямоугольником
+boolean collidesWith(float rx, float ry, float rWidth, float rHeight);
+void setCollisionRectangle(int x, int y, int width, int height);
+`)
+
+`@
+`{game/TowerSprite.build2.txt}TowerSprite`
+`{game/BugSprite.build2.txt}BugSprite`
+`{ui/IDrawable.build2.txt}IDrawable`
+`{ui/IUpdatable.build2.txt}IUpdatable`
+`{notes/Составные изображения и спрайты.build2.txt}Составные изображения и спрайты`
+`{notes/Координатные системы.build2.txt}Представление координат на уровне`
