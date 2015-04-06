@@ -2,10 +2,36 @@ package ru.sdevteam.vinv.game;
 import java.util.*;
 
 import ru.sdevteam.vinv.game.logics.Path;
+import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 {
-    private Vector<Tower> massTowers;  //массив объектов
+	private Player player;
+	public Player createPlayer()
+	{
+		return null;
+	}
+
+
+	private Iterator towersIterator;
+	public Level.Iterator getTowersIterator()
+	{
+		return towersIterator;
+	}
+
+	private Iterator bugsIterator;
+	public Level.Iterator getBugsIterator()
+	{
+		return bugsIterator;
+	}
+
+	private Iterator bulletsIterator;
+	public Level.Iterator getBulletsIterator()
+	{
+		return bulletsIterator;
+	}
+
+    private Vector<Tower> massTowers; 
     public Tower[] getTowers()
     {
         Tower[] mass=new Tower[massTowers.size()];
@@ -22,14 +48,19 @@ public class Level
     }
     
     private Path levelPath;
-    
-    public Path getLevelPath()
+     public Path getLevelPath()
     {
     	return levelPath;
     }
 
+	private TiledLayer tLayer;
+	public TiledLayer getFone()
+	{
+		return tLayer;
+	}
 
-    //создает пробный уровень
+	;
+
     public static Level createLevel(int num)
     {
         Level objLevel=new Level();
@@ -82,6 +113,136 @@ public class Level
         objLevel.levelPath.addPoint(50F, 25F);
         objLevel.levelPath.addPoint(1050F, 1050F);
 
+
+
+		objLevel.towersIterator=objLevel.new Iterator(objLevel)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getTowers().length-1)
+				{
+					return lvl.getTowers()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getTowers().length-1)
+				{
+					count+=1;
+					return lvl.getTowers()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=0;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getTowers().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+
+		objLevel.bugsIterator=objLevel.new Iterator(objLevel)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getBugs().length-1)
+				{
+					return lvl.getBugs()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getBugs().length-1)
+				{
+					count+=1;
+					return lvl.getBugs()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=0;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getBugs().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+
+		objLevel.bulletsIterator=objLevel.new Iterator(objLevel)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getBullets().length-1)
+				{
+					return lvl.getBullets()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getBullets().length-1)
+				{
+					count+=1;
+					return lvl.getBullets()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=0;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getBullets().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
         return objLevel;
     }
     
@@ -125,6 +286,20 @@ public class Level
     {
         massBugs.remove(item);
     }
+
+		public abstract class Iterator
+	{
+		protected Level lvl;
+		protected int count=0;
+		public Iterator(Level lvl)
+		{
+			this.lvl=lvl;
+		}
+		public abstract GameObject next();
+		public abstract GameObject current();
+		public abstract boolean hasMoreObjects();
+		public abstract void reset();
+	}
 }
 
 class Pool
@@ -226,4 +401,5 @@ class Pool
         }
         return mass;
     }
+
 }
