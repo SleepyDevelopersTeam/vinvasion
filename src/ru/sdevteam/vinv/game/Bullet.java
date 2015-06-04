@@ -10,7 +10,7 @@ import ru.sdevteam.vinv.utils.Vector2F;
 
 public class Bullet extends GameObject
 {
-    public enum Type {NULL,NORMAL};
+    public enum Type {NULL,NORMAL,FLAME};
 
     private Bullet.Type type;
     public Bullet.Type getType(){return type;}
