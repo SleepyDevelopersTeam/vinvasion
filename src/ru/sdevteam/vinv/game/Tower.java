@@ -3,11 +3,12 @@ package ru.sdevteam.vinv.game;
 public class Tower extends Destructable
 {
     protected long lastShoot;
-
     protected long reloadTimeMillis;
-
     protected boolean repairing;
-
+	protected boolean onlyGround;
+	
+	public boolean canShootAir(){return !onlyGround;}
+	
     protected String name;
     public String getName(){return name;}
     public void setName(String newName){name=newName;}
