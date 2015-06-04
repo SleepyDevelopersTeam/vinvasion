@@ -5,7 +5,7 @@ import java.awt.Graphics;
 public abstract class MenuScreen extends Screen 
 {
 	public void setActiveMenu(Menu m)
-	{
+	{ 
 		
 	}
 	
