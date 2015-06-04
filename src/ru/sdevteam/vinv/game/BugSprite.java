@@ -7,12 +7,15 @@ import ru.sdevteam.vinv.utils.Vector2F;
 public class BugSprite extends Sprite
 {	
 	private Bug instanse;
+	protected int animationFrame;
 	
 	public BugSprite(Bug b)
 	{
-		super(ResourceManager.getBufferedImage("bugs/test_bug"), 128, 128);
+		super(ResourceManager.getBufferedImage("bugs/test_bug"), 16, 16);
 		instanse=b;
-		setCollisionRectangle(32, 32, 64, 64);
+		setCollisionRectangle(2, 2, 14, 14);
+		animationFrame=0;
+		pause();
 	}
 	
 	@Override
@@ -20,12 +23,15 @@ public class BugSprite extends Sprite
 	{
 		super.update();
 		
-		// TODO: обновлять спрайт в соответствии с instanse
-		// test bug has 8 rotation images
+		animationFrame++;
+		if(animationFrame>=16) animationFrame=0;
 		
-		int frame=Vector2F.getDiscreteRotation(8, instanse.getRotation());
-		frame+=2; // мой небольшой косяк в порядке кадров на картинке
-		if(frame>=8) frame-=8;
-		gotoFrame(frame);
+		// TODO: обновлять спрайт в соответствии с instanse
+		// test bug has 4 rotation images
+		
+		// y
+		int rotationFrame=Vector2F.getDiscreteRotation(4, instanse.getRotation());
+		
+		gotoFrame(animationFrame/4+rotationFrame*4);
 	}
 }
