@@ -8,6 +8,7 @@ public class Bug extends Destructable
 	public boolean isAir(){return air;}
 	
 	
+	
     private Bug.Type type;
     public Bug.Type getType(){return type;}
 
@@ -46,6 +47,10 @@ public class Bug extends Destructable
                          setMaxHp(100);
                          setHp(100);
                          break;
+			case AIR:	speed= (int)(2+Math.random()*5);
+						setMaxHp(70);
+						setHp(70);
+						break;
         }
     }
     //String getDescription();
