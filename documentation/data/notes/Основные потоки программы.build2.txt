@@ -12,10 +12,10 @@
 `.update`, а значит, в потоке обновления игровой логики. 
 
 `@
-`{main/MainFrame.build2.txt}MainFrame`
-`{main/Input.build2.txt}Input`
-`{main/Timer.build2.txt}Timer`
-`{main/GameCanvas.build2.txt}GameCanvas`
-`{ui/Screen.build2.txt}Screen`
-`{ui/IUpdatable.build2.txt}IUpdatable`
-`{ui/IDrawable.build2.txt}IDrawable`
+`{::label}MainFrame`
+`{::label}Input`
+`{::label}Timer`
+`{::label}GameCanvas`
+`{::label}Screen`
+`{::label}IUpdatable`
+`{::label}IDrawable`

@@ -44,5 +44,5 @@
 оставаться неизменными. 
 
 `@
-`{ui/Sprite.build2.txt}Sprite`
-`{ui/TiledLayer.build2.txt}TiledLayer`
+`{::label}Sprite`
+`{::label}TiledLayer`

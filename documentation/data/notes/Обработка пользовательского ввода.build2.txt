@@ -10,7 +10,7 @@
 форма `.MainFrame`.
 
 `@
-`{main/MainFrame.build2.txt}MainFrame`
-`{main/Input.build2.txt}Input`
-`{ui/Screen.build2.txt}Screen`
-`{notes/Основные потоки программы.build2.txt}Основные потоки программы`
+`{::label}MainFrame`
+`{::label}Input`
+`{::label}Screen`
+`{::label}Основные потоки программы`

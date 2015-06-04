@@ -57,4 +57,4 @@ static final Vector2F O=new Vector2F(0, 0);
 
 `@
 package `{utils/utils.build2.txt}utils`
-`{utils/PhysObject.build2.txt}PhysObject` (как пример использования)
+`{::label}PhysObject` (как пример использования)

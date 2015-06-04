@@ -27,5 +27,5 @@ H=z*h;
 о том, что окно просмотра не должно выходить за пределы уровня. 
 
 `@
-`{ui/GameScreen.build2.txt}GameScreen`
-`{ui/TiledLayer.build2.txt}TiledLayer`
+`{::label}GameScreen`
+`{::label}TiledLayer`

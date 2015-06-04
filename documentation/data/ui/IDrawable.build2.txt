@@ -16,6 +16,6 @@ public void paint(Graphics g);
 `)
 
 `@
-`{ui/Sprite.build2.txt}Sprite` (как пример реализующего класса)
-`{ui/IUpdatable.build2.txt}IUpdatable`
-`{notes/Основные потоки программы.build2.txt}Основные потоки программы`
+`{::label}Sprite` (как пример реализующего класса)
+`{::label}IUpdatable`
+`{::label}Основные потоки программы`

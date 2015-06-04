@@ -14,6 +14,6 @@
 с помощью концепции `/окна просмотра`.
 
 `@
-`{game/GameObject.build2.txt}GameObject`
-`{ui/Sprite.build2.txt}Sprite`
-`{notes/Окно просмотра.build2.txt}Окно просмотра (viewport)`
+`{::label}GameObject`
+`{::label}Sprite`
+`{::label}Окно просмотра (viewport)`

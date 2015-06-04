@@ -16,7 +16,7 @@
 т.д.). 
 
 `@
-`{ui/Sprite.build2.txt}Sprite` (представление)
-`{game/GameObject.build2.txt}GameObject` (модель)
-`{game/Level.build2.txt}Level` (модель)
-`{game.logics/LevelController.build2.txt}LevelController` (контроллер)
+`{::label}Sprite` (представление)
+`{::label}GameObject` (модель)
+`{::label}Level` (модель)
+`{::label}LevelController` (контроллер)

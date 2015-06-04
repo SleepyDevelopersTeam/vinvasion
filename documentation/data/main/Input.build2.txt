@@ -31,6 +31,6 @@ static void pushKeyEvent(KeyEvent e); // добавить событие в очередь
 static void pushMouseEvent(MouseEvent e);
 `)
 `@
-`{main/MouseEvent.build2.txt}MouseEvent`
-`{main/KeyEvent.build2.txt}KeyEvent`
-`{notes/Обработка ввода пользователя.build2.txt}Об обработке ввода пользователя`
+`{::label}MouseEvent`
+`{::label}KeyEvent`
+`{::label}Об обработке ввода пользователя`

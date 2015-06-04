@@ -55,9 +55,9 @@ void setCollisionRectangle(int x, int y, int width, int height);
 `)
 
 `@
-`{game/TowerSprite.build2.txt}TowerSprite`
-`{game/BugSprite.build2.txt}BugSprite`
-`{ui/IDrawable.build2.txt}IDrawable`
-`{ui/IUpdatable.build2.txt}IUpdatable`
-`{notes/Составные изображения и спрайты.build2.txt}Составные изображения и спрайты`
-`{notes/Координатные системы.build2.txt}Представление координат на уровне`
+`{::label}TowerSprite`
+`{::label}BugSprite`
+`{::label}IDrawable`
+`{::label}IUpdatable`
+`{::label}Составные изображения и спрайты`
+`{::label}Представление координат на уровне`

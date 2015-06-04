@@ -13,7 +13,7 @@ public class BugSprite extends Sprite
 число кадров анимации, ...). Реализует нелинейную анимацию.
 
 `@
-`{game/Bug.build2.txt}Bug`
-`{game/TowerSprite.build2.txt}TowerSprite`
-`{ui/Sprite.build2.txt}Sprite`
-`{notes/Составные изображения и спрайты.build2.txt}Составные изображения и спрайты`
+`{::label}Bug`
+`{::label}TowerSprite`
+`{::label}Sprite`
+`{::label}Составные изображения и спрайты`

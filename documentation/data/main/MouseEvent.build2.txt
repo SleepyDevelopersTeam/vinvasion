@@ -21,6 +21,6 @@ int getY();
 int getDelta(); // вращение колеса
 `)
 `@
-`{main/Input.build2.txt}Input`
-`{main/KeyEvent.build2.txt}KeyEvent`
-`{notes/Обработка ввода пользователя.build2.txt}Об обработке ввода пользователя`
+`{::label}Input`
+`{::label}KeyEvent`
+`{::label}Об обработке ввода пользователя`

@@ -43,6 +43,6 @@ void setFriction(float coeff);
 вызовов вида `.myPhysObject.velocity().setX(-50F)`;
 
 `@
-package `{utils/utils.build2.txt}utils`
-`{utils/Vector2F.build2.txt}Vector2F`
-`{game/Bullet.build2.txt}Bullet` (как пример использования)
+package `{::label}utils`
+`{::label}Vector2F`
+`{::label}Bullet` (как пример использования)

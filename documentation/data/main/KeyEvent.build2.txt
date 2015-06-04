@@ -18,6 +18,6 @@ char keyChar();
 ControlKeys getKey();
 `)
 `@
-`{main/Input.build2.txt}Input`
-`{main/MouseEvent.build2.txt}MouseEvent`
-`{notes/Обработка ввода пользователя.build2.txt}Об обработке ввода пользователя`
+`{::label}Input`
+`{::label}MouseEvent`
+`{::label}Об обработке ввода пользователя`

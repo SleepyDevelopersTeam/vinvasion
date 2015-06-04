@@ -19,6 +19,6 @@
 нужный кадр и переходит на него. 
 
 `@
-`{ui/Sprite.build2.txt}Sprite`
-`{game/BugSprite.build2.txt}BugSprite` и `{game/TowerSprite.build2.txt}TowerSprite`
-`{game/GameObject.build2.txt}GameObject`
+`{::label}Sprite`
+`{::label}BugSprite` и `{::label}TowerSprite`
+`{::label}GameObject`

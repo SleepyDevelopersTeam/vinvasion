@@ -13,7 +13,7 @@ public class TowerSprite extends Sprite
 число кадров анимации (если есть), ...). Реализует нелинейную анимацию.
 
 `@
-`{game/Tower.build2.txt}Tower`
-`{game/BugSprite.build2.txt}BugSprite`
-`{ui/Sprite.build2.txt}Sprite`
-`{notes/Составные изображения и спрайты.build2.txt}Составные изображения и спрайты`
+`{::label}Tower`
+`{::label}BugSprite`
+`{::label}Sprite`
+`{::label}Составные изображения и спрайты`
