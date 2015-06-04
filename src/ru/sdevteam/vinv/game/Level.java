@@ -68,22 +68,27 @@ public class Level
         objLevel.massBugs = new Vector<Bug>();
         objLevel.massTowers = new Vector<Tower>();
 
-        Tower aTower=new Tower();
+        Tower aTower=new MachineGun();
         aTower.setX(200);
         aTower.setY(200);
-
+		
+		Tower bTower=new FlameThrower();
+		aTower.setX(400);
+        aTower.setY(200);
+		
         Bug aBug=new Bug();
-        aBug.setType(Bug.Type.NORMAL);
+		aBug.setType(Bug.Type.NORMAL);
         aBug.setX(100);
         aBug.setY(100);
 
         Bug bBug=new Bug();
-        bBug.setType(Bug.Type.NORMAL);
+		bBug.setType(Bug.Type.AIR);
         bBug.setX(300);
         bBug.setY(300);
         
         objLevel.addTower(aTower);
-        objLevel.addBug(aBug);
+        objLevel.addTower(bTower);
+		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
         
         objLevel.levelPath=new Path();
