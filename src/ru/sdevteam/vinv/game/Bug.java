@@ -2,8 +2,12 @@ package ru.sdevteam.vinv.game;
 
 public class Bug extends Destructable
 {
-    public enum Type {NULL,NORMAL};
-
+    public enum Type {NULL,NORMAL,AIR};
+	
+	private boolean air;
+	public boolean isAir(){return air;}
+	
+	
     private Bug.Type type;
     public Bug.Type getType(){return type;}
 

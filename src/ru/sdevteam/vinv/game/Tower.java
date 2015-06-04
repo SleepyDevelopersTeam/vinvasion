@@ -5,10 +5,9 @@ public class Tower extends Destructable
     protected long lastShoot;
     protected long reloadTimeMillis;
     protected boolean repairing;
-	protected boolean onlyGround;
-	
-	public boolean canShootAir(){return !onlyGround;}
-	
+	protected boolean shootGround;
+	protected boolean shootAir;
+
     protected String name;
     public String getName(){return name;}
     public void setName(String newName){name=newName;}
@@ -61,6 +60,19 @@ public class Tower extends Destructable
         return false;
     }
     
+	public boolean canAttack(Bug.Type type)
+	{
+		if ( shootAir && type==Bug.Type.AIR )
+		{
+			return true;
+		}
+		if ( shootGround && type!=Bug.Type.AIR)
+		{
+			return true;
+		}
+		return false;
+	}
+	
     public void onDestroyed()
     {
         

@@ -17,5 +17,9 @@ public class Price
 		return credit;
 	}
 	
+	public Price (int cr)
+	{
+		credit = cr;
+	}
 			
 }
