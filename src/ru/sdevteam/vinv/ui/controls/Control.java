@@ -22,7 +22,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	//
 	// Размеры
 	//
-	private int w=0, h=0;
+	private int w=50, h=50;
 	public int getWidth() { return w; }
 	public int getHeight() { return h; }
 	public void setWidth(int nw) { w=nw; }
@@ -51,6 +51,18 @@ public abstract class Control implements IUpdatable, IDrawable
 	public void disable() { enabled=false; }
 	
 	
+	public Control()
+	{
+		enabled=true;
+	}
+	
+	public Control(int x, int y, int width, int height)
+	{
+		this();
+		this.x=x; this.y=y; this.w=width; this.h=height;
+	}
+	
+	
 	public boolean contains(int x, int y)
 	{
 		if(x<this.x) return false;
@@ -60,7 +72,8 @@ public abstract class Control implements IUpdatable, IDrawable
 		return true;
 	}
 	
-	public final void processMouseEvent(MouseEvent ev)
+	// TODO: test
+	public void processMouseEvent(MouseEvent ev)
 	{
 		if(this.contains(ev.getMouseX(), ev.getMouseY()))
 		{
