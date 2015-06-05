@@ -62,6 +62,8 @@ public class ContainerControl extends Control
 	@Override
 	public final void processMouseEvent(MouseEvent ev)
 	{
+		if(!isEnabled()) return;
+		
 		super.processMouseEvent(ev);
 		for(Control c: this.controls)
 		{
@@ -72,6 +74,8 @@ public class ContainerControl extends Control
 	@Override
 	public final void processKeyEvent(KeyEvent ev)
 	{
+		if(!isEnabled()) return;
+		
 		super.processKeyEvent(ev);
 		for(Control c: this.controls)
 		{

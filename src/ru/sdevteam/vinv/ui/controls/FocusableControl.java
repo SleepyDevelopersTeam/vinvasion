@@ -16,6 +16,17 @@ public abstract class FocusableControl extends Control
 		focus=true;
 	}
 	
+	
+	public FocusableControl()
+	{
+		super();
+	}
+	public FocusableControl(int x, int y, int width, int height)
+	{
+		super(x, y, width, height);
+	}
+	
+	
 	@Override
 	public final void processKeyEvent(KeyEvent ev)
 	{

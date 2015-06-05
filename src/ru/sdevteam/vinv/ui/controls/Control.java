@@ -47,7 +47,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	private boolean lmh;
 	
 	private boolean enabled;
-	public boolean isEnabled() { return enabled; }
+	public boolean isEnabled() { return getParent()==null? enabled : enabled && getParent().isEnabled(); }
 	public void enable() { enabled=true; }
 	public void disable() { enabled=false; }
 	
@@ -89,6 +89,8 @@ public abstract class Control implements IUpdatable, IDrawable
 	// TODO: test
 	public void processMouseEvent(MouseEvent ev)
 	{
+		if(!enabled) return;
+		
 		if(this.contains(ev.getMouseX(), ev.getMouseY()))
 		{
 			hovered=true;
@@ -198,6 +200,8 @@ public abstract class Control implements IUpdatable, IDrawable
 	
 	public void processKeyEvent(KeyEvent ev)
 	{
+		if(!enabled) return;
+		
 		switch(ev.getType())
 		{
 		case PRESSED:

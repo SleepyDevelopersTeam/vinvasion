@@ -1,5 +1,7 @@
 package ru.sdevteam.vinv.ui;
 
+import ru.sdevteam.vinv.ui.controls.Button;
+
 public abstract class MenuItem extends Button
 {
 	//TODO class
