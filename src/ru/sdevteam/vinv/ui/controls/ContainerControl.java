@@ -3,6 +3,7 @@ package ru.sdevteam.vinv.ui.controls;
 import java.awt.Graphics;
 import java.util.Vector;
 
+import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
 
 public class ContainerControl extends Control
@@ -47,6 +48,11 @@ public class ContainerControl extends Control
 	@Override
 	public void paint(Graphics g)
 	{
+		paintChildren(g);
+	}
+	
+	protected final void paintChildren(Graphics g)
+	{
 		for(Control c: this.controls)
 		{
 			c.paint(g);
@@ -54,13 +60,44 @@ public class ContainerControl extends Control
 	}
 	
 	@Override
-	public void processMouseEvent(MouseEvent ev)
+	public final void processMouseEvent(MouseEvent ev)
 	{
 		super.processMouseEvent(ev);
 		for(Control c: this.controls)
 		{
 			c.processMouseEvent(ev);
 		}
+	}
+	
+	@Override
+	public final void processKeyEvent(KeyEvent ev)
+	{
+		super.processKeyEvent(ev);
+		for(Control c: this.controls)
+		{
+			if(c.isFocused())
+				c.processKeyEvent(ev);
+		}
+	}
+	
+	@Override
+	protected final void unfocus()
+	{
+		for(Control c: this.controls)
+		{
+			c.unfocus();
+		}
+		if(getParent()!=null)
+			getParent().unfocus();
+	}
+	@Override
+	public final boolean isFocused()
+	{
+		for(Control c: this.controls)
+		{
+			if(c.isFocused()) return true;
+		}
+		return false;
 	}
 	
 }

@@ -2,6 +2,7 @@ package ru.sdevteam.vinv.ui.controls;
 
 import java.awt.Graphics;
 
+import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.IUpdatable;
@@ -49,6 +50,19 @@ public abstract class Control implements IUpdatable, IDrawable
 	public boolean isEnabled() { return enabled; }
 	public void enable() { enabled=true; }
 	public void disable() { enabled=false; }
+	
+	//
+	// Иерархия
+	//
+	private ContainerControl parent;
+	public ContainerControl getParent() { return parent; }
+	public void setParent(ContainerControl c) { parent=c; }
+	
+	//
+	// Фокус
+	//
+	protected abstract void unfocus();
+	public abstract boolean isFocused();
 	
 	
 	public Control()
@@ -181,4 +195,24 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseDragEnd(MouseEvent ev){}
 	
 	protected void onMouseScroll(MouseEvent ev){}
+	
+	public void processKeyEvent(KeyEvent ev)
+	{
+		switch(ev.getType())
+		{
+		case PRESSED:
+			onKeyDown(ev);
+			break;
+		case RELEASED:
+			onKeyUp(ev);
+			break;
+		case TYPED:
+			onKeyTyped(ev);
+			break;
+		}
+	}
+	
+	protected void onKeyDown(KeyEvent ev){}
+	protected void onKeyUp(KeyEvent ev){}
+	protected void onKeyTyped(KeyEvent ev){}
 }
