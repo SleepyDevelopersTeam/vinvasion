@@ -1,11 +1,13 @@
 package ru.sdevteam.vinv.game;
+import java.awt.image.BufferedImage;
 import java.util.*;
-
+import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.game.logics.Path;
 import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 {
+	
 	private Player player;
 	public Player createPlayer()
 	{
@@ -48,7 +50,7 @@ public class Level
     }
     
     private Path levelPath;
-     public Path getLevelPath()
+    public Path getLevelPath()
     {
     	return levelPath;
     }
@@ -58,15 +60,30 @@ public class Level
 	{
 		return tLayer;
 	}
-
-	;
-
+	public void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
+	{
+		tLayer = new TiledLayer(source, tileWidth, tileHeight, tilesWidth, tilesHeight);
+		int[][] map = new int[30][20];
+		for(int i=0;i<map.length;i++)
+		{
+			for(int j=0;j<map[i].length;i++)
+			{
+				if(Math.random()*10==0)
+					map[i][j]=2;
+			}
+		}
+		tLayer.setMap(map);
+	}
+	
+	
     public static Level createLevel(int num)
     {
         Level objLevel=new Level();
         objLevel.poolBullet=new Pool(300);
         objLevel.massBugs = new Vector<Bug>();
         objLevel.massTowers = new Vector<Tower>();
+		
+		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 256, 128);
 
         Tower aTower=new MachineGun();
         aTower.setX(200);
@@ -90,6 +107,7 @@ public class Level
         objLevel.addTower(bTower);
 		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
+		
         
         objLevel.levelPath=new Path();
         /*objLevel.levelPath.addPoint(25F, 50F);
@@ -347,7 +365,7 @@ class Pool
         {
             //mark everything as unused, except the first that would be returned
             //that should make all first objects to disappear and to be converted to latest objs
-        	System.out.println("����� �����");
+        	System.out.println("????? ?????");
             for (int i = 1; i < pool.length; i++)
             {
                 used[i] = false;
