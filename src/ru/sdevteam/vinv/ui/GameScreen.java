@@ -57,7 +57,8 @@ public class GameScreen extends Screen
 	
 	@Override
 	public void paint(Graphics g) 
-	{	
+	{
+		// TODO: Масштабирование
 		levelCtrl.paint(g);
 	}
 

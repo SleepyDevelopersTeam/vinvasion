@@ -60,16 +60,17 @@ public class Level
 	{
 		return tLayer;
 	}
-	public void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
+	private void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
 	{
 		tLayer = new TiledLayer(source, tileWidth, tileHeight, tilesWidth, tilesHeight);
-		int[][] map = new int[30][20];
+		int[][] map = new int[tilesWidth][tilesHeight];
 		for(int i=0;i<map.length;i++)
 		{
-			for(int j=0;j<map[i].length;i++)
+			// TODO: Не создавать массив
+			for(int j=0;j<map[i].length;j++)
 			{
-				if(Math.random()*10==0)
-					map[i][j]=2;
+				if((int)(Math.random()*10)==0)
+					map[i][j]=18;
 			}
 		}
 		tLayer.setMap(map);
@@ -83,7 +84,7 @@ public class Level
         objLevel.massBugs = new Vector<Bug>();
         objLevel.massTowers = new Vector<Tower>();
 		
-		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 256, 128);
+		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
         Tower aTower=new MachineGun();
         aTower.setX(200);

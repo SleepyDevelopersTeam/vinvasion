@@ -44,6 +44,10 @@ public class LevelController implements IUpdatable, IDrawable
 	public void paint(Graphics g) 
 	{
 		//TODO: отрисовка в зависимотсти от размеров окна
+		// (получать координаты и размеры окна просмотра, которые передавать в метод ниже)
+		modelOfLevel.getFone().paint(g, 0, 0, 800, 600);
+		
+		// TODO: ¬ј–Ќ»Ќ√: јЋя–ћј: »спользовать итераторы
 		Tower[] arrayOfTowers=this.modelOfLevel.getTowers();
 		Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
 		Bullet[] arrayOfBullets=this.modelOfLevel.getBullets();

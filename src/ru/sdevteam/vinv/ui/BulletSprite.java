@@ -22,8 +22,7 @@ public class BulletSprite extends Sprite
 	@Override
 	public synchronized void paint(Graphics g)
 	{
-		// TODO Auto-generated method stub
-		//super.paint(g);
+		// TODO: Сделать обводку
 		g.setColor(this.color);
 		g.fillRect((int)getX(), (int)getY(), size, size);
 	}

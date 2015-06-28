@@ -87,6 +87,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	}
 	
 	// TODO: test
+	// TODO: Использовать очередь событий в Input
 	public void processMouseEvent(MouseEvent ev)
 	{
 		if(!enabled) return;

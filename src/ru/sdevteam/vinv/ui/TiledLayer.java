@@ -7,10 +7,19 @@ import ru.sdevteam.vinv.game.IMoveable;
 public class TiledLayer implements IMoveable
 {
 	private BufferedImage mapImage;
+	
+	// ѕараметры €чеки
 	private int tileWidth;
 	private int tileHeight;
+	
+	// ѕараметры сло€
 	private int tilesWidth;
 	private int tilesHeight;
+	
+	// ѕараметры изображени€
+	private int imgTilesWidth;
+	private int imgTilesHeight;
+	
 	private int map[][];
 	private float x;
 	private float y;
@@ -23,10 +32,15 @@ public class TiledLayer implements IMoveable
 		this.tileWidth=tileWidth;
 		this.tilesWidth=tilesWidth;
 		
+		map=new int[tilesWidth][tilesHeight];
+		
+		this.imgTilesWidth=source.getWidth()/tileWidth;
+		this.imgTilesHeight=source.getHeight()/tileHeight;
 	};
 
 	public void setMap(int[][] tiles)
 	{
+		// TODO: проверка размерности вход€щего массива и имеющегос€
 		for (int i=0;i<tiles.length;i++)
 			for (int j=0;j<tiles[i].length;j++)
 				map[i][j]=tiles[i][j];
@@ -43,8 +57,8 @@ public class TiledLayer implements IMoveable
 
 	protected BufferedImage getTileImage(int index)
 	{
-		int x=index%tilesWidth*tileWidth;
-		int y=index/tilesWidth*tileHeight;
+		int x=index%imgTilesWidth*tileWidth;
+		int y=index/imgTilesWidth*tileHeight;
 		return this.mapImage.getSubimage(x, y, tileWidth, tileHeight);
 	}
 	public void paint(Graphics g, float x, float y, float w, float h)
@@ -59,9 +73,9 @@ public class TiledLayer implements IMoveable
 		{
 			while (i<=xTileRB)
 			{
-				//TO DO: optimize!
+				//TODO: optimize!
 				int numberOfArea=map[j][i];
-				g.drawImage(getTileImage(numberOfArea), (int)j*tileWidth, (int)i*tileHeight, null);
+				g.drawImage(getTileImage(numberOfArea), (int)i*tileWidth, (int)j*tileHeight, null);
 				i++;
 			}
 			i=xTileLU;
@@ -80,7 +94,7 @@ public class TiledLayer implements IMoveable
 
 	public int getTileWidth()
 	{
-		return tilesWidth;
+		return tileWidth;
 	}
 	public int getTileHeight()
 	{

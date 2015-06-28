@@ -81,7 +81,8 @@ public class ResourceManager
 		String[] decos = {};
 		String[] bugs = { "test_bug" };
 		String[] fonts = {};
-		countOfFiles = bullets.length + towers.length + decos.length + bugs.length + fonts.length;
+		String[] tiles = { "test" };
+		countOfFiles = bullets.length + towers.length + decos.length + bugs.length + fonts.length + tiles.length;
 		
 		splash = BI(path + "splash.png");
 		
@@ -95,6 +96,7 @@ public class ResourceManager
 		addImages(towers, "towers/");
 		addImages(bugs, "bugs/");
 		addImages(bullets, "bullets/");
+		addImages(tiles, "tiles/");
 		
 		ready = true;
 	}
