@@ -167,7 +167,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
@@ -210,7 +210,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
@@ -253,7 +253,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
@@ -314,7 +314,7 @@ public class Level
 		public abstract class Iterator
 	{
 		protected Level lvl;
-		protected int count=0;
+		protected int count=-1;
 		public Iterator(Level lvl)
 		{
 			this.lvl=lvl;
