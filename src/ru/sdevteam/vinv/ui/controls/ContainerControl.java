@@ -30,10 +30,12 @@ public class ContainerControl extends Control
 	public void addControl(Control c)
 	{
 		controls.add(c);
+		c.setParent(this);
 	}
 	public void removeControl(Control c)
 	{
 		controls.remove(c);
+		c.setParent(null);
 	}
 	
 	@Override
@@ -97,6 +99,9 @@ public class ContainerControl extends Control
 	@Override
 	public final boolean isFocused()
 	{
+		// TODO: возможно, более оптимальное решение:
+		// всегда возвращать true, чтобы метод выполнялся быстрее и без захламления стека;
+		// но тогда дольше будет выполняться processKeyEvent верхнего в иерархии контейнера.
 		for(Control c: this.controls)
 		{
 			if(c.isFocused()) return true;
