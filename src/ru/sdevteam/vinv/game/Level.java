@@ -7,7 +7,7 @@ import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 {
-	
+	//TODO: create methods create iterator
 	private Player player;
 	public Player createPlayer()
 	{
@@ -18,18 +18,21 @@ public class Level
 	private Iterator towersIterator;
 	public Level.Iterator getTowersIterator()
 	{
+		towersIterator.reset();
 		return towersIterator;
 	}
-
+	
 	private Iterator bugsIterator;
 	public Level.Iterator getBugsIterator()
 	{
+		bugsIterator.reset();
 		return bugsIterator;
 	}
 
 	private Iterator bulletsIterator;
 	public Level.Iterator getBulletsIterator()
 	{
+		bulletsIterator.reset();
 		return bulletsIterator;
 	}
 
@@ -167,7 +170,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
@@ -210,7 +213,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
@@ -253,7 +256,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
@@ -314,7 +317,7 @@ public class Level
 		public abstract class Iterator
 	{
 		protected Level lvl;
-		protected int count=0;
+		protected int count=-1;
 		public Iterator(Level lvl)
 		{
 			this.lvl=lvl;
