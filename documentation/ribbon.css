@@ -1,0 +1,274 @@
+@charset "utf-8";
+
+/* MAGIC NUMBERS */
+/* Ribbon height is assumed to be 120px, so section height is 100px
+ * .section right padding is also margin between last .section element and border between sections - 10px
+*/
+
+
+@font-face {
+	font-family: Icons;
+	src: url(img/Entypo.otf);
+}
+
+#ribbon {
+	background: #eee;
+	height: 120px;
+}
+.ribbon-wrapper {
+	height: 120px;
+}
+
+#ribbon .section {
+	min-width: 100px;
+	height: 100px;
+}
+
+#ribbon .section {
+	display: block;
+	float: left;
+	padding: 2px;
+	margin: 5px;
+	position: relative;
+	border: 1px solid transparent;
+	border-right-color: #009bff;
+	padding-right: 10px;
+}
+
+#ribbon .section:hover::after {
+	display: block;
+	content: attr(data-name);
+	position: absolute;
+	top: calc(100% + 3px);
+	left: 0px;
+	width: calc(100% - 10px); /* !MN: .section right padding */
+	background: #009bff;
+	text-align: center;
+	color: #fff;
+	
+	opacity: 0.7;
+}
+
+#ribbon .section > * {
+	float: left;
+	display: block;
+	height: 100px;
+}
+
+/* Ribbon.ELEMENT_SPACE */
+#ribbon .section .space {
+	width: 10px;
+	height: 100px;
+}
+
+/* Ribbon.ELEMENT_BUTTON */
+
+#ribbon .button {
+	background: transparent none;
+	color: #009bff;
+	text-align: center;
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	background: #ddd;
+	
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+#ribbon .section > * > .button {
+	height: calc(1em + 8px);	
+	width: 100%;
+}
+
+#ribbon .section > .button {
+	min-width: 100px;
+	width: auto;
+}
+
+#ribbon .button:hover {
+	background: #009bff;
+	color: #fff;
+}
+
+#ribbon .button.disabled {
+	cursor: default;
+	background: transparent;
+	color: #ccc;
+}
+
+#ribbon .button:active {
+	/* ... */
+}
+
+#ribbon .section > .button .label {
+	/*margin-bottom: 0px;
+	margin-top: calc(100% - 15px - 1em);*/
+	height: 1.1em !important;
+	position: relative;
+	top: calc(100% - 1.1em - 10px);
+	padding: 0px 10px;
+}
+
+#ribbon .button:active .label {
+	top: 2px;
+	position: relative;
+}
+#ribbon .section > .button:active .label {
+	top: calc(100% - 1.1em - 7px);
+}
+#ribbon .button.disabled:active .label {
+	top: calc(100% - 1.1em - 10px);
+	position: relative;
+}
+
+#ribbon .button::before {
+	content: attr(data-icon);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	
+	font-size: 68pt;
+	text-align: center;
+	
+	width: 100%; height: 100%;
+	
+	overflow: hidden;
+	margin-top: -0.3em;
+}
+#ribbon .button:active::before {
+	top: 3%;
+}
+#ribbon .button.disabled:active::before {
+	top: 0%;
+}
+
+#ribbon .button::after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	background: #bbb;
+	width: 100%;
+	height: 5%;
+	min-height: 2px;
+}
+#ribbon .button:hover::after {
+	background: #0065A6;
+}
+#ribbon .button:active::after {
+	height: 2%;
+	min-height: 1px;
+}
+#ribbon .button.disabled::after {
+	display: none;
+}
+
+/* Ribbon.ELEMENT_GROUP */
+
+#ribbon .group {
+	position: relative;
+}
+
+/* Ribbon.ELEMENT_LIST + Ribbon.ELEMENT_LIST_ITEM */
+
+#ribbon .list {
+	list-style: none;
+	padding: 0px;
+	margin: 0px; margin-left: 2px;
+	height: 100%;
+	
+	border: 1px solid #009bff;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#ribbon .list li {
+	width: 100%;
+	cursor: pointer;
+	padding: 2px;
+	margin: 0px;
+	position: relative;
+	
+	font-size: 0.8em;
+}
+
+#ribbon .list li:hover {
+	background: #009bff;
+	color: #fff;
+}
+
+#ribbon .list li.disabled {
+	color: #555;
+	cursor: default;
+}
+#ribbon .list li.disabled:hover {
+	background: none transparent;
+	color: #555;
+}
+
+#ribbon .list li::after {
+	display: block;
+	position: absolute;
+	right: 5px;
+	top: 0px;
+	font-weight: bold;
+}
+
+/* Checkable list */
+#ribbon .list.checkable li.checked::after {
+	content: "✓";
+}
+
+/* Search results list */
+
+#search-results {
+	margin-left: 2px !important;
+	width: 300px;
+}
+
+#search-results li::after {
+	content: "→";
+}
+
+/* Ribbon.ELEMENT_TEXTBOX */
+
+#ribbon input[type="text"] {
+	border: 1px solid #009bff;
+	background: #f7f7f7;
+	color: inherit;
+	padding: 3px;
+	width: 200px;
+	
+	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.35);
+}
+#ribbon input[type="text"]:focus {
+	background: #fff;
+}
+
+/* Ribbon.ELEMENT_CHECKBOX */
+
+#ribbon input[type="checkbox"] {
+	border: 1px solid #009bff;
+	color: #009bff;
+	background: #009bff;
+}
+
+#ribbon label {
+	display: block;
+	margin: 2px 0px;
+	cursor: pointer;
+	font-size: 0.8em;
+}
+#ribbon label.disabled {
+	color: #999;
+	cursor: default;
+}
+
+#ribbon label:hover {
+	text-decoration: underline;
+}
+#ribbon label.disabled:hover {
+	text-decoration: none;
+}

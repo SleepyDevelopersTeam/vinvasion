@@ -1,0 +1,318 @@
+@charset "utf-8";
+
+/* General */
+
+body { color: #fff; }
+
+#wrapper {
+	background: #000;
+}
+
+#nav {
+	background: #030303;
+	border-right-color: #1240AB;
+}
+
+#text-wrapper {
+	border-left-color: #6C8CD5;
+}
+
+#text {
+	background: #101010;
+	box-shadow: 0px 0px 3px rgba(255,255,255,0.8);
+}
+
+/* Ribbon */
+
+.ribbon-wrapper {
+	border-bottom-color: #1240AB;
+	box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
+}
+
+#ribbon .tab-buttons {
+	background: #1240AB;
+}
+
+.tab-button {
+	background: #000;
+	color: #1240AB;
+}
+
+.tab-button.active {
+	background: #1240AB;
+	color: #fff;
+}
+.tab-button:hover {
+	/* background: #6C8CD5; */
+	color: #fff;
+}
+
+#ribbon .tab {
+	color: #4671D5;
+}
+
+/* Tree */
+
+#nav ul ul {
+	/* dashed lines in the tree*/
+	border-left-color: #1240AB;
+}
+
+#nav li li::before {
+	/* dashed lines in the tree (hor) */
+	border-top-color: #1240AB;
+}
+
+#nav li .label:hover {
+	color: #1240AB;
+}
+#nav li.active > .label {
+	background: #1240AB;
+	color: #fff;	
+}
+
+div.file-icon {
+	background: url(../img/file.png);
+}
+
+div.dopen-icon {
+	background: url(../img/fopen.png);
+}
+
+div.dclsd-icon {
+	background: url(../img/fclsd.png);
+}
+
+#nav .versions-popup .label {
+	/* [...] */
+	border-color: #444;
+	color: #444;
+}
+#nav .versions-popup ul {
+	border-color: #06266F;
+	background: #111;
+	color: #6C8CD5;
+	box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.35);
+}
+
+#nav .versions-popup ul li:hover {
+	background: #1240AB;
+	color: #fff;
+}
+
+#nav .versions-popup:hover .label {
+	border-color: #777;
+	color: #777;
+}
+
+/* Obsolete version icon */
+
+/* Content */
+
+.entry {
+	border-bottom-color: #1240AB;
+}
+
+.ref {
+	color: #4671D5;
+}
+.ref:hover {
+	
+}
+
+.see-also {
+	background: #222;
+}
+
+.see-also ul {
+
+}
+
+.see-also::before {
+	background: #1240AB;
+	color: #fff;
+}
+
+.listing {
+	border-color: #1240AB;
+	background: #111;
+}
+.listing .line {
+}
+.listing .line::before {
+	background: #444;
+}
+
+.listing .line:hover {
+	background: #222;
+}
+.listing .line:hover::before {
+	background: #1240AB;
+	color: #fff;
+}
+
+.listing .comment, .listing .comment strong, .listing .comment em, .listing .comment i, .listing .comment .string {
+	color: #090;
+}
+
+.listing .string, .listing .string .comment, .listing .string strong, .listing .string em, .listing .string i {
+	color: #55F;
+	background: #004;
+}
+
+.listing strong {
+	color: #63F;
+}
+
+.listing em {
+	color: #36F;
+}
+
+.listing i {
+	color: #C00;
+}
+
+#text table, #text tr, #text td {
+	border-color: #1240AB;
+}
+
+#text hr {
+	color: #6C8CD5;
+}
+
+#text .figure {
+	border-color: #1240AB;
+}
+#text .figure img {
+}
+#text .figure .label {
+	background: #1240AB;
+	color: #fff;
+}
+
+#text a, #text a:visited {
+	color: #4671D5;
+}
+#text a:hover {
+	color: #fff;
+}
+
+#text code {
+	border-color: #444;
+	background: #333;
+}
+
+#text .spoiler {
+	border-color: #1240AB;
+}
+#text .spoiler .label {
+	/* Spoiler title */
+	color: #fff;
+	background: #1240AB;
+}
+#text .spoiler .label::after {
+	/* Spoiler +/- icon */
+}
+#text .spoiler .label:hover::after {
+	background: #fff;
+	color: #1240AB;
+}
+
+#text .quote {
+	border-color: #6C8CD5;
+	background: #113;
+}
+#text .quote::before {
+	color: #6C8CD5;
+}
+
+/* RIBBON */
+
+#ribbon {
+	background: #222;
+	color: #4671D5;
+}
+#ribbon .section {
+	border-right-color: #1240AB;
+}
+
+#ribbon .section:hover::after {
+	background: #1240AB;
+	color: #fff;
+	
+	opacity: 0.7;
+}
+
+/* Ribbon.ELEMENT_BUTTON */
+
+#ribbon .button {
+	color: #4671D5;
+	background: #444;
+}
+
+#ribbon .button:hover {
+	background: #1240AB;
+	color: #fff;
+}
+
+#ribbon .button.disabled {
+	background: transparent;
+	color: #999;
+}
+
+#ribbon .button:active {
+	/* ... */
+}
+
+#ribbon .button::after {
+	/* Button 'volume' */
+	background: #333;
+}
+#ribbon .button:hover::after {
+	background: #06266F;
+}
+
+/* Ribbon.ELEMENT_LIST + Ribbon.ELEMENT_LIST_ITEM */
+
+#ribbon .list {
+	border-color: #1240ab;
+}
+
+#ribbon .list li:hover {
+	background: #1240ab;
+	color: #fff;
+}
+
+#ribbon .list li.disabled {
+	color: #555;
+}
+#ribbon .list li.disabled:hover {
+	background: none transparent;
+	color: #555;
+}
+
+/* Ribbon.ELEMENT_TEXTBOX */
+
+#ribbon input[type="text"] {
+	border-color: #1240ab;
+	background: #333;
+	color: #ddd;
+
+	box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 0.35);
+}
+#ribbon input[type="text"]:focus {
+	background: #000;
+	color: #fff;
+}
+
+/* Ribbon.ELEMENT_CHECKBOX */
+
+#ribbon input[type="checkbox"] {
+	border-color: #1240ab;
+	color: #4671D5;
+	background: #1240ab;
+}
+
+#ribbon label.disabled {
+	color: #999;
+}

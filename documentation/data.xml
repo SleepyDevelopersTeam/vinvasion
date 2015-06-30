@@ -1,19 +1,5 @@
 ﻿<?xml version="1.0"?>
 <nav>
-	<item type="composite" base="main/" label="main">
-		<ver data="main.build2.txt" />
-		
-		<item type="final" data="1.txt" label="main #1" />
-		
-		<item type="final" data="2.a.txt" label="main #2" />
-		<item type="final" data="2.b.txt" v="31.03.2015" label="main #2" />
-		<item type="final" data="2.c.txt" v="01.04.2015" label="main #2" />
-	</item>
-	<item type="group" base="ui/" label="ui">
-		<item type="final" data="1.txt" label="ui #1" />
-		<item type="final" data="2.txt" label="ui #2" />
-	</item>
-	
 	<item type='composite' label='main' base="main/">
 		<ver data='main.build2.txt' />
 		
@@ -31,7 +17,6 @@
 	<item type='composite' label='ui' base="ui/">
 		<ver data='ui.build2.txt' />
 		
-		<item type='final' label='ru.sdevteam.vinv.ui' data='ru.sdevteam.vinv.ui.build2.txt' />
 		<item type='final' label='Screen' data='Screen.build2.txt' />
 		<item type='final' label='GameScreen' data='GameScreen.build2.txt' />
 		<item type='final' label='LoadingScreen' data='LoadingScreen.build2.txt' />
@@ -77,6 +62,13 @@
 	
 	<item type='group' label='Заметки' base="notes/">
 		<item type='final' label='Стек экранов' data='Стек экранов.build2.txt' />
+		<item type='final' label='Составные изображения и спрайты' data='Составные изображения и спрайты.build2.txt' />
+		<item type='final' label='Повороты игровых объектов' data='Повороты игровых объектов.build2.txt' />
+		<item type='final' label='Основные потоки программы' data='Основные потоки программы.build2.txt' />
+		<item type='final' label='Окно просмотра' data='Окно просмотра.build2.txt' />
+		<item type='final' label='Обработка пользовательского ввода' data='Обработка пользовательского ввода.build2.txt' />
+		<item type='final' label='Координатные системы' data='Координатные системы.build2.txt' />
+		<item type='final' label='MVC' data='MVC.build2.txt' />
 
 	</item>
 </nav>
