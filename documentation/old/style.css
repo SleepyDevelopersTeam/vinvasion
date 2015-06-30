@@ -1,0 +1,133 @@
+@charset "utf-8";
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	background-color: #547494;
+}
+
+a[href], a[href]:visited {
+	color: #69F;
+}
+a[href]:hover {
+	color: #C00;
+	text-decoration: none;
+}
+
+a.u {
+	text-decoration: line-through;
+}
+
+#nav {
+	position: fixed;
+	top: 10px; left: 10px;
+	background: #f7f7f7;
+	border: outset 1px;
+	padding: 5px;
+}
+
+.page {
+	margin: 10px auto;
+	width: 850px;
+	border: 1px outset;
+	background-color: #f7f7f7;
+	padding: 25px;
+}
+
+.unit {
+	margin-bottom: 35px;
+}
+.separator {
+	height: 100px;
+}
+
+h1 {
+	text-align: center;
+}
+h2 {
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+	font-weight: bold;
+	font-size: 14pt;
+	padding-left: 40px;
+}
+h3 {
+	font-weight: bold;
+	font-size: 14pt;
+	padding-left: 40px;
+}
+
+ul.structure a {
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+	font-size: 12pt;
+}
+
+code, code a[href] {
+	color: #555;
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+	font-size: 12pt;
+	text-decoration: none;
+}
+code a[href]:hover { text-decoration: underline; }
+
+pre {
+	margin: 5px;
+	padding: 5px;
+	border: 1px dotted #222;
+	background-color: #ddd;
+	color: #222;
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+}
+
+pre b {
+	color: #3030ff;
+}
+pre em {
+	color: #3030ff;
+	font-style: normal;
+}
+pre span.comment {
+	font-style: italic;
+	color: #10a020;
+}
+pre span.str {
+	color: #03F;
+}
+
+#top-lnk {
+	margin-right: 10px;
+}
+#search {
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+}
+#tips-wrapper {
+	position: relative;
+}
+#tips {
+	position: absolute;
+	left: 70px;
+	
+	list-style: none;
+	padding: 0px;
+	border: 1px solid #69F;
+	margin: 0px;
+	background: #f7f7f7;
+	visibility: hidden;
+}
+#tips li {
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
+	color: #555;
+	cursor: pointer;
+}
+#tips li a {
+	color: #555;
+	text-decoration: none;
+	display: block;
+	margin: 0px;
+	padding: 3px 7px;
+}
+#tips li:hover {
+	background: #fff;
+}
+#tips li:hover a {
+	color: #c00;
+}

@@ -8,6 +8,7 @@ public enum ControlKey
 	LEFT(KeyEvent.VK_LEFT, KeyEvent.VK_A), RIGHT(KeyEvent.VK_RIGHT, KeyEvent.VK_D), 
 	UP(KeyEvent.VK_UP, KeyEvent.VK_W), DOWN(KeyEvent.VK_DOWN, KeyEvent.VK_W),
 	PAUSE(KeyEvent.VK_ESCAPE),
+	ACCEPT(KeyEvent.VK_ENTER),
 	NEXT_TOWER(KeyEvent.VK_T), BASE(KeyEvent.VK_B), 
 	SPEED_UP(KeyEvent.VK_Q), SLOW_DOWN(KeyEvent.VK_E),
 	AIR_STRIKE(KeyEvent.VK_R);

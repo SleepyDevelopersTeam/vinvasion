@@ -2,6 +2,7 @@ package ru.sdevteam.vinv.game;
 import java.awt.image.BufferedImage;
 
 import ru.sdevteam.vinv.main.ResourceManager;
+import ru.sdevteam.vinv.ui.BulletSprite;
 import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.utils.PhysObject;
 import ru.sdevteam.vinv.utils.Vector2F;
@@ -9,7 +10,7 @@ import ru.sdevteam.vinv.utils.Vector2F;
 
 public class Bullet extends GameObject
 {
-    public enum Type {NULL,NORMAL};
+    public enum Type {NULL,NORMAL,FLAME};
 
     private Bullet.Type type;
     public Bullet.Type getType(){return type;}
@@ -43,7 +44,8 @@ public class Bullet extends GameObject
     {
         phys=new PhysObject();
         convertTo(Type.NULL);
-        this.sprite=new Sprite(ResourceManager.getBufferedImage("bullets/test_bullet"));
+        //this.sprite=new Sprite(ResourceManager.getBufferedImage("bullets/test_bullet"));
+        this.sprite=new BulletSprite(1, BulletSprite.METAL);
     }
 
 

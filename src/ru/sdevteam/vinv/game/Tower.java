@@ -2,33 +2,38 @@ package ru.sdevteam.vinv.game;
 
 public class Tower extends Destructable
 {
-    private long lastShoot;
+    protected long lastShoot;
+    protected long reloadTimeMillis;
+    protected boolean repairing;
+	protected boolean shootGround;
+	protected boolean shootAir;
 
-    private long reloadTimeMillis;
-
-    private boolean repairing;
-
-    private String name;
+    protected String name;
     public String getName(){return name;}
     public void setName(String newName){name=newName;}
 
-    private Bullet.Type type;
-    public Bullet.Type getBulletType(){return type;}
+    protected Bullet.Type bulletType;
+    public Bullet.Type getBulletType(){return bulletType;}
 
-    private int price;
+    protected int price;
     public int getPrice(){return price;}
 
-    private int shootingRadius;
+    protected int shootingRadius;
     public float getShootingRadius(){return shootingRadius;}
+	
+	protected Type towerType;
+    public Type getTowerType(){return towerType;}
+	
+	public enum Type{MGUN,FLAME_THROWER,AIR_GUN}
 
 
     public Tower()
     {
-		type=Bullet.Type.NORMAL;
+		bulletType=Bullet.Type.NORMAL;
 		price=10;
 		shootingRadius=100;
 		sprite= new TowerSprite(this);
-		reloadTimeMillis=500;
+		reloadTimeMillis=100;
     }
 
 
@@ -55,6 +60,19 @@ public class Tower extends Destructable
         return false;
     }
     
+	public boolean canAttack(Bug.Type type)
+	{
+		if ( shootAir && type==Bug.Type.AIR )
+		{
+			return true;
+		}
+		if ( shootGround && type!=Bug.Type.AIR)
+		{
+			return true;
+		}
+		return false;
+	}
+	
     public void onDestroyed()
     {
         

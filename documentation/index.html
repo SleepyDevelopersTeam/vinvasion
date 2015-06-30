@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Layout</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="ribbon.css" />
+<link rel="stylesheet" href="colors/default.css" id="colors-css" />
+<script src="scripts/utils.js" ></script>
+<script src="scripts/prefs.js" ></script>
+<script>
+documentLoadedListeners=[];
+function subscribeOnLoad(callback)
+{
+	documentLoadedListeners.push(callback);
+}
+function onDocumentLoaded()
+{
+	for(var i=0; i<documentLoadedListeners.length; i++)
+	{
+		documentLoadedListeners[i]();
+	}
+	documentLoadedListeners=null;
+	
+	//Navigation.navigateHome();
+	if(Prefs.appearance.openLastViewed) Navigation.navigate(Prefs.navigation.lastPageUrl);
+	else Navigation.navigateHome();
+}
+subscribeOnLoad(function()
+{
+	document.getElementById("text").innerHTML=Prefs.text.initialContent;
+	document.getElementById("tab1").innerHTML=Prefs.text.initialRibbonContent;
+	document.getElementById("tab2").innerHTML=Prefs.text.initialRibbonContent;
+	document.getElementById("obsolete-icon").innerHTML=Prefs.text.obsoleteVersionWarning;
+	
+	Tabs.createTab(document.getElementById("tab1b"), document.getElementById("tab1"));
+	Tabs.createTab(document.getElementById("tab2b"), document.getElementById("tab2"));
+	
+	document.decoder=createWikiDecoder("");
+	
+	//Navigation.navigateHome();
+});
+</script>
+<script src="scripts/interface.js" ></script>
+<script src="scripts/tabctrl.js" ></script>
+<script src="scripts/navtree.js" ></script>
+<script src="scripts/navigation.js" ></script>
+<script src="scripts/ribbon.js" ></script>
+<script src="scripts/syntax.js" ></script>
+<script src="scripts/wiki.js" ></script>
+<script src="scripts/contentman.js" ></script>
+</head>
+<body onload='onDocumentLoaded();'>
+<table id='wrapper' cellspacing="0" cellpadding="0">
+	<tr><td id='ribbon'>
+	<div class='ribbon-wrapper'>
+		<div class='tab-buttons'>
+			<div class='tab-button active' id='tab1b'>N</div>
+			<div class='tab-button' id='tab2b'>V</div>
+		</div>
+		<div class='tabs'>
+			<div class='tab active' id='tab1'>
+				<div class="section">
+					<div class="button" data-icon="&#8682;">
+						<div class='label'>Наверх</div>
+					</div>
+				</div>
+				<div class="section" data-name="Browsing">
+					<div class="button" data-icon="&#9666;">
+						<div class='label'>Назад</div>
+					</div>
+					<div class="button" data-icon="&#9656;">
+						<div class='label'>Вперёд</div>
+					</div>
+					<div class="space"></div>
+					<div class="button" data-icon="&#8962;">
+						<div class='label'>Домой</div>
+					</div>
+					<div class="space"></div>
+					<div class="button disabled" data-icon="&#8986;">
+						<div class='label'>История...</div>
+					</div>
+				</div>
+				<div class="section" data-name="Search">
+					<div class="group">
+						<input type="text" placeholder="Введите заголовок..." width="100px" />
+						<label><input type="checkbox" />Учесть регистр</label>
+						<label><input type="checkbox" checked="1" />Только в заголовках</label>
+						<div class="button" style="position: absolute; bottom: 0px;">
+							<div class='label'>Найти &#x27a4;</div>
+						</div>
+					</div>
+					<ul id="search-results" class="list">
+						<li>Result 0</li>
+						<li>Result 1</li>
+						<li>Result 2</li>
+						<li>Result 3</li>
+						<li>Result 4</li>
+						<li>Result 5</li>
+						<li>Result 6</li>
+						<li>Result 7</li>
+						<li>Result 8</li>
+						<li>Result 9</li>
+					</ul>
+				</div>
+			</div>
+			<div class='tab' id='tab2'>
+				<div class="section">
+					<div class="group">
+						<div class='label'>Подсветка кода</div>
+						<input type="text" placeholder="Фильтр..." width="100px" />
+						<label><input type="checkbox" />Включена</label>
+						<div class="button" style="position: absolute; bottom: 0px;">
+							<div class='label'>Применить</div>
+						</div>
+					</div>
+					<ul id="languages" class="list">
+						<li>Java</li>
+						<li>C#</li>
+						<li>JavaScript</li>
+						<li>C++</li>
+						<li>C</li>
+						<li>Pyton</li>
+						<li>PHP</li>
+						<li>XML/HTML</li>
+					</ul>
+				</div>
+				<div class="section">
+					<ul id="themes" class="list">
+						<li>Станартная</li>
+						<li>Тёмная</li>
+						<li>Яркая</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</td></tr>
+	<tr><td id='content'>
+		<div id='nav'>
+		</div>
+		<div id='text-wrapper'>
+			<div id='obsolete-icon' style="visibility:hidden;">Obsolete</div>
+			<div id='text'></div>
+		</div>
+	</td></tr>
+</table>
+</body>
+</html>

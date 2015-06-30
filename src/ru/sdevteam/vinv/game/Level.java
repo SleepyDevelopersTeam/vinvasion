@@ -1,11 +1,42 @@
 package ru.sdevteam.vinv.game;
+import java.awt.image.BufferedImage;
 import java.util.*;
-
+import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.game.logics.Path;
+import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 {
-    private Vector<Tower> massTowers;  //массив объектов
+	//TODO: create methods create iterator
+	private Player player;
+	public Player createPlayer()
+	{
+		return null;
+	}
+
+
+	private Iterator towersIterator;
+	public Level.Iterator getTowersIterator()
+	{
+		towersIterator.reset();
+		return towersIterator;
+	}
+	
+	private Iterator bugsIterator;
+	public Level.Iterator getBugsIterator()
+	{
+		bugsIterator.reset();
+		return bugsIterator;
+	}
+
+	private Iterator bulletsIterator;
+	public Level.Iterator getBulletsIterator()
+	{
+		bulletsIterator.reset();
+		return bulletsIterator;
+	}
+
+    private Vector<Tower> massTowers; 
     public Tower[] getTowers()
     {
         Tower[] mass=new Tower[massTowers.size()];
@@ -22,38 +53,65 @@ public class Level
     }
     
     private Path levelPath;
-    
     public Path getLevelPath()
     {
     	return levelPath;
     }
 
-
-    //создает пробный уровень
+	private TiledLayer tLayer;
+	public TiledLayer getFone()
+	{
+		return tLayer;
+	}
+	private void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
+	{
+		tLayer = new TiledLayer(source, tileWidth, tileHeight, tilesWidth, tilesHeight);
+		int[][] map = new int[tilesWidth][tilesHeight];
+		for(int i=0;i<map.length;i++)
+		{
+			// TODO: Не создавать массив
+			for(int j=0;j<map[i].length;j++)
+			{
+				if((int)(Math.random()*10)==0)
+					map[i][j]=18;
+			}
+		}
+		tLayer.setMap(map);
+	}
+	
+	
     public static Level createLevel(int num)
     {
         Level objLevel=new Level();
         objLevel.poolBullet=new Pool(300);
         objLevel.massBugs = new Vector<Bug>();
         objLevel.massTowers = new Vector<Tower>();
+		
+		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
-        Tower aTower=new Tower();
+        Tower aTower=new MachineGun();
         aTower.setX(200);
         aTower.setY(200);
-
+		
+		Tower bTower=new FlameThrower();
+		aTower.setX(400);
+        aTower.setY(200);
+		
         Bug aBug=new Bug();
-        aBug.setType(Bug.Type.NORMAL);
+		aBug.setType(Bug.Type.NORMAL);
         aBug.setX(100);
         aBug.setY(100);
 
         Bug bBug=new Bug();
-        bBug.setType(Bug.Type.NORMAL);
+		bBug.setType(Bug.Type.AIR);
         bBug.setX(300);
         bBug.setY(300);
         
         objLevel.addTower(aTower);
-        objLevel.addBug(aBug);
+        objLevel.addTower(bTower);
+		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
+		
         
         objLevel.levelPath=new Path();
         /*objLevel.levelPath.addPoint(25F, 50F);
@@ -82,6 +140,136 @@ public class Level
         objLevel.levelPath.addPoint(50F, 25F);
         objLevel.levelPath.addPoint(1050F, 1050F);
 
+
+
+		objLevel.towersIterator=objLevel.new Iterator(objLevel)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getTowers().length-1)
+				{
+					return lvl.getTowers()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getTowers().length-1)
+				{
+					count+=1;
+					return lvl.getTowers()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getTowers().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+
+		objLevel.bugsIterator=objLevel.new Iterator(objLevel)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getBugs().length-1)
+				{
+					return lvl.getBugs()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getBugs().length-1)
+				{
+					count+=1;
+					return lvl.getBugs()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getBugs().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+
+		objLevel.bulletsIterator=objLevel.new Iterator(objLevel)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getBullets().length-1)
+				{
+					return lvl.getBullets()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getBullets().length-1)
+				{
+					count+=1;
+					return lvl.getBullets()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getBullets().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
         return objLevel;
     }
     
@@ -125,6 +313,20 @@ public class Level
     {
         massBugs.remove(item);
     }
+
+		public abstract class Iterator
+	{
+		protected Level lvl;
+		protected int count=-1;
+		public Iterator(Level lvl)
+		{
+			this.lvl=lvl;
+		}
+		public abstract GameObject next();
+		public abstract GameObject current();
+		public abstract boolean hasMoreObjects();
+		public abstract void reset();
+	}
 }
 
 class Pool
@@ -167,7 +369,7 @@ class Pool
         {
             //mark everything as unused, except the first that would be returned
             //that should make all first objects to disappear and to be converted to latest objs
-        	System.out.println("����� �����");
+        	System.out.println("????? ?????");
             for (int i = 1; i < pool.length; i++)
             {
                 used[i] = false;
@@ -226,4 +428,5 @@ class Pool
         }
         return mass;
     }
+
 }

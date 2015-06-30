@@ -1,0 +1,74 @@
+﻿<?xml version="1.0"?>
+<nav>
+	<item type='composite' label='main' base="main/">
+		<ver data='main.build2.txt' />
+		
+		<item type='final' label='Program' data='Program.build2.txt' />
+		<item type='final' label='MainFrame' data='MainFrame.build2.txt' />
+		<item type='final' label='GameCanvas' data='GameCanvas.build2.txt' />
+		<item type='final' label='Timer' data='Timer.build2.txt' />
+		<item type='final' label='OnTickListener' data='OnTickListener.build2.txt' />
+		<item type='final' label='Input' data='Input.build2.txt' />
+		<item type='final' label='KeyEvent' data='KeyEvent.build2.txt' />
+		<item type='final' label='MouseEvent' data='MouseEvent.build2.txt' />
+		<item type='final' label='ResourceManager' data='ResourceManager.build2.txt' />
+		<item type='final' label='Profile' data='Profile.build2.txt' />
+	</item>
+	<item type='composite' label='ui' base="ui/">
+		<ver data='ui.build2.txt' />
+		
+		<item type='final' label='Screen' data='Screen.build2.txt' />
+		<item type='final' label='GameScreen' data='GameScreen.build2.txt' />
+		<item type='final' label='LoadingScreen' data='LoadingScreen.build2.txt' />
+		<item type='final' label='Sprite' data='Sprite.build2.txt' />
+		<item type='final' label='TiledLayer' data='TiledLayer.build2.txt' />
+		<item type='final' label='MenuScreen' data='MenuScreen.build2.txt' />
+		<item type='final' label='Menu' data='Menu.build2.txt' />
+		<item type='final' label='MenuItem' data='MenuItem.build2.txt' />
+		<item type='final' label='Button' data='Button.build2.txt' />
+		<item type='final' label='MessageBox' data='MessageBox.build2.txt' />
+		<item type='final' label='IDrawable' data='IDrawable.build2.txt' />
+		<item type='final' label='IUpdatable' data='IUpdatable.build2.txt' />
+	</item>
+
+	<item type='composite' label='game' base="game/">
+		<ver data='game.build2.txt' />
+		
+		<item type='final' label='Level' data='Level.build2.txt' />
+		<item type='final' label='Level.Iterator' data='Level.Iterator.build2.txt' />
+		<item type='final' label='GameObject' data='GameObject.build2.txt' />
+		<item type='final' label='Destructable' data='Destructable.build2.txt' />
+		<item type='final' label='Tower' data='Tower.build2.txt' />
+		<item type='final' label='Bug' data='Bug.build2.txt' />
+		<item type='final' label='Bullet' data='Bullet.build2.txt' />
+		<item type='final' label='Player' data='Player.build2.txt' />
+		<item type='final' label='IMoveable' data='IMoveable.build2.txt' />
+	</item>
+	
+	<item type='composite' label='game.logics' base="game.logics/">
+		<ver data='game.logics.build2.txt' />
+	
+		<item type='final' label='LevelController' data='LevelController.build2.txt' />
+		<item type='final' label='BugsMover' data='BugsMover.build2.txt' />
+		<item type='final' label='Path' data='Path.build2.txt' />
+	</item>
+	
+	<item type='composite' label='utils' base="utils/">
+		<ver data='utils.build2.txt' />
+		
+		<item type='final' label='Vector2F' data='Vector2F.build2.txt' />
+		<item type='final' label='PhysObject' data='PhysObject.build2.txt' />
+	</item>
+	
+	<item type='group' label='Заметки' base="notes/">
+		<item type='final' label='Стек экранов' data='Стек экранов.build2.txt' />
+		<item type='final' label='Составные изображения и спрайты' data='Составные изображения и спрайты.build2.txt' />
+		<item type='final' label='Повороты игровых объектов' data='Повороты игровых объектов.build2.txt' />
+		<item type='final' label='Основные потоки программы' data='Основные потоки программы.build2.txt' />
+		<item type='final' label='Окно просмотра' data='Окно просмотра.build2.txt' />
+		<item type='final' label='Обработка пользовательского ввода' data='Обработка пользовательского ввода.build2.txt' />
+		<item type='final' label='Координатные системы' data='Координатные системы.build2.txt' />
+		<item type='final' label='MVC' data='MVC.build2.txt' />
+
+	</item>
+</nav>

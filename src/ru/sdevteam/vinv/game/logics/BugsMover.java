@@ -93,7 +93,7 @@ public class BugsMover
 
 	public void update() 
 	{
-		for(int i=0;i<items.size();i++)
+		for(int i=0;i<items.size();i++) 
 		{
 			BugsMoverItem b = items.get(i);
 			b.bug.moveBy((b.velocity.getX()),b.velocity.getY());
@@ -120,7 +120,6 @@ public class BugsMover
 				if (path.getPointsCount()-2==b.section)
 				{
 					lvlctrl.onPathEndReached(b.bug);
-					items.remove(b);
 					i--;
 				}
 			}

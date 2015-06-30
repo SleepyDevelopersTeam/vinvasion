@@ -55,6 +55,7 @@ plugin
 #netbeans
 
 nbproject/
+build/
 
 build.xml
 

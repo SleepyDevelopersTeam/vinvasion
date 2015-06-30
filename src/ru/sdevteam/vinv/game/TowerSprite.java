@@ -10,7 +10,7 @@ public class TowerSprite extends Sprite
 	
 	public TowerSprite(Tower t)
 	{
-		super(ResourceManager.getBufferedImage("towers/test_tower"), 256, 256);
+		super(ResourceManager.getBufferedImage("towers/test_tower"), 32, 32);
 		instanse=t;
 		pause();
 	}
