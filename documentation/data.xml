@@ -20,15 +20,30 @@
 		<item type='final' label='Screen' data='Screen.build2.txt' />
 		<item type='final' label='GameScreen' data='GameScreen.build2.txt' />
 		<item type='final' label='LoadingScreen' data='LoadingScreen.build2.txt' />
+		<item type='final' label='MenuScreen' data='MenuScreen.build3.txt' />
+		<item type='final' label='ProfileScreen' data='ProfileScreen.build3.txt' />
+		<item type='final' label='OptionsScreen' data='OptionsScreen.build3.txt' />
 		<item type='final' label='Sprite' data='Sprite.build2.txt' />
 		<item type='final' label='TiledLayer' data='TiledLayer.build2.txt' />
-		<item type='final' label='MenuScreen' data='MenuScreen.build2.txt' />
-		<item type='final' label='Menu' data='Menu.build2.txt' />
-		<item type='final' label='MenuItem' data='MenuItem.build2.txt' />
-		<item type='final' label='Button' data='Button.build2.txt' />
-		<item type='final' label='MessageBox' data='MessageBox.build2.txt' />
+		<item type='final' label='Menu' data='Menu.build3.txt' />
+		<item type='final' label='MenuItem' data='MenuItem.build3.txt' />
+		<item type='final' label='MessageBox' data='MessageBox.build3.txt' />
 		<item type='final' label='IDrawable' data='IDrawable.build2.txt' />
 		<item type='final' label='IUpdatable' data='IUpdatable.build2.txt' />
+		<item type='final' label='BugSprite' data='BugSprite.build2.txt' />
+		<item type='final' label='TowerSprite' data='TowerSprite.build2.txt' />
+		<item type='final' label='BulletSprite' data='BulletSprite.build2.txt' />
+	</item>
+	
+	<item type='composite' label='ui.controls' base="ui.controls/">
+		<ver data='ui.controls.build3.txt' />
+		
+		<item type='final' label='Control' data='Control.build3.txt' />
+		<item type='final' label='ContainerControl' data='ContainerControl.build3.txt' />
+		<item type='final' label='FocusableControl' data='FocusableControl.build3.txt' />
+		<item type='final' label='FlowLayout' data='FlowLayout.build3.txt' />
+		<item type='final' label='Button' data='Button.build3.txt' />
+		<item type='final' label='ButtonSet' data='ButtonSet.build3.txt' />
 	</item>
 
 	<item type='composite' label='game' base="game/">
@@ -38,11 +53,13 @@
 		<item type='final' label='Level.Iterator' data='Level.Iterator.build2.txt' />
 		<item type='final' label='GameObject' data='GameObject.build2.txt' />
 		<item type='final' label='Destructable' data='Destructable.build2.txt' />
+		<item type='final' label='Decoration' data='Decoration.build3.txt' />
 		<item type='final' label='Tower' data='Tower.build2.txt' />
 		<item type='final' label='Bug' data='Bug.build2.txt' />
 		<item type='final' label='Bullet' data='Bullet.build2.txt' />
 		<item type='final' label='Player' data='Player.build2.txt' />
 		<item type='final' label='IMoveable' data='IMoveable.build2.txt' />
+		<item type='final' label='Effect' data='Effect.build3.txt' />
 	</item>
 	
 	<item type='composite' label='game.logics' base="game.logics/">
