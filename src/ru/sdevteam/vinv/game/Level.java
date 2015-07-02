@@ -21,6 +21,52 @@ public class Level
 		towersIterator.reset();
 		return towersIterator;
 	}
+	public Level.Iterator createTowersIterator()
+	{
+		Iterator towersIterator=new Iterator(this)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getTowers().length-1)
+				{
+					return lvl.getTowers()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getTowers().length-1)
+				{
+					count+=1;
+					return lvl.getTowers()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getTowers().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+		return towersIterator;
+	}
 	
 	private Iterator bugsIterator;
 	public Level.Iterator getBugsIterator()
@@ -28,11 +74,103 @@ public class Level
 		bugsIterator.reset();
 		return bugsIterator;
 	}
+	public Level.Iterator createBugsIterator()
+	{
+		bugsIterator=new Iterator(this)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getBugs().length-1)
+				{
+					return lvl.getBugs()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getBugs().length-1)
+				{
+					count+=1;
+					return lvl.getBugs()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getBugs().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+		return bugsIterator;
+	}
 
 	private Iterator bulletsIterator;
 	public Level.Iterator getBulletsIterator()
 	{
 		bulletsIterator.reset();
+		return bulletsIterator;
+	}
+	public Level.Iterator createBulletsIterator()
+	{
+		bulletsIterator=new Iterator(this)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count<=lvl.getBullets().length-1)
+				{
+					return lvl.getBullets()[count];
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.getBullets().length-1)
+				{
+					count+=1;
+					return lvl.getBullets()[count];
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.getBullets().length-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
 		return bulletsIterator;
 	}
 
@@ -270,6 +408,7 @@ public class Level
 			}
 
 		};
+		
         return objLevel;
     }
     
