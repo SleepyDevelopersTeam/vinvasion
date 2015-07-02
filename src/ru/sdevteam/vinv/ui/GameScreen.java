@@ -1,6 +1,7 @@
 package ru.sdevteam.vinv.ui;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.logics.LevelController;
@@ -59,6 +60,7 @@ public class GameScreen extends Screen
 	public void paint(Graphics g) 
 	{
 		// TODO: Масштабирование
+		((Graphics2D)g).scale(scaleFactor, scaleFactor);
 		levelCtrl.paint(g);
 	}
 
