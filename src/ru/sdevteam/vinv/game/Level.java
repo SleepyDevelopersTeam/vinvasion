@@ -29,6 +29,11 @@ public class Level
 			@Override
 			public GameObject current()
 			{
+				if (count==-1)
+				{
+					count=0;
+					return lvl.getTowers()[count];
+				}
 				if (count<=lvl.getTowers().length-1)
 				{
 					return lvl.getTowers()[count];
@@ -82,6 +87,11 @@ public class Level
 			@Override
 			public GameObject current()
 			{
+				if (count==-1)
+				{
+					count=0;
+					return lvl.getBugs()[count];
+				}
 				if (count<=lvl.getBugs().length-1)
 				{
 					return lvl.getBugs()[count];
@@ -135,6 +145,11 @@ public class Level
 			@Override
 			public GameObject current()
 			{
+				if (count==-1)
+				{
+					count=0;
+					return lvl.getBullets()[count];
+				}
 				if (count<=lvl.getBullets().length-1)
 				{
 					return lvl.getBullets()[count];
