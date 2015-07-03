@@ -62,6 +62,7 @@ public class GameScreen extends Screen
 		// TODO: Масштабирование
 		((Graphics2D)g).scale(scaleFactor, scaleFactor);
 		levelCtrl.paint(g);
+		((Graphics2D)g).scale(1F/scaleFactor, 1F/scaleFactor);
 	}
 
 	@Override
@@ -84,6 +85,7 @@ public class GameScreen extends Screen
 					scaleFactor*=2;
 					viewportWidth/=2;
 					viewportHeight/=2;
+					System.out.println(delta);
 				}
 			}
 			else 

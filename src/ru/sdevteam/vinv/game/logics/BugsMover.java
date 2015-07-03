@@ -121,6 +121,7 @@ public class BugsMover
 				{
 					lvlctrl.onPathEndReached(b.bug);
 					i--;
+					items.remove(b);
 				}
 			}
 		}
