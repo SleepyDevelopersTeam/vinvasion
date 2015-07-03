@@ -141,6 +141,11 @@ public class LevelController implements IUpdatable, IDrawable
 		while(UpdateBugsIterator.hasMoreObjects())
 		{
 			UpdateBugsIterator.next().update();
+			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
+			{
+				modelOfLevel.removeBug((Bug)UpdateBugsIterator.current());
+				mover.deleteBug((Bug)UpdateBugsIterator.current());
+			}
 		}
 
 		while(UpdateBulletsIterator.hasMoreObjects())
