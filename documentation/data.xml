@@ -60,6 +60,7 @@
 		<item type='final' label='Player' data='Player.build2.txt' />
 		<item type='final' label='IMoveable' data='IMoveable.build2.txt' />
 		<item type='final' label='Effect' data='Effect.build3.txt' />
+		<item type='final' label='Explosion' data='Explosion.build3.txt' />
 	</item>
 	
 	<item type='composite' label='game.logics' base="game.logics/">
