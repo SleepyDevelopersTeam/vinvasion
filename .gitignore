@@ -62,3 +62,4 @@ build.xml
 #compiled java files
 *.class
 bin/
+/dist/
