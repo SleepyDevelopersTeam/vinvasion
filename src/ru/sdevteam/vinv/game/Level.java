@@ -6,7 +6,7 @@ import ru.sdevteam.vinv.game.logics.Path;
 import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
-{
+{ 
 	//TODO: create methods create iterator
 	private Player player;
 	public Player createPlayer()
@@ -21,6 +21,58 @@ public class Level
 		towersIterator.reset();
 		return towersIterator;
 	}
+	public Level.Iterator createTowersIterator()
+	{
+		Iterator towersIterator=new Iterator(this)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count==-1)
+				{
+					count=0;
+					return lvl.massTowers.elementAt(count);
+				}
+				if (count<=lvl.massTowers.size()-1)
+				{
+					//System.out.println(count);
+					return lvl.massTowers.elementAt(count);
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.massTowers.size()-1)
+				{
+					count+=1;
+					return lvl.massTowers.elementAt(count);
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.massTowers.size()-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+		return towersIterator;
+	}
 	
 	private Iterator bugsIterator;
 	public Level.Iterator getBugsIterator()
@@ -28,10 +80,135 @@ public class Level
 		bugsIterator.reset();
 		return bugsIterator;
 	}
+	public Level.Iterator createBugsIterator()
+	{
+		bugsIterator=new Iterator(this)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				if (count==-1)
+				{
+					count=0;
+					return lvl.massBugs.elementAt(count);
+				}
+				if (count<lvl.massBugs.size())
+				{
+					return lvl.massBugs.elementAt(count);
+				}
+				return null;
+			}
+
+			@Override
+			public GameObject next()
+			{
+				if (count<lvl.massBugs.size()-1)
+				{
+					count+=1;
+					return lvl.massBugs.elementAt(count);
+
+				}
+				return null;
+			}
+
+			@Override
+			public void reset()
+			{
+				count=-1;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				if(count<lvl.massBugs.size()-1)
+				{
+					return true;
+				}
+				return false;
+			}
+
+		};
+		return bugsIterator;
+	}
 
 	private Iterator bulletsIterator;
 	public Level.Iterator getBulletsIterator()
 	{
+		bulletsIterator.reset();
+		return bulletsIterator;
+	}
+	public Level.Iterator createBulletsIterator()
+	{
+		bulletsIterator=new Iterator(this)
+		{
+
+			@Override
+			public GameObject current()
+			{
+				
+				/*if (count==-1)
+				{
+					count=0;
+					return lvl.getBullets()[count];
+				}
+				if (count<lvl.getBullets().length)
+				{
+					//System.out.println(count);
+					return lvl.getBullets()[count];
+				}
+				return null;*/
+				//if(count==-1) count=0;
+				if(count>=lvl.poolBullet.pool.length) return null;
+				return lvl.poolBullet.pool[count];
+			}
+
+			@Override
+			public GameObject next()
+			{
+				/*if (count<lvl.getBullets().length-1)
+				{
+					count+=1;
+					return lvl.getBullets()[count];
+
+				}
+				return null;*/
+				do
+				{
+					count++;
+					if(count>=lvl.poolBullet.pool.length)
+						return null;
+				}
+				while(!lvl.poolBullet.used[count]);
+				return lvl.poolBullet.pool[count];
+			}
+
+			@Override
+			public void reset()
+			{
+				count=0;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				/*if(count<lvl.getBullets().length-1)
+				{
+					return true;
+				}
+				return false;*/
+				int i=count;
+				do
+				{
+					i++;
+					if(i>=lvl.poolBullet.pool.length)
+						return false;
+				}
+				while(!lvl.poolBullet.used[i]);
+				return true;
+			}
+
+		};
 		bulletsIterator.reset();
 		return bulletsIterator;
 	}
@@ -66,7 +243,7 @@ public class Level
 	private void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
 	{
 		tLayer = new TiledLayer(source, tileWidth, tileHeight, tilesWidth, tilesHeight);
-		int[][] map = new int[tilesWidth][tilesHeight];
+		int[][] map = new int[tilesHeight][tilesWidth];
 		for(int i=0;i<map.length;i++)
 		{
 			// TODO: РќРµ СЃРѕР·РґР°РІР°С‚СЊ РјР°СЃСЃРёРІ
@@ -74,6 +251,8 @@ public class Level
 			{
 				if((int)(Math.random()*10)==0)
 					map[i][j]=18;
+				else
+					map[i][j]=0;
 			}
 		}
 		tLayer.setMap(map);
@@ -219,7 +398,7 @@ public class Level
 			@Override
 			public boolean hasMoreObjects()
 			{
-				if(count<lvl.getBugs().length-1)
+				if(count<lvl.massBugs.size()-1)
 				{
 					return true;
 				}
@@ -270,6 +449,7 @@ public class Level
 			}
 
 		};
+		
         return objLevel;
     }
     
@@ -331,8 +511,9 @@ public class Level
 
 class Pool
 {
-    private Bullet[] pool;
-    private boolean[] used;
+	// TODO: перенести класс Pool внутрь Level и снова заприватить массивы
+    Bullet[] pool;
+    boolean[] used;
     private int created;
 
     public int getSize()
