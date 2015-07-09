@@ -49,7 +49,9 @@
 	<item type='composite' label='game' base="game/">
 		<ver data='game.build2.txt' />
 		
-		<item type='final' label='Level' data='Level.build2.txt' />
+		<item type='final' label='Level' v='Build#2' data='Level.build2.txt' />
+		<item type='final' label='Level' v='Build#3' data='Level.build3.txt' />
+		
 		<item type='final' label='Level.Iterator' data='Level.Iterator.build2.txt' />
 		<item type='final' label='GameObject' data='GameObject.build2.txt' />
 		<item type='final' label='Destructable' data='Destructable.build2.txt' />
