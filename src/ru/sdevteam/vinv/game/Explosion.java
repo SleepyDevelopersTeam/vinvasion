@@ -41,20 +41,28 @@ public class Explosion extends GameObject
 		 switch(this.type)
          {
              case NONE:
+            	 damage = 0;
             	 return Effect.NONE;
              case REGULAR:
+            	 damage  = 10;
             	 return Effect.NONE;
              case SLIME:
+            	 damage = 0;
             	 return Effect.NONE;
              case BIG:
+            	 damage  = 15;
             	 return Effect.DAMAGE;
              case BIG_SLIME:
+            	 damage = 0;
             	 return Effect.NONE;
              case FROSTY:
+            	 damage = 0;
             	 return Effect.FROST;
              case FIREBALL:
+            	 damage = 5;
             	 return Effect.BURNING;
              case POISONOUS:
+            	 damage = 2;
             	 return Effect.POISON;
          }
 		 return null;
