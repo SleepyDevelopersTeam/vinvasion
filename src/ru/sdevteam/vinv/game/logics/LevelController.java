@@ -92,7 +92,7 @@ public class LevelController implements IUpdatable, IDrawable
 		{
 			arrayOfBullets[i].getSprite().paint(g);
 		}*/
-
+		
 		PaintBugsIterator.reset();
 		PaintBulletsIterator.reset();
 		PaintTowersIterator.reset();
