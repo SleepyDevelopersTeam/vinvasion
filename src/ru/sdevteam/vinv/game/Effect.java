@@ -3,10 +3,9 @@ package ru.sdevteam.vinv.game;
 public enum Effect
 {
     NONE, DAMAGE, BURNING, FROST, POISON;
-    private Effect currentEffect;
     public void affect(Bug b)
     {
-    	 switch(this.currentEffect)
+    	 switch(this)
          {
              case NONE:
             	 break;
