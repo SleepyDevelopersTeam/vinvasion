@@ -11,10 +11,14 @@ public class Explosion extends GameObject
 	
 	public Explosion()
 	{
+		int x = 0;
+		int y = 0;
 		this.type = Type.NONE;
 	}
 	public Explosion(Type type)
 	{
+		int x = 0;
+		int y = 0;
 		this.type = type;
 	}
 	
