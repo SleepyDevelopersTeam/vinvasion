@@ -53,11 +53,21 @@
 		<item type='final' label='Level' v='Build#3' data='Level.build3.txt' />
 		
 		<item type='final' label='Level.Iterator' data='Level.Iterator.build2.txt' />
-		<item type='final' label='GameObject' data='GameObject.build2.txt' />
-		<item type='final' label='Destructable' data='Destructable.build2.txt' />
+		
+		<item type='final' label='GameObject' v='Build#2' data='GameObject.build2.txt' />
+		<item type='final' label='GameObject' v='Build#3' data='GameObject.build3.txt' />
+		
+		<item type='final' label='Destructable' v='Build#2' data='Destructable.build2.txt' />
+		<item type='final' label='Destructable' v='Build#3' data='Destructable.build3.txt' />
+		
 		<item type='final' label='Decoration' data='Decoration.build3.txt' />
-		<item type='final' label='Tower' data='Tower.build2.txt' />
-		<item type='final' label='Bug' data='Bug.build2.txt' />
+		
+		<item type='final' label='Tower' v='Build#2' data='Tower.build2.txt' />
+		<item type='final' label='Tower' v='Build#3' data='Tower.build3.txt' />
+		
+		<item type='final' label='Bug' v='Build#2' data='Bug.build2.txt' />
+		<item type='final' label='Bug' v='Build#3' data='Bug.build3.txt' />
+		
 		<item type='final' label='Bullet' data='Bullet.build2.txt' />
 		<item type='final' label='Player' data='Player.build2.txt' />
 		<item type='final' label='IMoveable' data='IMoveable.build2.txt' />
