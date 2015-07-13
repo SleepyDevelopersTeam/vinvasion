@@ -67,4 +67,37 @@ public class Explosion extends GameObject
          }
 		 return null;
 	}
+	 public void convertTo(Explosion.Type type)
+	    {
+	        this.type=type;
+	        switch(this.type)
+	        {
+	            case NONE:
+	            	damage = 0;
+	            	break;
+	            case REGULAR:
+	            	damage  = 10;
+	            	break;
+	            case SLIME:
+	            	damage = 0;
+	            	break;
+	            case BIG:
+	            	damage  = 15;
+	            	break;
+	            case BIG_SLIME:
+	            	damage = 0;
+	            	break;
+	            case FROSTY:
+	            	damage = 0;
+	            	break;
+	            case FIREBALL:
+	            	damage = 5;
+	            	break;
+	            case POISONOUS:
+	            	damage = 2;
+	            	break;
+	            
+	                         
+	        }
+	    }
 }
