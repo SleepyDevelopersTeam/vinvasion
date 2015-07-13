@@ -5,28 +5,31 @@ import java.awt.Graphics;
 import ru.sdevteam.vinv.game.IMoveable;
 import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
+import java.util.Vector;
 
 public abstract class Menu implements IDrawable, IUpdatable, IMoveable
 {
+	private Vector<MenuItem> listOfMenuItem;
 	public void addMenuItem(MenuItem m)
 	{
-		
+		listOfMenuItem.add(m);
 	}
 	
 	public abstract void addMenuItem(String text);
+	
 	// добавляет "разделитель" (отступ) после последнего пункта меню
 	public abstract void insertSeparator();
 	
 	public void removeMenuItem(MenuItem m)
 	{
-		
+		listOfMenuItem.remove(m);
 	}
 
 	// перечисление, определяющее стиль меню
 	public enum Style { MAIN_MENU, INGAME_MENU }
 	
 
-	// обработка событий
+	/*// обработка событий
 	public void processEvent(MouseEvent ev)
 	{
 		
@@ -36,7 +39,7 @@ public abstract class Menu implements IDrawable, IUpdatable, IMoveable
 	{
 	
 	}
-
+*/
 	// вызывается при выборе пользователем элемента меню item
 	protected void onItemActivated(MenuItem item)
 	{
