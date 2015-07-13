@@ -68,7 +68,7 @@ public class Explosion extends GameObject
 		 return null;
 	}
 	 public void convertTo(Explosion.Type type)
-	    {
+	    { 
 	        this.type=type;
 	        switch(this.type)
 	        {
