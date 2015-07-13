@@ -161,7 +161,15 @@ public class Level
     {
         massBugs.remove(item);
     }
-
+	public void addDeco(Decoration d)
+	{
+		massDecos.add(d);
+	}
+	public void removeDeco(Decoration d)
+	{
+		massDecos.remove(d);
+	}
+	
 	public void markInactive(Bug b)
 	{
 		b.setActive(false);
