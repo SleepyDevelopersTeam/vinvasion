@@ -72,6 +72,7 @@ public class Explosion extends GameObject
 	        this.type=type;
 	        switch(this.type)
 	        {
+	        
 	            case NONE:
 	            	damage = 0;
 	            	break;
@@ -94,7 +95,7 @@ public class Explosion extends GameObject
 	            	damage = 5;
 	            	break;
 	            case POISONOUS:
-	            	damage = 2;
+	            	damage = 3;
 	            	break;
 	            
 	                         
