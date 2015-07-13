@@ -7,8 +7,6 @@ public class Bug extends Destructable
 	private boolean air;
 	public boolean isAir(){return air;}
 	
-	
-	
     private Bug.Type type;
     public Bug.Type getType(){return type;}
 
@@ -17,7 +15,6 @@ public class Bug extends Destructable
 
     private int speed;
     public int getSpeed(){return speed;}
-
 
     public Bug()
     {
