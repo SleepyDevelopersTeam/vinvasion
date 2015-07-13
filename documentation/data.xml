@@ -17,7 +17,9 @@
 	<item type='composite' label='ui' base="ui/">
 		<ver data='ui.build2.txt' />
 		
-		<item type='final' label='Screen' data='Screen.build2.txt' />
+		<item type='final' label='Screen' v='Build#2' data='Screen.build2.txt' />
+		<item type='final' label='Screen' v='Build#3' data='Screen.build3.txt' />
+		
 		<item type='final' label='GameScreen' data='GameScreen.build2.txt' />
 		<item type='final' label='LoadingScreen' data='LoadingScreen.build2.txt' />
 		<item type='final' label='MenuScreen' data='MenuScreen.build3.txt' />
@@ -99,6 +101,7 @@
 		<item type='final' label='Обработка пользовательского ввода' data='Обработка пользовательского ввода.build2.txt' />
 		<item type='final' label='Координатные системы' data='Координатные системы.build2.txt' />
 		<item type='final' label='MVC' data='MVC.build2.txt' />
+		<item type='final' label='Использование Menu' data='Использование Menu.build3.txt' />
 
 	</item>
 </nav>
