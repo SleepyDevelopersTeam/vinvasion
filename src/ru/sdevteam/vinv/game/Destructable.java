@@ -32,12 +32,12 @@ public abstract class Destructable extends GameObject
         hp-=b.getDamage();
         if(hp<=0)
         {
-            onDestroyed();
+            onDestructed();
             hp=0;
         }
     }
 
-    protected abstract void onDestroyed(); //??? должен вызываться при достижении показателем hp нуля
+    protected abstract void onDestructed(); //??? должен вызываться при достижении показателем hp нуля
 
     @Override
     public void update()

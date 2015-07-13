@@ -23,7 +23,7 @@ public class Bug extends Destructable
     }
 
 
-    public  void onDestroyed(){
+    public  void onDestructed(){
 
     }
     public void update()

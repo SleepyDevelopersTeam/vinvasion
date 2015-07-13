@@ -25,7 +25,7 @@ public class Decoration extends Destructable
 		destructedListener.remove(l);
 	}
 	@Override
-	protected void onDestroyed() 
+	protected void onDestructed() 
 	{
 		for(ActionListener listener: destructedListener)
 		{

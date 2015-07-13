@@ -73,7 +73,7 @@ public class Tower extends Destructable
 		return false;
 	}
 	
-    public void onDestroyed()
+    public void onDestructed()
     {
         
     }
