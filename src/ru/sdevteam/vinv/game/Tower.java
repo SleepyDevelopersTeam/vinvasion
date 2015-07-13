@@ -77,7 +77,17 @@ public class Tower extends Destructable
     {
         
     }
-    
+	
+	public void activate()
+	{
+		active=true;
+	}
+	
+    public void deactivate()
+	{
+		active=false;
+	}
+	
     public void update()
     {
         super.update();
