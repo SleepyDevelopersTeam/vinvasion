@@ -7,228 +7,16 @@ import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 { 
-	//TODO: create methods create iterator
-	private Player player;
-	public Player createPlayer()
-	{
-		return null;
-	}
-
-
-	private Iterator towersIterator;
-	public Level.Iterator getTowersIterator()
-	{
-		towersIterator.reset();
-		return towersIterator;
-	}
-	public Level.Iterator createTowersIterator()
-	{
-		Iterator towersIterator=new Iterator(this)
-		{
-
-			@Override
-			public GameObject current()
-			{
-				if (count==-1)
-				{
-					count=0;
-					return lvl.massTowers.elementAt(count);
-				}
-				if (count<=lvl.massTowers.size()-1)
-				{
-					//System.out.println(count);
-					return lvl.massTowers.elementAt(count);
-				}
-				return null;
-			}
-
-			@Override
-			public GameObject next()
-			{
-				if (count<lvl.massTowers.size()-1)
-				{
-					count+=1;
-					return lvl.massTowers.elementAt(count);
-
-				}
-				return null;
-			}
-
-			@Override
-			public void reset()
-			{
-				count=-1;
-			}
-
-			@Override
-			public boolean hasMoreObjects()
-			{
-				if(count<lvl.massTowers.size()-1)
-				{
-					return true;
-				}
-				return false;
-			}
-
-		};
-		return towersIterator;
-	}
-	
-	private Iterator bugsIterator;
-	public Level.Iterator getBugsIterator()
-	{
-		bugsIterator.reset();
-		return bugsIterator;
-	}
-	public Level.Iterator createBugsIterator()
-	{
-		bugsIterator=new Iterator(this)
-		{
-
-			@Override
-			public GameObject current()
-			{
-				if (count==-1)
-				{
-					count=0;
-					return lvl.massBugs.elementAt(count);
-				}
-				if (count<lvl.massBugs.size())
-				{
-					return lvl.massBugs.elementAt(count);
-				}
-				return null;
-			}
-
-			@Override
-			public GameObject next()
-			{
-				if (count<lvl.massBugs.size()-1)
-				{
-					count+=1;
-					return lvl.massBugs.elementAt(count);
-
-				}
-				return null;
-			}
-
-			@Override
-			public void reset()
-			{
-				count=-1;
-			}
-
-			@Override
-			public boolean hasMoreObjects()
-			{
-				if(count<lvl.massBugs.size()-1)
-				{
-					return true;
-				}
-				return false;
-			}
-
-		};
-		return bugsIterator;
-	}
-
-	private Iterator bulletsIterator;
-	public Level.Iterator getBulletsIterator()
-	{
-		bulletsIterator.reset();
-		return bulletsIterator;
-	}
-	public Level.Iterator createBulletsIterator()
-	{
-		bulletsIterator=new Iterator(this)
-		{
-
-			@Override
-			public GameObject current()
-			{
-				
-				/*if (count==-1)
-				{
-					count=0;
-					return lvl.getBullets()[count];
-				}
-				if (count<lvl.getBullets().length)
-				{
-					//System.out.println(count);
-					return lvl.getBullets()[count];
-				}
-				return null;*/
-				//if(count==-1) count=0;
-				if(count>=lvl.poolBullet.pool.length) return null;
-				return lvl.poolBullet.pool[count];
-			}
-
-			@Override
-			public GameObject next()
-			{
-				/*if (count<lvl.getBullets().length-1)
-				{
-					count+=1;
-					return lvl.getBullets()[count];
-
-				}
-				return null;*/
-				do
-				{
-					count++;
-					if(count>=lvl.poolBullet.pool.length)
-						return null;
-				}
-				while(!lvl.poolBullet.used[count]);
-				return lvl.poolBullet.pool[count];
-			}
-
-			@Override
-			public void reset()
-			{
-				count=0;
-			}
-
-			@Override
-			public boolean hasMoreObjects()
-			{
-				/*if(count<lvl.getBullets().length-1)
-				{
-					return true;
-				}
-				return false;*/
-				int i=count;
-				do
-				{
-					i++;
-					if(i>=lvl.poolBullet.pool.length)
-						return false;
-				}
-				while(!lvl.poolBullet.used[i]);
-				return true;
-			}
-
-		};
-		bulletsIterator.reset();
-		return bulletsIterator;
-	}
-
-    private Vector<Tower> massTowers; 
-    public Tower[] getTowers()
-    {
-        Tower[] mass=new Tower[massTowers.size()];
-        massTowers.copyInto(mass);
-        return mass;
-    }
-
+	private Vector<Tower> massTowers; 
     private Vector<Bug> massBugs;
-    public Bug[] getBugs()
-    {
-        Bug[] mass=new Bug[massBugs.size()];
-        massBugs.copyInto(mass);
-        return mass;
-    }
-    
+	private Vector<Decoration> massDecos;
+	
+	private PoolBullet poolBullet;
+	private PoolExpl poolExpl;
+
+	private Player player;
+	public Player createPlayer(){return null;}
+
     private Path levelPath;
     public Path getLevelPath()
     {
@@ -240,31 +28,18 @@ public class Level
 	{
 		return tLayer;
 	}
-	private void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
-	{
-		tLayer = new TiledLayer(source, tileWidth, tileHeight, tilesWidth, tilesHeight);
-		int[][] map = new int[tilesHeight][tilesWidth];
-		for(int i=0;i<map.length;i++)
-		{
-			// TODO: РќРµ СЃРѕР·РґР°РІР°С‚СЊ РјР°СЃСЃРёРІ
-			for(int j=0;j<map[i].length;j++)
-			{
-				if((int)(Math.random()*10)==0)
-					map[i][j]=18;
-				else
-					map[i][j]=0;
-			}
-		}
-		tLayer.setMap(map);
-	}
 	
 	
     public static Level createLevel(int num)
     {
         Level objLevel=new Level();
-        objLevel.poolBullet=new Pool(300);
+		
+        objLevel.poolBullet=new PoolBullet(300);
+		objLevel.poolExpl=new PoolExpl(300);
+		
         objLevel.massBugs = new Vector<Bug>();
         objLevel.massTowers = new Vector<Tower>();
+		objLevel.massDecos = new Vector<Decoration>();
 		
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
@@ -293,10 +68,6 @@ public class Level
 		
         
         objLevel.levelPath=new Path();
-        /*objLevel.levelPath.addPoint(25F, 50F);
-        objLevel.levelPath.addPoint(25F, 325F);
-        objLevel.levelPath.addPoint(50F, 350F);
-        objLevel.levelPath.addPoint(325F, 350F);*/
         objLevel.levelPath.addPoint(350F, 325F);
         objLevel.levelPath.addPoint(350F, 50F);
         objLevel.levelPath.addPoint(325F, 25F);
@@ -318,143 +89,29 @@ public class Level
         objLevel.levelPath.addPoint(325F, 25F);
         objLevel.levelPath.addPoint(50F, 25F);
         objLevel.levelPath.addPoint(1050F, 1050F);
-
-
-
-		objLevel.towersIterator=objLevel.new Iterator(objLevel)
-		{
-
-			@Override
-			public GameObject current()
-			{
-				if (count<=lvl.getTowers().length-1)
-				{
-					return lvl.getTowers()[count];
-				}
-				return null;
-			}
-
-			@Override
-			public GameObject next()
-			{
-				if (count<lvl.getTowers().length-1)
-				{
-					count+=1;
-					return lvl.getTowers()[count];
-
-				}
-				return null;
-			}
-
-			@Override
-			public void reset()
-			{
-				count=-1;
-			}
-
-			@Override
-			public boolean hasMoreObjects()
-			{
-				if(count<lvl.getTowers().length-1)
-				{
-					return true;
-				}
-				return false;
-			}
-
-		};
-
-		objLevel.bugsIterator=objLevel.new Iterator(objLevel)
-		{
-
-			@Override
-			public GameObject current()
-			{
-				if (count<=lvl.getBugs().length-1)
-				{
-					return lvl.getBugs()[count];
-				}
-				return null;
-			}
-
-			@Override
-			public GameObject next()
-			{
-				if (count<lvl.getBugs().length-1)
-				{
-					count+=1;
-					return lvl.getBugs()[count];
-
-				}
-				return null;
-			}
-
-			@Override
-			public void reset()
-			{
-				count=-1;
-			}
-
-			@Override
-			public boolean hasMoreObjects()
-			{
-				if(count<lvl.massBugs.size()-1)
-				{
-					return true;
-				}
-				return false;
-			}
-
-		};
-
-		objLevel.bulletsIterator=objLevel.new Iterator(objLevel)
-		{
-
-			@Override
-			public GameObject current()
-			{
-				if (count<=lvl.getBullets().length-1)
-				{
-					return lvl.getBullets()[count];
-				}
-				return null;
-			}
-
-			@Override
-			public GameObject next()
-			{
-				if (count<lvl.getBullets().length-1)
-				{
-					count+=1;
-					return lvl.getBullets()[count];
-
-				}
-				return null;
-			}
-
-			@Override
-			public void reset()
-			{
-				count=-1;
-			}
-
-			@Override
-			public boolean hasMoreObjects()
-			{
-				if(count<lvl.getBullets().length-1)
-				{
-					return true;
-				}
-				return false;
-			}
-
-		};
 		
         return objLevel;
     }
-    
-    private Pool poolBullet;
+ 
 
+	private void createTiledLayer(BufferedImage source, int tileWidth, int tileHeight, int tilesWidth, int tilesHeight)
+	{
+		tLayer = new TiledLayer(source, tileWidth, tileHeight, tilesWidth, tilesHeight);
+		int[][] map = new int[tilesHeight][tilesWidth];
+		for(int i=0;i<map.length;i++)
+		{
+			// TODO: РќРµ СЃРѕР·РґР°РІР°С‚СЊ РјР°СЃСЃРёРІ
+			for(int j=0;j<map[i].length;j++)
+			{
+				if((int)(Math.random()*10)==0)
+					map[i][j]=18;
+				else
+					map[i][j]=0;
+			}
+		}
+		tLayer.setMap(map);
+	}
+	
     public Bullet getBullet(float x, float y, Bullet.Type type)
     {
         Bullet obj;
@@ -465,15 +122,26 @@ public class Level
         return (obj);
     }
 
-    public Bullet[] getBullets()
-    {
-        return poolBullet.getArray();
-    }
     public void disposeBullet(Bullet b)
     {
         poolBullet.dispose(b);
     }
+	
+	public Explosion getExplosion(float x, float y, Explosion.Type type)
+    {
+        Explosion obj;
+        obj=poolExpl.getNewObject();
+        obj.setX(x);
+        obj.setY(y);
+        obj.convertTo(type);
+        return (obj);
+    }
 
+	public void disposeExplosion(Explosion b)
+    {
+        poolExpl.dispose(b);
+    }
+	
      public void addTower(Tower item)
     {
         massTowers.add(item);
@@ -494,22 +162,237 @@ public class Level
         massBugs.remove(item);
     }
 
-		public abstract class Iterator
+	public void markInactive(Bug b)
+	{
+		b.setActive(false);
+	}
+	
+	public class Iterator
 	{
 		protected Level lvl;
 		protected int count=-1;
+		protected GameObject[] mass;
+		
 		public Iterator(Level lvl)
 		{
 			this.lvl=lvl;
 		}
-		public abstract GameObject next();
-		public abstract GameObject current();
-		public abstract boolean hasMoreObjects();
-		public abstract void reset();
+		public Iterator(Level lvl,GameObject[] mass)
+		{
+			this.lvl=lvl;
+			this.mass=mass;
+		}
+		
+		
+		public GameObject current()
+		{
+			if (count==-1)
+			{
+				count=0;
+				while ((mass[count].isActive()==false) && (count<mass.length))
+					count++;
+			}
+			if ((count<mass.length) && (mass[count].isActive()==true))
+			{
+				return mass[count];
+			}
+			return null;
+		}
+
+		public GameObject next()
+		{
+			int i=count;
+			while ((count<mass.length) && (mass[count].isActive()==false))
+				count++;
+			if((mass[count].isActive()==true) && (i!=count))
+			{
+				return mass[count];
+
+			}
+			return null;
+		}
+
+		public void reset()
+		{
+			count=-1;
+		}
+
+		public boolean hasMoreObjects()
+		{
+			int i=count;
+			while((i<mass.length)&&(mass[i].isActive()==false))
+				i++;
+			if((mass[i].isActive()==true) && (i!=count))
+			{
+				return true;
+			}
+			return false;
+		}
+	
 	}
+		
+	public Level.Iterator createTowersIterator()
+	{
+		Iterator towersIterator=new Iterator(this, (GameObject[]) massTowers.toArray())
+		{
+			@Override
+			public Tower current()
+			{
+				return ((Tower)super.current());
+				
+			}
+			@Override
+			public Tower next()
+			{
+				return ((Tower)super.next());
+			}
+		};
+		towersIterator.reset();
+		return towersIterator;
+	}
+	
+	public Level.Iterator createDecosIterator()
+	{
+		Iterator decosIterator=new Iterator(this, (GameObject[]) massDecos.toArray())
+		{
+			@Override
+			public Decoration current()
+			{
+				return ((Decoration)super.current());
+				
+			}
+			@Override
+			public Decoration next()
+			{
+				return ((Decoration)super.next());
+			}
+		};
+		decosIterator.reset();
+		return decosIterator;
+	}
+		
+	public Level.Iterator createBugsIterator()
+	{
+		Iterator bugsIterator=new Iterator(this, (GameObject[]) massBugs.toArray())
+		{
+			@Override
+			public Bug current()
+			{
+				return ((Bug)super.current());
+				
+			}
+			@Override
+			public Bug next()
+			{
+				return ((Bug)super.next());
+			}
+		};
+		bugsIterator.reset();
+		return bugsIterator;
+	}
+
+	public Level.Iterator createExplosionIterator()
+	{	
+		Iterator explsIterator=new Iterator(this)
+		{
+			@Override
+			public Explosion current()
+			{
+				
+				if(count>=lvl.poolExpl.pool.length) return null;
+				return lvl.poolExpl.pool[count];
+			}
+
+			@Override
+			public Explosion next()
+			{
+				do
+				{
+					count++;
+					if(count>=lvl.poolExpl.pool.length)
+						return null;
+				}
+				while(!lvl.poolExpl.used[count]);
+				return lvl.poolExpl.pool[count];
+			}
+
+			@Override
+			public void reset()
+			{
+				count=0;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				int i=count;
+				do
+				{
+					i++;
+					if(i>=lvl.poolExpl.pool.length)
+						return false;
+				}
+				while(!lvl.poolExpl.used[i]);
+				return true;
+			}
+		};
+		explsIterator.reset();
+		return explsIterator;
+	}
+		
+	public Level.Iterator createBulletsIterator()
+	{
+		Iterator bulletsIterator=new Iterator(this)
+		{
+			@Override
+			public Bullet current()
+			{
+				
+				if(count>=lvl.poolBullet.pool.length) return null;
+				return lvl.poolBullet.pool[count];
+			}
+
+			@Override
+			public Bullet next()
+			{
+				do
+				{
+					count++;
+					if(count>=lvl.poolBullet.pool.length)
+						return null;
+				}
+				while(!lvl.poolBullet.used[count]);
+				return lvl.poolBullet.pool[count];
+			}
+
+			@Override
+			public void reset()
+			{
+				count=0;
+			}
+
+			@Override
+			public boolean hasMoreObjects()
+			{
+				int i=count;
+				do
+				{
+					i++;
+					if(i>=lvl.poolBullet.pool.length)
+						return false;
+				}
+				while(!lvl.poolBullet.used[i]);
+				return true;
+			}
+
+		};
+		bulletsIterator.reset();
+		return bulletsIterator;
+	}
+
 }
 
-class Pool
+class PoolBullet
 {
 	// TODO: перенести класс Pool внутрь Level и снова заприватить массивы
     Bullet[] pool;
@@ -527,7 +410,7 @@ class Pool
     }
 
 
-    public Pool(int maxSize)
+    public PoolBullet(int maxSize)
     {
         pool = new Bullet[maxSize];
         used = new boolean[maxSize];
@@ -599,6 +482,109 @@ class Pool
             }
         }
         Bullet[] mass=new Bullet[count];
+        for(int i=0;i<pool.length;i++)
+        {
+            if (used[i])
+            {
+                mass[j]=pool[i];
+                j++;
+            }
+        }
+        return mass;
+    }
+
+}
+
+class PoolExpl
+{
+	// TODO: перенести класс Pool внутрь Level и снова заприватить массивы
+    Explosion[] pool;
+    boolean[] used;
+    private int created;
+
+    public int getSize()
+    {
+        return created;
+    }
+
+    public int getMaxSize()
+    {
+        return pool.length;
+    }
+
+
+    public PoolExpl(int maxSize)
+    {
+        pool = new Explosion[maxSize];
+        used = new boolean[maxSize];
+        created = 0;
+    }
+
+
+    public Explosion getNewObject()
+    {
+        for (int i = 0; i < created; i++)
+        {
+            if (!used[i])
+            {
+                used[i] = true;
+                //EventBroker.invoke("debugMsgChanged", "returned "+i);
+                return pool[i];
+            }
+        }
+        if (created == pool.length)
+        {
+            //mark everything as unused, except the first that would be returned
+            //that should make all first objects to disappear and to be converted to latest objs
+        	System.out.println("????? ?????");
+            for (int i = 1; i < pool.length; i++)
+            {
+                used[i] = false;
+            }
+            return pool[0];
+        }
+        used[created] = true;
+        Explosion obj=new Explosion();
+        pool[created] = obj;
+        //EventBroker.invoke("debugMsgChanged", "created "+created);
+        
+        return pool[created++];
+    }
+
+    public void dispose(Explosion obj)
+    {
+        for (int i = 0; i < created; i++)
+        {
+            if ((Explosion) pool[i] == obj)
+            {
+                used[i] = false;
+                return;
+            }
+        }
+    }
+
+    public void dispose()
+    {
+        for (int i = 0; i < created; i++)
+        {
+            pool[i] = null;
+        }
+        pool = null;
+        used = null;
+    }
+
+    public Explosion[] getArray()
+    {
+        int count=0;
+        int j=0;
+        for(int i=0;i<pool.length;i++)
+        {
+            if (used[i])
+            {
+                count++;
+            }
+        }
+        Explosion[] mass=new Explosion[count];
         for(int i=0;i<pool.length;i++)
         {
             if (used[i])
