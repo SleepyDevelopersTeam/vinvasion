@@ -58,40 +58,17 @@ public class LevelController implements IUpdatable, IDrawable
 		PaintBulletsIterator.reset();
 		PaintTowersIterator.reset();
 
-		//Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
-
 		mover=new BugsMover(this);
 		mover.setPath(l.getLevelPath());
 		while (UpdateBugsIterator.hasMoreObjects())
 		{
 			mover.addBug( ((Bug)UpdateBugsIterator.next()) );
 		}
-		/*for(int i=0;i<arrayOfBugs.length;i++)
-		{
-			mover.addBug(arrayOfBugs[i]);
-		}*/
 	}
 
 	public void paint(Graphics g) 
 	{
 		modelOfLevel.getFone().paint(g, 0, 0, screen.getViewPortWidth(), screen.getViewPortHeight());
-
-		// TODO: ÂÀÐÍÈÍÃ: ÀËßÐÌÀ: Èñïîëüçîâàòü èòåðàòîðû
-		/*Tower[] arrayOfTowers=this.modelOfLevel.getTowers();
-		Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
-		Bullet[] arrayOfBullets=this.modelOfLevel.getBullets();
-		for(int i=0;i<arrayOfTowers.length;i++)
-		{
-			arrayOfTowers[i].getSprite().paint(g);
-		}
-		for(int i=0;i<arrayOfBugs.length;i++)
-		{
-			arrayOfBugs[i].getSprite().paint(g);
-		}
-		for(int i=0;i<arrayOfBullets.length;i++)
-		{
-			arrayOfBullets[i].getSprite().paint(g);
-		}*/
 		
 		PaintBugsIterator.reset();
 		PaintBulletsIterator.reset();
@@ -113,22 +90,6 @@ public class LevelController implements IUpdatable, IDrawable
 
 	public void update() 
 	{
-		/*Tower[] arrayOfTowers = this.modelOfLevel.getTowers();
-		Bug[] arrayOfBugs = this.modelOfLevel.getBugs();
-		Bullet[] arrayOfBullets=this.modelOfLevel.getBullets();
-		for (int i = 0; i < arrayOfTowers.length; i++) 
-		{
-			arrayOfTowers[i].update();
-		}
-		for (int i = 0; i < arrayOfBugs.length; i++) 
-		{
-			arrayOfBugs[i].update();
-		}
-		for (int i = 0; i < arrayOfBullets.length; i++) 
-		{
-			arrayOfBullets[i].update();
-		}*/
-
 		UpdateBugsIterator.reset();
 		UpdateBulletsIterator.reset();
 		UpdateTowersIterator.reset();
@@ -143,8 +104,7 @@ public class LevelController implements IUpdatable, IDrawable
 			UpdateBugsIterator.next().update();
 			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
 			{
-				modelOfLevel.removeBug((Bug)UpdateBugsIterator.current());
-				mover.deleteBug((Bug)UpdateBugsIterator.current());
+				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
 		}
 
