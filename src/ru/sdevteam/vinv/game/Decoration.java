@@ -55,32 +55,32 @@ public class Decoration extends Destructable
 	}
 	public static Decoration createTree()
 	{
-		return ;
+		return null;
 		
 	}
 	public static Decoration createBigTree()
 	{
-		return ;
+		return null;
 		
 	}
 	public static Decoration createBuilding()
 	{
-		return ;
+		return null;
 		
 	}
 	public static Decoration createBigBuilding()
 	{
-		return ;
+		return null;
 		
 	}
 	public static Decoration createCrater()
 	{
-		return ;
+		return null;
 		
 	}
 	public static Decoration createBurningCrater()
 	{
-		return ;
+		return null;
 		
 	}
 	public boolean isUnstable()
