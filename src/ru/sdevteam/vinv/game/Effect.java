@@ -24,4 +24,22 @@ public enum Effect
                           
          }
     }
+    public String getName()
+    {
+    	switch(this)
+        {
+            case NONE:
+            	return "NONE";
+            case DAMAGE:
+            	return "DAMAGE";
+            case BURNING:
+            	return "BURNING";
+            case FROST:
+            	return "FROST";
+            case POISON:
+            	return "POISON";
+                         
+        }
+    	return null;
+    }
 }
