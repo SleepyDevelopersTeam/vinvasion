@@ -28,7 +28,7 @@ public abstract class Destructable extends GameObject
     }
 
     public void hit(Bullet b)
-    { // будет отнимать здоровье, согласуясь с типом пули и собственным состоянием
+    {  
         hp-=b.getDamage();
         if(hp<=0)
         {
@@ -37,7 +37,26 @@ public abstract class Destructable extends GameObject
         }
     }
 
-    protected abstract void onDestructed(); //??? должен вызываться при достижении показателем hp нуля
+	public void hit(Explosion e)
+	{
+		hp-=e.getDamage();
+        if(hp<=0)
+        {
+            onDestructed();
+            hp=0;
+        }
+	}
+	
+	public void hit(int damage)
+	{
+		hp-=damage;
+        if(hp<=0)
+        {
+            onDestructed();
+            hp=0;
+        }
+	}
+    protected abstract void onDestructed(); 
 
     @Override
     public void update()
