@@ -4,10 +4,12 @@ public class Bug extends Destructable
 {
     public enum Type {NULL,NORMAL,AIR};
 	
+	protected boolean active=true;
+	public boolean isActive(){return active;}
+	public void setActive(boolean b){active=b;}
+	
 	private boolean air;
 	public boolean isAir(){return air;}
-	
-	
 	
     private Bug.Type type;
     public Bug.Type getType(){return type;}
@@ -17,7 +19,7 @@ public class Bug extends Destructable
 
     private int speed;
     public int getSpeed(){return speed;}
-
+	public void setSpeed(int s){speed=s;}
 
     public Bug()
     {
@@ -25,11 +27,16 @@ public class Bug extends Destructable
         sprite= new BugSprite(this);
     }
 
-
-    public  void onDestroyed(){
-
-    }
-    public void update()
+	public static Bug getBug(Bug.Type type)
+	{
+		Bug b = new Bug();
+		b.setType(type);
+		return b;
+	}
+	
+    public  void onDestructed(){}
+    
+	public void update()
     {
     	super.update();
     }

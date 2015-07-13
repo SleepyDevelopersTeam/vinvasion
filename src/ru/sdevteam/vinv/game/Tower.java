@@ -7,6 +7,7 @@ public class Tower extends Destructable
     protected boolean repairing;
 	protected boolean shootGround;
 	protected boolean shootAir;
+	private boolean active;
 
     protected String name;
     public String getName(){return name;}
@@ -73,11 +74,21 @@ public class Tower extends Destructable
 		return false;
 	}
 	
-    public void onDestroyed()
+    public void onDestructed()
     {
         
     }
-    
+	
+	public void activate()
+	{
+		active=true;
+	}
+	
+    public void deactivate()
+	{
+		active=false;
+	}
+	
     public void update()
     {
         super.update();

@@ -1,17 +1,24 @@
 package ru.sdevteam.vinv.ui;
 
 import java.awt.Graphics;
+import java.util.Stack;
 
 public abstract class MenuScreen extends Screen 
 {
+	private Stack st;
+	private Menu activeMenu;
+	private Menu previosMenu;
+	private Menu nextMenu;
+	
+	
 	public void setActiveMenu(Menu m)
 	{ 
-		
+		this.activeMenu=m;
 	}
 	
 	public Menu getActiveMenu()
 	{
-		return null;	
+		return activeMenu;	
 	}
 	
 	public MenuScreen() {
@@ -20,16 +27,18 @@ public abstract class MenuScreen extends Screen
 	
 	public void setNextMenu(Menu m)
 	{
+		this.nextMenu=m;
 	}
 	
 	public void setPreviousMenu(Menu m)
 	{
-		
+		this.previosMenu=m;
 	}
 	
 	public void goBack()
 	{
-		
+		nextMenu=activeMenu;
+		activeMenu=previosMenu;
 	}
 
 	public void goHead()

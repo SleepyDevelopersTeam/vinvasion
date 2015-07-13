@@ -1,8 +1,11 @@
 package ru.sdevteam.vinv.game.logics;
 
 import java.awt.Graphics;
+
 import ru.sdevteam.vinv.game.Bug;
 import ru.sdevteam.vinv.game.Bullet;
+import ru.sdevteam.vinv.game.Decoration;
+import ru.sdevteam.vinv.game.Explosion;
 import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.IUpdatable;
@@ -21,10 +24,15 @@ public class LevelController implements IUpdatable, IDrawable
 	private Iterator UpdateBugsIterator;
 	private Iterator UpdateTowersIterator;
 	private Iterator UpdateBulletsIterator;
+	private Iterator UpdateDecosIterator;
+	private Iterator UpdateExplosionsIterator;
 
 	private Iterator PaintBugsIterator;
 	private Iterator PaintTowersIterator;
 	private Iterator PaintBulletsIterator;
+	private Iterator PaintDecosIterator;
+	private Iterator PaintExplosionsIterator;
+	
 
 
 	public void onPathEndReached(Bug invoker)
@@ -45,20 +53,26 @@ public class LevelController implements IUpdatable, IDrawable
 		UpdateBugsIterator = modelOfLevel.createBugsIterator();
 		UpdateTowersIterator = modelOfLevel.createTowersIterator();
 		UpdateBulletsIterator = modelOfLevel.createBulletsIterator();
+		UpdateDecosIterator = modelOfLevel.createDecosIterator();
+		UpdateExplosionsIterator = modelOfLevel.createExplosionIterator();
 
 		PaintBugsIterator = modelOfLevel.createBugsIterator();
 		PaintTowersIterator = modelOfLevel.createTowersIterator();
 		PaintBulletsIterator = modelOfLevel.createBulletsIterator();
+		PaintDecosIterator = modelOfLevel.createDecosIterator();
+		UpdateExplosionsIterator = modelOfLevel.createExplosionIterator();
 
 		UpdateBugsIterator.reset();
 		UpdateBulletsIterator.reset();
 		UpdateTowersIterator.reset();
+		UpdateDecosIterator.reset();
+		UpdateExplosionsIterator.reset();
 
 		PaintBugsIterator.reset();
 		PaintBulletsIterator.reset();
 		PaintTowersIterator.reset();
-
-		//Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
+		PaintDecosIterator.reset();
+		PaintExplosionsIterator.reset();
 
 		mover=new BugsMover(this);
 		mover.setPath(l.getLevelPath());
@@ -66,36 +80,17 @@ public class LevelController implements IUpdatable, IDrawable
 		{
 			mover.addBug( ((Bug)UpdateBugsIterator.next()) );
 		}
-		/*for(int i=0;i<arrayOfBugs.length;i++)
-		{
-			mover.addBug(arrayOfBugs[i]);
-		}*/
 	}
 
 	public void paint(Graphics g) 
 	{
 		modelOfLevel.getFone().paint(g, 0, 0, screen.getViewPortWidth(), screen.getViewPortHeight());
-
-		// TODO: ÂÀÐÍÈÍÃ: ÀËßÐÌÀ: Èñïîëüçîâàòü èòåðàòîðû
-		/*Tower[] arrayOfTowers=this.modelOfLevel.getTowers();
-		Bug[] arrayOfBugs=this.modelOfLevel.getBugs();
-		Bullet[] arrayOfBullets=this.modelOfLevel.getBullets();
-		for(int i=0;i<arrayOfTowers.length;i++)
-		{
-			arrayOfTowers[i].getSprite().paint(g);
-		}
-		for(int i=0;i<arrayOfBugs.length;i++)
-		{
-			arrayOfBugs[i].getSprite().paint(g);
-		}
-		for(int i=0;i<arrayOfBullets.length;i++)
-		{
-			arrayOfBullets[i].getSprite().paint(g);
-		}*/
 		
 		PaintBugsIterator.reset();
 		PaintBulletsIterator.reset();
 		PaintTowersIterator.reset();
+		PaintDecosIterator.reset();
+		PaintExplosionsIterator.reset();
 
 		while(PaintTowersIterator.hasMoreObjects())
 		{
@@ -109,43 +104,55 @@ public class LevelController implements IUpdatable, IDrawable
 		{
 			PaintBulletsIterator.next().getSprite().paint(g);
 		}
+		while(PaintDecosIterator.hasMoreObjects())
+		{
+			PaintDecosIterator.next().getSprite().paint(g);
+		}
+		while(PaintExplosionsIterator.hasMoreObjects())
+		{
+			PaintExplosionsIterator.next().getSprite().paint(g);
+		}
 	}
 
 	public void update() 
 	{
-		/*Tower[] arrayOfTowers = this.modelOfLevel.getTowers();
-		Bug[] arrayOfBugs = this.modelOfLevel.getBugs();
-		Bullet[] arrayOfBullets=this.modelOfLevel.getBullets();
-		for (int i = 0; i < arrayOfTowers.length; i++) 
-		{
-			arrayOfTowers[i].update();
-		}
-		for (int i = 0; i < arrayOfBugs.length; i++) 
-		{
-			arrayOfBugs[i].update();
-		}
-		for (int i = 0; i < arrayOfBullets.length; i++) 
-		{
-			arrayOfBullets[i].update();
-		}*/
-
 		UpdateBugsIterator.reset();
 		UpdateBulletsIterator.reset();
 		UpdateTowersIterator.reset();
+		UpdateDecosIterator.reset();
+		UpdateExplosionsIterator.reset();
 
 		while(UpdateTowersIterator.hasMoreObjects())
 		{
 			UpdateTowersIterator.next().update();
 		}
+		while(UpdateDecosIterator.hasMoreObjects())
+		{
+			if (((Decoration)UpdateDecosIterator.current()).getHp()==0)
+			{
+				 Decoration a  = ( (Decoration)UpdateDecosIterator.current()).getRuins();
+				 modelOfLevel.removeDeco((Decoration)UpdateDecosIterator.current());
+				 modelOfLevel.addDeco(a);
+			}
+			UpdateDecosIterator.next().update();
+		}
+		while(UpdateExplosionsIterator.hasMoreObjects())
+		{
+			//TODO:Time of Explosion
+			UpdateExplosionsIterator.next().update();
+		}
 
 		while(UpdateBugsIterator.hasMoreObjects())
 		{
-			UpdateBugsIterator.next().update();
 			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
 			{
-				modelOfLevel.removeBug((Bug)UpdateBugsIterator.current());
-				mover.deleteBug((Bug)UpdateBugsIterator.current());
+				Explosion a = new Explosion(Explosion.Type.SLIME ,(int) ((Bug)UpdateBugsIterator.current()).getX(), 
+											(int) ((Bug)UpdateBugsIterator.current()).getY());	
+				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
+				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
+			UpdateBugsIterator.next().update();
+			
 		}
 
 		while(UpdateBulletsIterator.hasMoreObjects())
@@ -153,9 +160,68 @@ public class LevelController implements IUpdatable, IDrawable
 			UpdateBulletsIterator.next().update();
 		}
 
+		UpdateExplosionsIterator.reset();
+		UpdateDecosIterator.reset();
+		
+		while (UpdateExplosionsIterator.hasMoreObjects())
+		{
+			while(UpdateDecosIterator.hasMoreObjects())
+			{
+				if ( UpdateExplosionsIterator.current().getSprite().collidesWith(UpdateDecosIterator.current().getSprite()) )
+				{
+					if (((Decoration) UpdateDecosIterator.current()).isLeavingRuins())
+					{
+						((Decoration)UpdateDecosIterator.current()).hit((Explosion)UpdateExplosionsIterator.current());
+					}
+				}
+				UpdateDecosIterator.next();
+			}
+			UpdateDecosIterator.reset();
+			UpdateExplosionsIterator.next();
+		}
+		
+		UpdateBulletsIterator.reset();
+		UpdateDecosIterator.reset();
+		
+		while (UpdateBulletsIterator.hasMoreObjects())
+		{
+			while(UpdateDecosIterator.hasMoreObjects())
+			{
+				if ( UpdateBulletsIterator.current().getSprite().collidesWith(UpdateDecosIterator.current().getSprite()) )
+				{
+					if (((Decoration) UpdateDecosIterator.current()).isLeavingRuins())
+					{
+						((Decoration)UpdateDecosIterator.current()).hit((Explosion)UpdateBulletsIterator.current());
+					}
+				}
+				UpdateDecosIterator.next();
+			}
+			UpdateDecosIterator.reset();
+			UpdateExplosionsIterator.next();
+		}
+		
+		UpdateExplosionsIterator.reset();
+		UpdateBugsIterator.reset();
+		
+		while (UpdateExplosionsIterator.hasMoreObjects())
+		{
+			while(UpdateBugsIterator.hasMoreObjects())
+			{
+				if ( UpdateExplosionsIterator.current().getSprite().collidesWith(UpdateBugsIterator.current().getSprite()) )
+				{
+					((Bug)UpdateBugsIterator.current()).hit((Explosion)UpdateExplosionsIterator.current());
+					((Bug)UpdateBugsIterator.current()).bindEffectsFrom((Explosion)UpdateExplosionsIterator.current());
+				}
+				UpdateBugsIterator.next();
+			}
+			UpdateBugsIterator.reset();
+			UpdateExplosionsIterator.next();
+		}
+		
 		UpdateBulletsIterator.reset();
 		UpdateBugsIterator.reset();
-
+		
+		//TODO:Explosion from rockets
 		while (UpdateBulletsIterator.hasMoreObjects())
 		{
 			while(UpdateBugsIterator.hasMoreObjects())
@@ -163,6 +229,8 @@ public class LevelController implements IUpdatable, IDrawable
 				if ( UpdateBulletsIterator.current().getSprite().collidesWith(UpdateBugsIterator.current().getSprite()) )
 				{
 					((Bug)UpdateBugsIterator.current()).hit((Bullet)UpdateBulletsIterator.current());
+					((Bug)UpdateBugsIterator.current()).bindEffectsFrom((Bullet)UpdateBulletsIterator.current());
+					
 					if ( !((Bullet)UpdateBulletsIterator.current()).isUnstoppable() )
 					{
 						modelOfLevel.disposeBullet( ((Bullet)UpdateBulletsIterator.current()) );
@@ -173,20 +241,6 @@ public class LevelController implements IUpdatable, IDrawable
 			UpdateBugsIterator.reset();
 			UpdateBulletsIterator.next();
 		}
-		/*for (int i = 0; i < arrayOfBullets.length; i++) 
-		{
-			for (int j = 0; j < arrayOfBugs.length; j++) 
-			{
-				if (arrayOfBullets[i].getSprite().collidesWith(arrayOfBugs[j].getSprite())) 
-				{
-					arrayOfBugs[j].hit(arrayOfBullets[i]);
-					if (!arrayOfBullets[i].isUnstoppable())
-					{
-						modelOfLevel.disposeBullet(arrayOfBullets[i]);
-					}
-				}
-			}
-		}*/
 
 		mover.update();
 
@@ -208,7 +262,8 @@ public class LevelController implements IUpdatable, IDrawable
 					{	
 						Bullet b1 = modelOfLevel.getBullet(t.getX(),t.getY(),t.getBulletType());
 						System.out.println("Fire");
-
+						b1.bindEffectsFrom(t);
+						
 						float flightTime=distanceBugToTower.getMagnitude()/b1.getSpeed();
 
 						Vector2F displacement=mover.getBugVelocity(b);
@@ -225,38 +280,7 @@ public class LevelController implements IUpdatable, IDrawable
 			}
 			UpdateBugsIterator.reset();
 		}
-		/*for (int i = 0; i < arrayOfTowers.length; i++) 
-		{
-			for (int j = 0; j < arrayOfBugs.length; j++) 
-			{
-				Vector2F distanceBugToTower=new Vector2F(arrayOfBugs[j].getX()-arrayOfTowers[i].getX(),
-						arrayOfBugs[j].getY()-arrayOfTowers[i].getY());
-				 if(distanceBugToTower.getMagnitude()<200F)
-				// //bug into radius of Tower )
-				 {
-					if (arrayOfTowers[i].canShoot()) 
-					{	
-						Bullet b = modelOfLevel.getBullet(	arrayOfTowers[i].getX(),
-															arrayOfTowers[i].getY(),
-															arrayOfTowers[i].getBulletType());
-
-
-						float flightTime=distanceBugToTower.getMagnitude()/b.getSpeed();
-
-						Vector2F displacement=mover.getBugVelocity(arrayOfBugs[j]);
-						displacement.multipleBy(flightTime);
-						distanceBugToTower.add(displacement);
-
-						Vector2F vectorOfBulletSpeed = new Vector2F(distanceBugToTower, b.getSpeed());
-						b.setVelocity(vectorOfBulletSpeed);
-						arrayOfTowers[i].shoot();
-
-						arrayOfTowers[i].rotate(distanceBugToTower.getDirection());
-					}
-				}
-			}
-		}*/
-
+		
 		UpdateBulletsIterator.reset();
 
 		while (UpdateBulletsIterator.hasMoreObjects())
@@ -268,13 +292,6 @@ public class LevelController implements IUpdatable, IDrawable
 			}
 			UpdateBulletsIterator.next();
 		}
-		/*for (int i = 0; i < arrayOfBullets.length; i++)
-		{
-			if ((arrayOfBullets[i].getX()<-30) || (arrayOfBullets[i].getX()>1030) || (arrayOfBullets[i].getY()<-30) || (arrayOfBullets[i].getY()>1030))
-			{
-				modelOfLevel.disposeBullet(arrayOfBullets[i]);
-			}
-		}*/
-
+		
 	}
 }
