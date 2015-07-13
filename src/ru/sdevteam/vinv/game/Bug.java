@@ -19,6 +19,7 @@ public class Bug extends Destructable
 
     private int speed;
     public int getSpeed(){return speed;}
+	public void setSpeed(int s){speed=s;}
 
     public Bug()
     {
@@ -26,11 +27,16 @@ public class Bug extends Destructable
         sprite= new BugSprite(this);
     }
 
-
-    public  void onDestructed(){
-
-    }
-    public void update()
+	public static Bug getBug(Bug.Type type)
+	{
+		Bug b = new Bug();
+		b.setType(type);
+		return b;
+	}
+	
+    public  void onDestructed(){}
+    
+	public void update()
     {
     	super.update();
     }
