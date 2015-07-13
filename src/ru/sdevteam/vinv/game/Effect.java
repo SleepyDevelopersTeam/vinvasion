@@ -13,10 +13,11 @@ public enum Effect
             	 b.setHp(b.getHp()-20);
             	 break;
              case BURNING:
+            	 b.setSpeed(b.getSpeed()-1);
             	 b.setHp(b.getHp()-10);
             	 			break;
              case FROST:
-            	//TODO:speed
+            	 b.setSpeed(b.getSpeed()-1);
             	 			break;
              case POISON:
             	 b.setHp(b.getHp()-5);
