@@ -4,6 +4,10 @@ public class Bug extends Destructable
 {
     public enum Type {NULL,NORMAL,AIR};
 	
+	protected boolean active=true;
+	public boolean isActive(){return active;}
+	public void setActive(boolean b){active=b;}
+	
 	private boolean air;
 	public boolean isAir(){return air;}
 	

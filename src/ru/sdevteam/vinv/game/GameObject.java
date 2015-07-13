@@ -6,18 +6,12 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
 {
     protected Sprite sprite;
     public Sprite getSprite(){ return sprite;}
-
-	protected boolean active=true;
-	public boolean isActive(){return active;}
-	public void setActive(boolean b){active=b;}
 	
     private boolean dynamic;
     public boolean isDynamic()
     {   
         return dynamic;
-    }
-
-	private 	
+    }	
 	
     private float angle;
     public void rotate(float angle){this.angle=angle;}

@@ -7,6 +7,7 @@ public class Tower extends Destructable
     protected boolean repairing;
 	protected boolean shootGround;
 	protected boolean shootAir;
+	private boolean active;
 
     protected String name;
     public String getName(){return name;}

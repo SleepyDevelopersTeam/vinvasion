@@ -186,13 +186,12 @@ public class Level
 		
 		public GameObject current()
 		{
-			if (count==-1)
+			if ((count==-1) && (vector.size()>0))
 			{
 				count=0;
-				while ((vector.elementAt(count).isActive()==false) && (count<vector.size()))
-					count++;
+				return vector.elementAt(count);
 			}
-			if ((count<vector.size()) && (vector.elementAt(count).isActive()==true))
+			if (count<vector.size())
 			{
 				return vector.elementAt(count);
 			}
@@ -201,11 +200,9 @@ public class Level
 
 		public GameObject next()
 		{
-			int i=count;
-			while ((count<vector.size()) && (vector.elementAt(count).isActive()==false))
-				count++;
-			if((vector.elementAt(count).isActive()==true) && (i!=count))
+			if(count<vector.size()-1)
 			{
+				count++;
 				return vector.elementAt(count);
 
 			}
@@ -219,10 +216,7 @@ public class Level
 
 		public boolean hasMoreObjects()
 		{
-			int i=count;
-			while((i<vector.size())&&(vector.elementAt(i).isActive()==false))
-				i++;
-			if((vector.elementAt(i).isActive()==true) && (i!=count))
+			if(count<vector.size()-1)
 			{
 				return true;
 			}
@@ -247,7 +241,53 @@ public class Level
 		
 	public Level.Iterator createBugsIterator()
 	{
-		Iterator bugsIterator=new Iterator(this,massBugs);
+		Iterator bugsIterator=new Iterator(this,massBugs)
+		{
+			public GameObject current()
+		{
+			if (count==-1)
+			{
+				count=0;
+				while ((((Bug)vector.elementAt(count)).isActive()==false) && (count<vector.size()))
+					count++;
+			}
+			if ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive()==true))
+			{
+				return vector.elementAt(count);
+			}
+			return null;
+		}
+
+		public GameObject next()
+		{
+			int i=count;
+			while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive()==false))
+				count++;
+			if((((Bug)vector.elementAt(count)).isActive()==true) && (i!=count))
+			{
+				return vector.elementAt(count);
+
+			}
+			return null;
+		}
+
+		public void reset()
+		{
+			count=-1;
+		}
+
+		public boolean hasMoreObjects()
+		{
+			int i=count;
+			while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
+				i++;
+			if((((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
+			{
+				return true;
+			}
+			return false;
+		}
+		};
 		bugsIterator.reset();
 		return bugsIterator;
 	}
