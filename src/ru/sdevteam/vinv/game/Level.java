@@ -7,9 +7,9 @@ import ru.sdevteam.vinv.ui.TiledLayer;
 
 public class Level
 { 
-	private Vector<Tower> massTowers; 
-    private Vector<Bug> massBugs;
-	private Vector<Decoration> massDecos;
+	private Vector<GameObject> massTowers; 
+    private Vector<GameObject> massBugs;
+	private Vector<GameObject> massDecos;
 	
 	private PoolBullet poolBullet;
 	private PoolExpl poolExpl;
@@ -37,9 +37,9 @@ public class Level
         objLevel.poolBullet=new PoolBullet(300);
 		objLevel.poolExpl=new PoolExpl(300);
 		
-        objLevel.massBugs = new Vector<Bug>();
-        objLevel.massTowers = new Vector<Tower>();
-		objLevel.massDecos = new Vector<Decoration>();
+        objLevel.massBugs = new Vector<GameObject>();
+        objLevel.massTowers = new Vector<GameObject>();
+		objLevel.massDecos = new Vector<GameObject>();
 		
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
@@ -171,16 +171,16 @@ public class Level
 	{
 		protected Level lvl;
 		protected int count=-1;
-		protected GameObject[] mass;
+		protected Vector<GameObject> vector;
 		
 		public Iterator(Level lvl)
 		{
 			this.lvl=lvl;
 		}
-		public Iterator(Level lvl,GameObject[] mass)
+		public Iterator(Level lvl,Vector<GameObject> vector)
 		{
 			this.lvl=lvl;
-			this.mass=mass;
+			this.vector=this.vector;
 		}
 		
 		
@@ -189,12 +189,12 @@ public class Level
 			if (count==-1)
 			{
 				count=0;
-				while ((mass[count].isActive()==false) && (count<mass.length))
+				while ((vector.elementAt(count).isActive()==false) && (count<vector.size()))
 					count++;
 			}
-			if ((count<mass.length) && (mass[count].isActive()==true))
+			if ((count<vector.size()) && (vector.elementAt(count).isActive()==true))
 			{
-				return mass[count];
+				return vector.elementAt(count);
 			}
 			return null;
 		}
@@ -202,11 +202,11 @@ public class Level
 		public GameObject next()
 		{
 			int i=count;
-			while ((count<mass.length) && (mass[count].isActive()==false))
+			while ((count<vector.size()) && (vector.elementAt(count).isActive()==false))
 				count++;
-			if((mass[count].isActive()==true) && (i!=count))
+			if((vector.elementAt(count).isActive()==true) && (i!=count))
 			{
-				return mass[count];
+				return vector.elementAt(count);
 
 			}
 			return null;
@@ -220,9 +220,9 @@ public class Level
 		public boolean hasMoreObjects()
 		{
 			int i=count;
-			while((i<mass.length)&&(mass[i].isActive()==false))
+			while((i<vector.size())&&(vector.elementAt(i).isActive()==false))
 				i++;
-			if((mass[i].isActive()==true) && (i!=count))
+			if((vector.elementAt(i).isActive()==true) && (i!=count))
 			{
 				return true;
 			}
@@ -233,60 +233,21 @@ public class Level
 		
 	public Level.Iterator createTowersIterator()
 	{
-		Iterator towersIterator=new Iterator(this, (GameObject[]) massTowers.toArray())
-		{
-			@Override
-			public Tower current()
-			{
-				return ((Tower)super.current());
-				
-			}
-			@Override
-			public Tower next()
-			{
-				return ((Tower)super.next());
-			}
-		};
+		Iterator towersIterator=new Iterator(this, massTowers);
 		towersIterator.reset();
 		return towersIterator;
 	}
 	
 	public Level.Iterator createDecosIterator()
 	{
-		Iterator decosIterator=new Iterator(this, (GameObject[]) massDecos.toArray())
-		{
-			@Override
-			public Decoration current()
-			{
-				return ((Decoration)super.current());
-				
-			}
-			@Override
-			public Decoration next()
-			{
-				return ((Decoration)super.next());
-			}
-		};
+		Iterator decosIterator=new Iterator(this,massDecos);
 		decosIterator.reset();
 		return decosIterator;
 	}
 		
 	public Level.Iterator createBugsIterator()
 	{
-		Iterator bugsIterator=new Iterator(this, (GameObject[]) massBugs.toArray())
-		{
-			@Override
-			public Bug current()
-			{
-				return ((Bug)super.current());
-				
-			}
-			@Override
-			public Bug next()
-			{
-				return ((Bug)super.next());
-			}
-		};
+		Iterator bugsIterator=new Iterator(this,massBugs);
 		bugsIterator.reset();
 		return bugsIterator;
 	}
@@ -296,7 +257,7 @@ public class Level
 		Iterator explsIterator=new Iterator(this)
 		{
 			@Override
-			public Explosion current()
+			public GameObject current()
 			{
 				
 				if(count>=lvl.poolExpl.pool.length) return null;
@@ -345,7 +306,7 @@ public class Level
 		Iterator bulletsIterator=new Iterator(this)
 		{
 			@Override
-			public Bullet current()
+			public GameObject current()
 			{
 				
 				if(count>=lvl.poolBullet.pool.length) return null;
@@ -353,7 +314,7 @@ public class Level
 			}
 
 			@Override
-			public Bullet next()
+			public GameObject next()
 			{
 				do
 				{
