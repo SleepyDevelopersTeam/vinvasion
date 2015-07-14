@@ -285,7 +285,7 @@ public class Level
 				count++;
 				while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == false))
 					count++;
-				if(((Bug)vector.elementAt(count)).isActive() == true)
+				if( (count<vector.size()) &&((Bug)vector.elementAt(count)).isActive() == true )
 				{
 					return vector.elementAt(count);
 
