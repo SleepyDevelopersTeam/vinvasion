@@ -136,9 +136,9 @@ public class Level
     {
         Explosion obj;
         obj=poolExpl.getNewObject();
+		obj.convertTo(type);
         obj.setX(x);
         obj.setY(y);
-        obj.convertTo(type);
         return (obj);
     }
 

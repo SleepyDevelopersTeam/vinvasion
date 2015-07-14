@@ -33,7 +33,7 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
 			effects.add(((Effect)obj.getBoundEffects().nextElement()));
 	}
 	public void clearEffects(){effects.clear();}
-	public void unbundEffect(Effect eff)
+	public void unbindEffect(Effect eff)
 	{
 		effects.remove(eff);
 	}
