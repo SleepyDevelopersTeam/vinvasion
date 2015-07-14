@@ -99,6 +99,7 @@ public class LevelController implements IUpdatable, IDrawable
 		while(PaintBugsIterator.hasMoreObjects())
 		{
 			PaintBugsIterator.next().getSprite().paint(g);
+			if (PaintBugsIterator.current()==null) System.out.println("her");
 		}
 		while(PaintBulletsIterator.hasMoreObjects())
 		{
@@ -274,7 +275,9 @@ public class LevelController implements IUpdatable, IDrawable
 			
 			while (UpdateBugsIterator.hasMoreObjects())
 			{
+				
 				Bug b=(Bug)UpdateBugsIterator.next();
+				
 				Vector2F distanceBugToTower=new Vector2F( (b.getX()-t.getX()),(b.getY()-t.getY()));
 				if(distanceBugToTower.getMagnitude()<200F)
 					// //bug into radius of Tower )
