@@ -52,11 +52,11 @@ public class Bug extends Destructable
                          setMaxHp(0);
                          setHp(0);
                          break;
-            case NORMAL: speed=(int)(2+Math.random()*5);
+            case NORMAL: speed=(int)(2+Math.random()*10);
                          setMaxHp(100);
                          setHp(100);
                          break;
-			case AIR:	speed= (int)(2+Math.random()*5);
+			case AIR:	speed= (int)(2+Math.random()*10);
 						setMaxHp(70);
 						setHp(70);
 						break;

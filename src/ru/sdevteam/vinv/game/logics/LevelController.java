@@ -251,6 +251,7 @@ public class LevelController implements IUpdatable, IDrawable
 		UpdateBugsIterator.reset();
 		while(UpdateBugsIterator.hasMoreObjects())
 		{
+			UpdateBugsIterator.next();
 			UpdateBugsIterator.current().update();
 			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
 			{
@@ -260,7 +261,6 @@ public class LevelController implements IUpdatable, IDrawable
 				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
 				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
-			UpdateBugsIterator.next();
 			
 		}
 		
