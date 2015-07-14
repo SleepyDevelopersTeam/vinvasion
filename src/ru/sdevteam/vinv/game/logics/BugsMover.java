@@ -28,7 +28,6 @@ public class BugsMover
 	public void addBug(Bug item)
 	{
 		BugsMoverItem a = new BugsMoverItem(item);
-		System.out.println(item);
 		item.setX(path.getPathX(0));
 		item.setY(path.getPathY(0));
 		
