@@ -232,6 +232,7 @@ public class LevelController implements IUpdatable, IDrawable
 		{
 			while(UpdateBugsIterator.hasMoreObjects())
 			{
+				UpdateBugsIterator.next();
 				if ( UpdateBulletsIterator.current().getSprite().collidesWith(UpdateBugsIterator.current().getSprite()) )
 				{
 					((Bug)UpdateBugsIterator.current()).hit((Bullet)UpdateBulletsIterator.current());
@@ -242,7 +243,7 @@ public class LevelController implements IUpdatable, IDrawable
 						modelOfLevel.disposeBullet( ((Bullet)UpdateBulletsIterator.current()) );
 					}
 				}
-				UpdateBugsIterator.next();
+				
 			}
 			UpdateBugsIterator.reset();
 			UpdateBulletsIterator.next();
