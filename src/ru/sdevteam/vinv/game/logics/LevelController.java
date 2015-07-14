@@ -60,7 +60,7 @@ public class LevelController implements IUpdatable, IDrawable
 		PaintTowersIterator = modelOfLevel.createTowersIterator();
 		PaintBulletsIterator = modelOfLevel.createBulletsIterator();
 		PaintDecosIterator = modelOfLevel.createDecosIterator();
-		UpdateExplosionsIterator = modelOfLevel.createExplosionIterator();
+		PaintExplosionsIterator = modelOfLevel.createExplosionIterator();
 
 		UpdateBugsIterator.reset();
 		UpdateBulletsIterator.reset();
