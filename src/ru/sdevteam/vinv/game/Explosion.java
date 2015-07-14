@@ -112,6 +112,7 @@ public class Explosion extends GameObject
 	public void explode()
 	{
 		launched = true;
+		this.sprite.play();
 	}
 	public boolean isActive()
 	{

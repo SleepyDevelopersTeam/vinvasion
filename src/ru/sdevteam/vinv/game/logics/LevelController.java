@@ -211,6 +211,7 @@ public class LevelController implements IUpdatable, IDrawable
 					((Bug)UpdateBugsIterator.current()).bindEffectsFrom((Explosion)UpdateExplosionsIterator.current());
 				}
 				UpdateBugsIterator.next();
+				
 			}
 			UpdateBugsIterator.reset();
 			UpdateExplosionsIterator.next();
