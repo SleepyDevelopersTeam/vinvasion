@@ -288,29 +288,10 @@ public class Level
 				int i=count;
 				if (i==-1)
 					i=0;
-				if(((Bug)vector.elementAt(i)).isActive()==true)
-				{
-					while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
-						i++;
-					if((((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
-					{
-						return true;
-					}
-				}
-				else
-				{
-					int j;
-					while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
-						i++;
-					j=i;
-					while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
-						i++;
-					if( i != j && i != count && ((Bug)vector.elementAt(i)).isActive()==true)
-					{
-						return true;
-					}
-					return false;
-				}
+				while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
+					i++;
+				if((((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
+					return true;
 				return false;
 			}
 		};
