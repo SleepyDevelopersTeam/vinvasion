@@ -38,7 +38,7 @@ public class LevelController implements IUpdatable, IDrawable
 	public void onPathEndReached(Bug invoker)
 	{
 		modelOfLevel.removeBug(invoker);
-		//decrease people on the mainBase
+		//TODO:decrease people on the mainBase
 	}
 
 	public Player getPlayer()
@@ -124,35 +124,44 @@ public class LevelController implements IUpdatable, IDrawable
 
 		while(UpdateTowersIterator.hasMoreObjects())
 		{
+			
 			UpdateTowersIterator.next().update();
 		}
+		
 		while(UpdateDecosIterator.hasMoreObjects())
 		{
+			UpdateDecosIterator.current().update();
 			if (((Decoration)UpdateDecosIterator.current()).getHp()==0)
 			{
 				 Decoration a  = ( (Decoration)UpdateDecosIterator.current()).getRuins();
 				 modelOfLevel.removeDeco((Decoration)UpdateDecosIterator.current());
 				 modelOfLevel.addDeco(a);
 			}
-			UpdateDecosIterator.next().update();
+			UpdateDecosIterator.next();
 		}
+		
 		while(UpdateExplosionsIterator.hasMoreObjects())
 		{
-			//TODO:Time of Explosion
-			UpdateExplosionsIterator.next().update();
+			UpdateExplosionsIterator.current().update();
+			if ( !( ((Explosion)UpdateExplosionsIterator.current()).isActive() ) )
+			{
+				((Explosion)UpdateExplosionsIterator.current()).setLaunched(false);
+			}
+			UpdateExplosionsIterator.next();
 		}
 
 		while(UpdateBugsIterator.hasMoreObjects())
 		{
+			UpdateBugsIterator.current().update();
 			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
 			{
 				Explosion a = new Explosion(Explosion.Type.SLIME ,(int) ((Bug)UpdateBugsIterator.current()).getX(), 
-											(int) ((Bug)UpdateBugsIterator.current()).getY());	
+											(int) ((Bug)UpdateBugsIterator.current()).getY());
+				a.setLaunched(true);
 				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
 				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
-			UpdateBugsIterator.next().update();
-			
+			UpdateBugsIterator.next();
 		}
 
 		while(UpdateBulletsIterator.hasMoreObjects())
@@ -291,7 +300,6 @@ public class LevelController implements IUpdatable, IDrawable
 				modelOfLevel.disposeBullet( ((Bullet)UpdateBulletsIterator.current()) );
 			}
 			UpdateBulletsIterator.next();
-		}
-		
+		}		
 	}
 }
