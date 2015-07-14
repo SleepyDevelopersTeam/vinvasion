@@ -57,14 +57,14 @@ public class Level
         aBug.setY(100);
 
         Bug bBug=new Bug();
-		bBug.setType(Bug.Type.AIR);
-        bBug.setX(300);
-        bBug.setY(300);
+		bBug.setType(Bug.Type.NORMAL);
+        bBug.setX(200);
+        bBug.setY(200);
 		
 		Bug cBug=new Bug();
-		bBug.setType(Bug.Type.AIR);
-        bBug.setX(250);
-        bBug.setY(250);
+		cBug.setType(Bug.Type.NORMAL);
+        cBug.setX(250);
+        cBug.setY(250);
         
         objLevel.addTower(aTower);
         objLevel.addTower(bTower);
