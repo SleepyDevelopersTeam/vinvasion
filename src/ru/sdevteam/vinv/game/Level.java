@@ -60,12 +60,17 @@ public class Level
 		bBug.setType(Bug.Type.AIR);
         bBug.setX(300);
         bBug.setY(300);
+		
+		Bug cBug=new Bug();
+		bBug.setType(Bug.Type.AIR);
+        bBug.setX(100);
+        bBug.setY(300);
         
         objLevel.addTower(aTower);
         objLevel.addTower(bTower);
 		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
-		
+		objLevel.addBug(cBug);
         
         objLevel.levelPath=new Path();
         objLevel.levelPath.addPoint(350F, 325F);
