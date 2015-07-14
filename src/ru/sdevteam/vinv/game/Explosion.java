@@ -13,17 +13,15 @@ public class Explosion extends GameObject
 	
 	public Explosion()
 	{
-		this.setX(0);
-		this.setY(0);
 		this.type = Type.NONE;
 		launched = false;
+		this.sprite =new ExplosionSprite(this);
 	}
 	public Explosion(Type type)
 	{
-		this.setX(0);
-		this.setY(0);
 		this.type = type;
 		launched = false;
+		this.sprite =new ExplosionSprite(this);
 	}
 	
 	public Explosion(Type type, int x, int y)
@@ -32,6 +30,7 @@ public class Explosion extends GameObject
 		this.setX(x);
 		this.setY(y);
 		launched = false;
+		this.sprite =new ExplosionSprite(this);
 	}
 	public Type getType()
 	{
