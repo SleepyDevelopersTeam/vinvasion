@@ -270,7 +270,7 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				if (count==-1)
+				if (count == -1)
 					count=0;
 				while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive()==false))
 					count++;
@@ -286,9 +286,9 @@ public class Level
 			public boolean hasMoreObjects()
 			{
 				int i=count;
-				if (i==-1)
+				if (i == -1)
 					i=0;
-				while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
+				while((i<vector.size()) && (((Bug)vector.elementAt(i)).isActive()==false))
 					i++;
 				if((((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
 					return true;
