@@ -153,20 +153,7 @@ public class LevelController implements IUpdatable, IDrawable
 			UpdateExplosionsIterator.next();
 		}
 
-		while(UpdateBugsIterator.hasMoreObjects())
-		{
-			UpdateBugsIterator.current().update();
-			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
-			{
-				Explosion a = new Explosion(Explosion.Type.SLIME ,(int) ((Bug)UpdateBugsIterator.current()).getX(), 
-											(int) ((Bug)UpdateBugsIterator.current()).getY());
-				a.setLaunched(true);
-				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
-				((Bug)UpdateBugsIterator.current()).setActive(false);
-			}
-			UpdateBugsIterator.next();
-			
-		}
+		
 
 		while(UpdateBulletsIterator.hasMoreObjects())
 		{
@@ -260,9 +247,27 @@ public class LevelController implements IUpdatable, IDrawable
 
 		mover.update();
 
+		UpdateBugsIterator.reset();
+		while(UpdateBugsIterator.hasMoreObjects())
+		{
+			UpdateBugsIterator.current().update();
+			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
+			{
+				Explosion a = new Explosion(Explosion.Type.SLIME ,(int) ((Bug)UpdateBugsIterator.current()).getX(), 
+											(int) ((Bug)UpdateBugsIterator.current()).getY());
+				a.setLaunched(true);
+				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
+				((Bug)UpdateBugsIterator.current()).setActive(false);
+			}
+			UpdateBugsIterator.next();
+			
+		}
+		
 		UpdateTowersIterator.reset();
 		UpdateBugsIterator.reset();
 
+		
+		
 		while (UpdateTowersIterator.hasMoreObjects())
 		{
 			Tower t=(Tower)UpdateTowersIterator.next();
@@ -296,6 +301,7 @@ public class LevelController implements IUpdatable, IDrawable
 			}
 			UpdateBugsIterator.reset();
 		}
+		
 		
 		UpdateBulletsIterator.reset();
 
