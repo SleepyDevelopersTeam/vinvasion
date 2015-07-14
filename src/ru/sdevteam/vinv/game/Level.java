@@ -70,7 +70,7 @@ public class Level
         objLevel.addTower(bTower);
 		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
-		//objLevel.addBug(cBug);
+		objLevel.addBug(cBug);
         
         objLevel.levelPath=new Path();
         objLevel.levelPath.addPoint(350F, 325F);
@@ -320,6 +320,8 @@ public class Level
 			{
 				
 				if(count>=lvl.poolExpl.pool.length) return null;
+				if (count == -1 && lvl.poolExpl.pool.length>0)
+					count++;
 				return lvl.poolExpl.pool[count];
 			}
 
@@ -339,7 +341,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
