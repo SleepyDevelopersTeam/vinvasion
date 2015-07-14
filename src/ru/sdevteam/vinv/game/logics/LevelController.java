@@ -147,7 +147,7 @@ public class LevelController implements IUpdatable, IDrawable
 		
 		while(UpdateExplosionsIterator.hasMoreObjects())
 		{
-			UpdateExplosionsIterator.current().update();
+			UpdateExplosionsIterator.next().update();
 		}
 
 		while(UpdateBulletsIterator.hasMoreObjects())
