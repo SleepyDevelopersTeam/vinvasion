@@ -6,6 +6,7 @@ import ru.sdevteam.vinv.game.Bug;
 import ru.sdevteam.vinv.game.Bullet;
 import ru.sdevteam.vinv.game.Decoration;
 import ru.sdevteam.vinv.game.Explosion;
+import ru.sdevteam.vinv.game.Explosion.Type;
 import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.IUpdatable;
@@ -257,12 +258,10 @@ public class LevelController implements IUpdatable, IDrawable
 			UpdateBugsIterator.next();
 			UpdateBugsIterator.current().update();
 			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
-			{
-				Explosion a = new Explosion(Explosion.Type.SLIME ,(int) ((Bug)UpdateBugsIterator.current()).getX(), 
-											(int) ((Bug)UpdateBugsIterator.current()).getY());
+			{			
+				Explosion a = modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), Type.SLIME);
 				a.setLaunched(true);
 				a.explode();
-				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
 				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
 			

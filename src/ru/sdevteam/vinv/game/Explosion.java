@@ -1,5 +1,7 @@
 package ru.sdevteam.vinv.game;
 
+import ru.sdevteam.vinv.ui.ExplosionSprite;
+
 public class Explosion extends GameObject 
 {
 	public enum Type { NONE, REGULAR, SLIME, BIG, BIG_SLIME, FROSTY, FIREBALL, POISONOUS };
@@ -77,27 +79,35 @@ public class Explosion extends GameObject
 	        {
 	        
 	            case NONE:
+	            	this.sprite =new ExplosionSprite(this); 
 	            	damage = 0;
 	            	break;
 	            case REGULAR:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage  = 10;
 	            	break;
 	            case SLIME:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage = 0;
 	            	break;
 	            case BIG:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage  = 15;
 	            	break;
 	            case BIG_SLIME:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage = 0;
 	            	break;
 	            case FROSTY:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage = 0;
 	            	break;
 	            case FIREBALL:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage = 5;
 	            	break;
 	            case POISONOUS:
+	            	this.sprite =new ExplosionSprite(this);
 	            	damage = 3;
 	            	break;
 	            
