@@ -45,10 +45,6 @@ public class Explosion extends GameObject
 	{
 		return launched;
 	}
-	public void setLaunched(boolean a)
-	{
-		launched = a;
-	}
 	public Effect applyingEffect()
 	{
 		 switch(this.type)

@@ -147,17 +147,8 @@ public class LevelController implements IUpdatable, IDrawable
 		
 		while(UpdateExplosionsIterator.hasMoreObjects())
 		{
-			UpdateExplosionsIterator.next();
 			UpdateExplosionsIterator.current().update();
-			if ( !( ((Explosion)UpdateExplosionsIterator.current()).isActive() ) )
-			{
-				((Explosion)UpdateExplosionsIterator.current()).setLaunched(false);
-			}
-			
-			
 		}
-
-		
 
 		while(UpdateBulletsIterator.hasMoreObjects())
 		{
@@ -260,7 +251,6 @@ public class LevelController implements IUpdatable, IDrawable
 			if (((Bug)UpdateBugsIterator.current()).getHp()==0)
 			{			
 				Explosion a = modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), Type.SLIME);
-				a.setLaunched(true);
 				a.explode();
 				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
