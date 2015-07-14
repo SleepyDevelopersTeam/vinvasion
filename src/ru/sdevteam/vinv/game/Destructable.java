@@ -7,7 +7,10 @@ public abstract class Destructable extends GameObject
     public int getHp(){return hp;}
     protected void setHp(int hp)
     {
-        this.hp=hp;
+		if(hp<=this.getMaxHp())
+			this.hp=hp;
+		else
+			hp=this.getMaxHp();
     }
 
     private int maxHp;

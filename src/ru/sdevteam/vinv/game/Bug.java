@@ -34,12 +34,14 @@ public class Bug extends Destructable
 		return b;
 	}
 	
+	@Override
+	public void bindEffect(Effect eff)
+	{
+		super.bindEffect(eff);
+		
+	}
+	
     public  void onDestructed(){}
-    
-	public void update()
-    {
-    	super.update();
-    }
 
     public void setType(Type type)
     {
@@ -50,18 +52,23 @@ public class Bug extends Destructable
                          setMaxHp(0);
                          setHp(0);
                          break;
-            case NORMAL: speed=(int)(2+Math.random()*5);
+            case NORMAL: speed=(int)(2+Math.random()*10);
                          setMaxHp(100);
                          setHp(100);
                          break;
-			case AIR:	speed= (int)(2+Math.random()*5);
+			case AIR:	speed= (int)(2+Math.random()*10);
 						setMaxHp(70);
 						setHp(70);
 						break;
         }
     }
+	
     //String getDescription();
     //(Buffered)Image getImage(); // возвращает изображение жука
-
+	
+	public void update()
+    {
+    	super.update();
+    }
 
 }

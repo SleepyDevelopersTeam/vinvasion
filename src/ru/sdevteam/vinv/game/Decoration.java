@@ -53,6 +53,7 @@ public class Decoration extends Destructable
 		ruins = Ruins;
 		expt = Expt;
 	}
+	//TODO: Use decorationSprite
 	public static Decoration createTree()
 	{
 		return null;
@@ -83,6 +84,7 @@ public class Decoration extends Destructable
 		return null;
 		
 	}
+
 	public boolean isUnstable()
 	{
 		return unstable;

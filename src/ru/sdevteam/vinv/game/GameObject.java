@@ -6,7 +6,7 @@ import ru.sdevteam.vinv.ui.Sprite;
 public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
                                             ru.sdevteam.vinv.game.IMoveable
 {
-	private Vector<Effect> effects;
+	private Vector<Effect> effects=new Vector<Effect>();
 	private float angle;
 	protected Sprite sprite;
    
@@ -28,7 +28,9 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
 	}
 	public void bindEffectsFrom(GameObject obj)
 	{
-		effects.addAll((Collection<? extends Effect>) obj.getBoundEffects());
+		//effects.addAll((Collection<? extends Effect>) obj.getBoundEffects());
+		while(obj.getBoundEffects().hasMoreElements())
+			effects.add(((Effect)obj.getBoundEffects().nextElement()));
 	}
 	public void clearEffects(){effects.clear();}
 	public void unbundEffect(Effect eff)
