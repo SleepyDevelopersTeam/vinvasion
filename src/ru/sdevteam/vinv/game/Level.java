@@ -166,10 +166,12 @@ public class Level
     {
         massBugs.remove(item);
     }
+	
 	public void addDeco(Decoration d)
 	{
 		massDecos.add(d);
 	}
+	
 	public void removeDeco(Decoration d)
 	{
 		massDecos.remove(d);
@@ -186,10 +188,13 @@ public class Level
 		protected int count=-1;
 		protected Vector<GameObject> vector;
 		
+		
 		public Iterator(Level lvl)
 		{
 			this.lvl=lvl;
 		}
+		
+		
 		public Iterator(Level lvl,Vector<GameObject> vector)
 		{
 			this.lvl=lvl;
@@ -262,10 +267,10 @@ public class Level
 				if ( count == -1 )
 				{
 					count=0;
-					while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive()==false))
+					while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == false))
 						count++;
 				}
-				if ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive()==true))
+				if ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == true))
 				{
 					return vector.elementAt(count);
 				}
@@ -275,11 +280,12 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				if (count == -1)
-					count=0;
-				while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive()==false))
+				//if (count == -1)
+				//	count=0;
+				count++;
+				while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == false))
 					count++;
-				if(((Bug)vector.elementAt(count)).isActive()==true)
+				if(((Bug)vector.elementAt(count)).isActive() == true)
 				{
 					return vector.elementAt(count);
 
@@ -291,11 +297,12 @@ public class Level
 			public boolean hasMoreObjects()
 			{
 				int i=count;
-				if (i == -1)
-					i=0;
+				//if (i == -1)
+				//	i=0;
+				i++;
 				while((i<vector.size()) && (((Bug)vector.elementAt(i)).isActive()==false))
 					i++;
-				if((((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
+				if(( i<vector.size() && ((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
 					return true;
 				return false;
 			}
