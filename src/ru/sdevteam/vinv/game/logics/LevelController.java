@@ -132,6 +132,7 @@ public class LevelController implements IUpdatable, IDrawable
 		
 		while(UpdateDecosIterator.hasMoreObjects())
 		{
+			UpdateDecosIterator.next();
 			UpdateDecosIterator.current().update();
 			if (((Decoration)UpdateDecosIterator.current()).getHp()==0)
 			{
@@ -140,18 +141,19 @@ public class LevelController implements IUpdatable, IDrawable
 				 modelOfLevel.addDeco(a);
 			}
 			
-			UpdateDecosIterator.next();
+			
 		}
 		
 		while(UpdateExplosionsIterator.hasMoreObjects())
 		{
+			UpdateExplosionsIterator.next();
 			UpdateExplosionsIterator.current().update();
 			if ( !( ((Explosion)UpdateExplosionsIterator.current()).isActive() ) )
 			{
 				((Explosion)UpdateExplosionsIterator.current()).setLaunched(false);
 			}
 			
-			UpdateExplosionsIterator.next();
+			
 		}
 
 		
@@ -258,6 +260,7 @@ public class LevelController implements IUpdatable, IDrawable
 				Explosion a = new Explosion(Explosion.Type.SLIME ,(int) ((Bug)UpdateBugsIterator.current()).getX(), 
 											(int) ((Bug)UpdateBugsIterator.current()).getY());
 				a.setLaunched(true);
+				a.explode();
 				modelOfLevel.getExplosion(((Bug)UpdateBugsIterator.current()).getX(), ((Bug)UpdateBugsIterator.current()).getY(), a.getType());
 				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
