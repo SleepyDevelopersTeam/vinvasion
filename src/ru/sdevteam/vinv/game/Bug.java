@@ -34,12 +34,14 @@ public class Bug extends Destructable
 		return b;
 	}
 	
+	@Override
+	public void bindEffect(Effect eff)
+	{
+		super.bindEffect(eff);
+		
+	}
+	
     public  void onDestructed(){}
-    
-	public void update()
-    {
-    	super.update();
-    }
 
     public void setType(Type type)
     {
@@ -60,8 +62,13 @@ public class Bug extends Destructable
 						break;
         }
     }
+	
     //String getDescription();
     //(Buffered)Image getImage(); // возвращает изображение жука
-
+	
+	public void update()
+    {
+    	super.update();
+    }
 
 }
