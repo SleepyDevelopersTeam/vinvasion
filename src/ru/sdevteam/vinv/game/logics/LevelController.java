@@ -126,6 +126,7 @@ public class LevelController implements IUpdatable, IDrawable
 		{
 			
 			UpdateTowersIterator.next().update();
+			
 		}
 		
 		while(UpdateDecosIterator.hasMoreObjects())
@@ -137,6 +138,7 @@ public class LevelController implements IUpdatable, IDrawable
 				 modelOfLevel.removeDeco((Decoration)UpdateDecosIterator.current());
 				 modelOfLevel.addDeco(a);
 			}
+			
 			UpdateDecosIterator.next();
 		}
 		
@@ -147,6 +149,7 @@ public class LevelController implements IUpdatable, IDrawable
 			{
 				((Explosion)UpdateExplosionsIterator.current()).setLaunched(false);
 			}
+			
 			UpdateExplosionsIterator.next();
 		}
 
@@ -162,10 +165,12 @@ public class LevelController implements IUpdatable, IDrawable
 				((Bug)UpdateBugsIterator.current()).setActive(false);
 			}
 			UpdateBugsIterator.next();
+			
 		}
 
 		while(UpdateBulletsIterator.hasMoreObjects())
 		{
+			
 			UpdateBulletsIterator.next().update();
 		}
 
@@ -187,6 +192,7 @@ public class LevelController implements IUpdatable, IDrawable
 			}
 			UpdateDecosIterator.reset();
 			UpdateExplosionsIterator.next();
+			
 		}
 		
 		UpdateBulletsIterator.reset();
@@ -206,7 +212,8 @@ public class LevelController implements IUpdatable, IDrawable
 				UpdateDecosIterator.next();
 			}
 			UpdateDecosIterator.reset();
-			UpdateExplosionsIterator.next();
+			UpdateBulletsIterator.next();
+
 		}
 		
 		UpdateExplosionsIterator.reset();
