@@ -291,27 +291,17 @@ public class Level
 			@Override
 			public boolean hasMoreObjects()
 			{
-				boolean flag=false;
-				if( count == -1)
-				{
-					count = 0;
-					flag = true;
-				}
-				
 				int i=count;
+				if (i==-1)
+					i=0;
 				if(((Bug)vector.elementAt(i)).isActive()==true)
 				{
 					while((i<vector.size())&&(((Bug)vector.elementAt(i)).isActive()==false))
 						i++;
 					if((((Bug)vector.elementAt(i)).isActive()==true) && (i!=count))
 					{
-						if( flag == true)
-							count = -1;
 						return true;
 					}
-					if( flag == true)
-							count = -1;
-					return false;
 				}
 				else
 				{
@@ -323,14 +313,11 @@ public class Level
 						i++;
 					if( i != j && i != count && ((Bug)vector.elementAt(i)).isActive()==true)
 					{
-						if( flag == true)
-							count = -1;
 						return true;
 					}
-					if( flag == true)
-							count = -1;
 					return false;
 				}
+				return false;
 			}
 		};
 		bugsIterator.reset();

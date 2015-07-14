@@ -28,7 +28,9 @@ public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
 	}
 	public void bindEffectsFrom(GameObject obj)
 	{
-		effects.addAll((Collection<? extends Effect>) obj.getBoundEffects());
+		//effects.addAll((Collection<? extends Effect>) obj.getBoundEffects());
+		while(obj.getBoundEffects().hasMoreElements())
+			effects.add(((Effect)obj.getBoundEffects().nextElement()));
 	}
 	public void clearEffects(){effects.clear();}
 	public void unbundEffect(Effect eff)
