@@ -6,7 +6,7 @@ import ru.sdevteam.vinv.ui.Sprite;
 public abstract class GameObject implements ru.sdevteam.vinv.ui.IUpdatable,
                                             ru.sdevteam.vinv.game.IMoveable
 {
-	private Vector<Effect> effects;
+	private Vector<Effect> effects=new Vector<Effect>();
 	private float angle;
 	protected Sprite sprite;
    
