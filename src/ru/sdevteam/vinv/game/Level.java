@@ -70,7 +70,7 @@ public class Level
         objLevel.addTower(bTower);
 		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
-		objLevel.addBug(cBug);
+		//objLevel.addBug(cBug);
         
         objLevel.levelPath=new Path();
         objLevel.levelPath.addPoint(350F, 325F);
@@ -285,7 +285,7 @@ public class Level
 				count++;
 				while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == false))
 					count++;
-				if( (count<vector.size()) &&((Bug)vector.elementAt(count)).isActive() == true )
+				if( (count<vector.size()) && ((Bug)vector.elementAt(count)).isActive() == true )
 				{
 					return vector.elementAt(count);
 
