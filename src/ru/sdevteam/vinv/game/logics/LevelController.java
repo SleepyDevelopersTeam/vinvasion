@@ -147,7 +147,12 @@ public class LevelController implements IUpdatable, IDrawable
 		
 		while(UpdateExplosionsIterator.hasMoreObjects())
 		{
-			UpdateExplosionsIterator.next().update();
+			GameObject expl = UpdateExplosionsIterator.next();
+			expl.update();
+			if ( !((Explosion)expl).isActive() )
+			{
+				modelOfLevel.disposeExplosion( (Explosion)expl);
+			}
 		}
 
 		while(UpdateBulletsIterator.hasMoreObjects())
@@ -190,7 +195,7 @@ public class LevelController implements IUpdatable, IDrawable
 				GameObject dec = UpdateDecosIterator.next();
 				if ( bul.getSprite().collidesWith(dec.getSprite()) )
 				{
-					if (((Decoration) dec).isLeavingRuins())
+					if (((Decoration) dec).isHitable())
 					{
 						((Decoration)dec).hit((Bullet)bul);
 					}
