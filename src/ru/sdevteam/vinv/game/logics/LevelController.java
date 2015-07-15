@@ -291,7 +291,7 @@ public class LevelController implements IUpdatable, IDrawable
 					if (tow.canShoot()) 
 					{	
 						Bullet bug1 = modelOfLevel.getBullet(tow.getX(),tow.getY(),tow.getBulletType());
-						System.out.println("Fire");
+						//System.out.println("Fire");
 						bug1.bindEffectsFrom(tow);
 						
 						float flightTime=distanceBugToTower.getMagnitude()/bug1.getSpeed();
