@@ -1,6 +1,6 @@
 package ru.sdevteam.vinv.game;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.Vector;
 import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.game.logics.Path;
 import ru.sdevteam.vinv.ui.TiledLayer;
@@ -82,7 +82,6 @@ public class Level
         objLevel.levelPath.addPoint(16F, 336F);
         objLevel.levelPath.addPoint(48F, 368F);
         objLevel.levelPath.addPoint(336F, 368F);
-        objLevel.levelPath.addPoint(368F, 325F);
         objLevel.levelPath.addPoint(368F, 336F);
         objLevel.levelPath.addPoint(368F, 48F);
         objLevel.levelPath.addPoint(336F, 16F);
@@ -289,19 +288,19 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				return poolExpl.next();
+				return lvl.poolExpl.next();
 			}
 
 			@Override
 			public void reset()
 			{
-				poolExpl.reset();
+				lvl.poolExpl.reset();
 			}
 
 			@Override
 			public boolean hasMoreObjects()
 			{
-				return poolExpl.hasMoreObjects();
+				return lvl.poolExpl.hasMoreObjects();
 			}
 		};
 		explsIterator.reset();
@@ -315,19 +314,19 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				return poolBullet.next();
+				return lvl.poolBullet.next();
 			}
 
 			@Override
 			public void reset()
 			{
-				poolBullet.reset();
+				lvl.poolBullet.reset();
 			}
 
 			@Override
 			public boolean hasMoreObjects()
 			{
-				return poolBullet.hasMoreObjects();
+				return lvl.poolBullet.hasMoreObjects();
 			}
 
 		};

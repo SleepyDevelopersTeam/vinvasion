@@ -29,7 +29,7 @@ class ExplosionFactory implements PoolFactory
 }
 class Factories
 {
-	public static GameObject getObject(PoolFactory f)
+	public  GameObject getObject(PoolFactory f)
 	{
 		return f.getObject();
 	}
@@ -42,6 +42,7 @@ public class Pool
     boolean[] used;
     private int created;
 	protected int count=-1;
+	private Factories factories;
 	
 	public static BulletFactory getBulletFactory()
 	{
@@ -70,7 +71,7 @@ public class Pool
         used = new boolean[maxSize];
         created = 0;
 		this.f = f;
-		f.getObject().getClass();
+		factories = new Factories();
     }
 	
 
@@ -97,7 +98,7 @@ public class Pool
             return pool[0];
         }
         used[created] = true;
-        GameObject obj=Factories.getObject(f);
+        GameObject obj=factories.getObject(f);
         pool[created] = obj;
         //EventBroker.invoke("debugMsgChanged", "created "+created);
         
