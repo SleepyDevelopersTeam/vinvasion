@@ -4,15 +4,16 @@ import java.util.*;
 import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.game.logics.Path;
 import ru.sdevteam.vinv.ui.TiledLayer;
+import ru.sdevteam.vinv.utils.Pool;
 
 public class Level
 { 
 	private Vector<GameObject> massTowers; 
     private Vector<GameObject> massBugs;
 	private Vector<GameObject> massDecos;
-	
-	private PoolBullet poolBullet;
-	private PoolExpl poolExpl;
+
+	private Pool poolBullet;
+	private Pool poolExpl;
 
 	private Player player;
 	public Player createPlayer(){return null;}
@@ -34,8 +35,8 @@ public class Level
     {
         Level objLevel=new Level();
 		
-        objLevel.poolBullet=new PoolBullet(300);
-		objLevel.poolExpl=new PoolExpl(300);
+        objLevel.poolBullet=new Pool(300,Pool.getBulletFactory());
+		objLevel.poolExpl=new Pool(300,Pool.getExplosionFactory());
 		
         objLevel.massBugs = new Vector<GameObject>();
         objLevel.massTowers = new Vector<GameObject>();
@@ -121,7 +122,7 @@ public class Level
     public Bullet getBullet(float x, float y, Bullet.Type type)
     {
         Bullet obj;
-        obj=poolBullet.getNewObject();
+        obj=(Bullet)poolBullet.getNewObject();
         obj.setX(x);
         obj.setY(y);
         obj.convertTo(type);
@@ -136,7 +137,7 @@ public class Level
 	public Explosion getExplosion(float x, float y, Explosion.Type type)
     {
         Explosion obj;
-        obj=poolExpl.getNewObject();
+        obj=(Explosion)poolExpl.getNewObject();
 		obj.convertTo(type);
         obj.setX(x);
         obj.setY(y);
@@ -286,36 +287,21 @@ public class Level
 		Iterator explsIterator=new Iterator(this)
 		{
 			@Override
-			public Explosion next()
+			public GameObject next()
 			{
-				do
-				{
-					count++;
-					if(count>=lvl.poolExpl.pool.length)
-						return null;
-				}
-				while(!lvl.poolExpl.used[count]);
-				return lvl.poolExpl.pool[count];
+				return poolExpl.next();
 			}
 
 			@Override
 			public void reset()
 			{
-				count=-1;
+				poolExpl.reset();
 			}
 
 			@Override
 			public boolean hasMoreObjects()
 			{
-				int i=count;
-				do
-				{
-					i++;
-					if(i>=lvl.poolExpl.pool.length)
-						return false;
-				}
-				while(!lvl.poolExpl.used[i]);
-				return true;
+				return poolExpl.hasMoreObjects();
 			}
 		};
 		explsIterator.reset();
@@ -329,245 +315,23 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				do
-				{
-					count++;
-					if(count>=lvl.poolBullet.pool.length)
-						return null;
-				}
-				while(!lvl.poolBullet.used[count]);
-				return lvl.poolBullet.pool[count];
+				return poolBullet.next();
 			}
 
 			@Override
 			public void reset()
 			{
-				count=-1;
+				poolBullet.reset();
 			}
 
 			@Override
 			public boolean hasMoreObjects()
 			{
-				int i=count;
-				do
-				{
-					i++;
-					if(i>=lvl.poolBullet.pool.length)
-						return false;
-				}
-				while(!lvl.poolBullet.used[i]);
-				return true;
+				return poolBullet.hasMoreObjects();
 			}
 
 		};
 		bulletsIterator.reset();
 		return bulletsIterator;
 	}
-
-}
-
-class PoolBullet
-{
-	// TODO: перенести класс Pool внутрь Level и снова заприватить массивы
-    Bullet[] pool;
-    boolean[] used;
-    private int created;
-
-    public int getSize()
-    {
-        return created;
-    }
-
-    public int getMaxSize()
-    {
-        return pool.length;
-    }
-
-
-    public PoolBullet(int maxSize)
-    {
-        pool = new Bullet[maxSize];
-        used = new boolean[maxSize];
-        created = 0;
-    }
-
-
-    public Bullet getNewObject()
-    {
-        for (int i = 0; i < created; i++)
-        {
-            if (!used[i])
-            {
-                used[i] = true;
-                //EventBroker.invoke("debugMsgChanged", "returned "+i);
-                return pool[i];
-            }
-        }
-        if (created == pool.length)
-        {
-            //mark everything as unused, except the first that would be returned
-            //that should make all first objects to disappear and to be converted to latest objs
-        	System.out.println("????? ?????");
-            for (int i = 1; i < pool.length; i++)
-            {
-                used[i] = false;
-            }
-            return pool[0];
-        }
-        used[created] = true;
-        Bullet obj=new Bullet();
-        pool[created] = obj;
-        //EventBroker.invoke("debugMsgChanged", "created "+created);
-        
-        return pool[created++];
-    }
-
-    public void dispose(Bullet obj)
-    {
-        for (int i = 0; i < created; i++)
-        {
-            if ((Bullet) pool[i] == obj)
-            {
-                used[i] = false;
-                return;
-            }
-        }
-    }
-
-    public void dispose()
-    {
-        for (int i = 0; i < created; i++)
-        {
-            pool[i] = null;
-        }
-        pool = null;
-        used = null;
-    }
-
-    public Bullet[] getArray()
-    {
-        int count=0;
-        int j=0;
-        for(int i=0;i<pool.length;i++)
-        {
-            if (used[i])
-            {
-                count++;
-            }
-        }
-        Bullet[] mass=new Bullet[count];
-        for(int i=0;i<pool.length;i++)
-        {
-            if (used[i])
-            {
-                mass[j]=pool[i];
-                j++;
-            }
-        }
-        return mass;
-    }
-
-}
-
-class PoolExpl
-{
-	// TODO: перенести класс Pool внутрь Level и снова заприватить массивы
-    Explosion[] pool;
-    boolean[] used;
-    private int created;
-
-    public int getSize()
-    {
-        return created;
-    }
-
-    public int getMaxSize()
-    {
-        return pool.length;
-    }
-
-
-    public PoolExpl(int maxSize)
-    {
-        pool = new Explosion[maxSize];
-        used = new boolean[maxSize];
-        created = 0;
-    }
-
-
-    public Explosion getNewObject()
-    {
-        for (int i = 0; i < created; i++)
-        {
-            if (!used[i])
-            {
-                used[i] = true;
-                //EventBroker.invoke("debugMsgChanged", "returned "+i);
-                return pool[i];
-            }
-        }
-        if (created == pool.length)
-        {
-            //mark everything as unused, except the first that would be returned
-            //that should make all first objects to disappear and to be converted to latest objs
-        	System.out.println("????? ?????");
-            for (int i = 1; i < pool.length; i++)
-            {
-                used[i] = false;
-            }
-            return pool[0];
-        }
-        used[created] = true;
-        Explosion obj=new Explosion();
-        pool[created] = obj;
-        //EventBroker.invoke("debugMsgChanged", "created "+created);
-        
-        return pool[created++];
-    }
-
-    public void dispose(Explosion obj)
-    {
-        for (int i = 0; i < created; i++)
-        {
-            if ((Explosion) pool[i] == obj)
-            {
-                used[i] = false;
-                return;
-            }
-        }
-    }
-
-    public void dispose()
-    {
-        for (int i = 0; i < created; i++)
-        {
-            pool[i] = null;
-        }
-        pool = null;
-        used = null;
-    }
-
-    public Explosion[] getArray()
-    {
-        int count=0;
-        int j=0;
-        for(int i=0;i<pool.length;i++)
-        {
-            if (used[i])
-            {
-                count++;
-            }
-        }
-        Explosion[] mass=new Explosion[count];
-        for(int i=0;i<pool.length;i++)
-        {
-            if (used[i])
-            {
-                mass[j]=pool[i];
-                j++;
-            }
-        }
-        return mass;
-    }
-
 }
