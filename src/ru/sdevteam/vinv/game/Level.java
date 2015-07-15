@@ -44,12 +44,12 @@ public class Level
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
         Tower aTower=new MachineGun();
-        aTower.setX(200);
-        aTower.setY(200);
+        aTower.setX(208);
+        aTower.setY(208);
 		
 		Tower bTower=new FlameThrower();
-		aTower.setX(400);
-        aTower.setY(200);
+		bTower.setX(336);
+        bTower.setY(208);
 		
         Bug aBug=new Bug();
 		aBug.setType(Bug.Type.NORMAL);
@@ -73,26 +73,27 @@ public class Level
 		objLevel.addBug(cBug);
         
         objLevel.levelPath=new Path();
-        objLevel.levelPath.addPoint(350F, 325F);
-        objLevel.levelPath.addPoint(350F, 50F);
-        objLevel.levelPath.addPoint(325F, 25F);
-        objLevel.levelPath.addPoint(50F, 25F);
-        objLevel.levelPath.addPoint(25F, 50F);
-        objLevel.levelPath.addPoint(25F, 325F);
-        objLevel.levelPath.addPoint(50F, 350F);
-        objLevel.levelPath.addPoint(325F, 350F);
-        objLevel.levelPath.addPoint(350F, 325F);
-        objLevel.levelPath.addPoint(350F, 50F);
-        objLevel.levelPath.addPoint(325F, 25F);
-        objLevel.levelPath.addPoint(50F, 25F);
-        objLevel.levelPath.addPoint(25F, 50F);
-        objLevel.levelPath.addPoint(25F, 325F);
-        objLevel.levelPath.addPoint(50F, 350F);
-        objLevel.levelPath.addPoint(325F, 350F);
-        objLevel.levelPath.addPoint(350F, 325F);
-        objLevel.levelPath.addPoint(350F, 50F);
-        objLevel.levelPath.addPoint(325F, 25F);
-        objLevel.levelPath.addPoint(50F, 25F);
+        objLevel.levelPath.addPoint(368F, 336F);
+        objLevel.levelPath.addPoint(368F, 48F);
+        objLevel.levelPath.addPoint(336F, 16F);
+        objLevel.levelPath.addPoint(48F, 16F);
+        objLevel.levelPath.addPoint(16F, 48F);
+        objLevel.levelPath.addPoint(16F, 336F);
+        objLevel.levelPath.addPoint(48F, 368F);
+        objLevel.levelPath.addPoint(336F, 368F);
+        objLevel.levelPath.addPoint(368F, 325F);
+        objLevel.levelPath.addPoint(368F, 336F);
+        objLevel.levelPath.addPoint(368F, 48F);
+        objLevel.levelPath.addPoint(336F, 16F);
+        objLevel.levelPath.addPoint(48F, 16F);
+        objLevel.levelPath.addPoint(16F, 48F);
+        objLevel.levelPath.addPoint(16F, 336F);
+        objLevel.levelPath.addPoint(48F, 368F);
+        objLevel.levelPath.addPoint(336F, 368F);
+        objLevel.levelPath.addPoint(368F, 336F);
+        objLevel.levelPath.addPoint(368F, 48F);
+        objLevel.levelPath.addPoint(336F, 16F);
+        objLevel.levelPath.addPoint(48F, 16F);
         objLevel.levelPath.addPoint(1050F, 1050F);
 		
         return objLevel;
@@ -200,22 +201,7 @@ public class Level
 			this.lvl=lvl;
 			this.vector=vector;
 		}
-		
-		
-		public GameObject current()
-		{
-			if ((count==-1) && (vector.size()>0))
-			{
-				count=0;
-				return vector.elementAt(count);
-			}
-			if (count<vector.size())
-			{
-				return vector.elementAt(count);
-			}
-			return null;
-		}
-
+	
 		public GameObject next()
 		{
 			if(count<vector.size()-1)
@@ -260,23 +246,7 @@ public class Level
 	public Level.Iterator createBugsIterator()
 	{
 		Iterator bugsIterator=new Iterator(this,massBugs)
-		{
-			@Override
-			public GameObject current()
-			{
-				if ( count == -1 )
-				{
-					count=0;
-					while ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == false))
-						count++;
-				}
-				if ((count<vector.size()) && (((Bug)vector.elementAt(count)).isActive() == true))
-				{
-					return vector.elementAt(count);
-				}
-				return null;
-			}
-			
+		{			
 			@Override
 			public GameObject next()
 			{
@@ -315,16 +285,6 @@ public class Level
 	{	
 		Iterator explsIterator=new Iterator(this)
 		{
-			@Override
-			public GameObject current()
-			{
-				
-				if(count>=lvl.poolExpl.pool.length) return null;
-				if (count == -1 && lvl.poolExpl.pool.length>0)
-					count++;
-				return lvl.poolExpl.pool[count];
-			}
-
 			@Override
 			public Explosion next()
 			{
@@ -367,14 +327,6 @@ public class Level
 		Iterator bulletsIterator=new Iterator(this)
 		{
 			@Override
-			public GameObject current()
-			{
-				
-				if(count>=lvl.poolBullet.pool.length) return null;
-				return lvl.poolBullet.pool[count];
-			}
-
-			@Override
 			public GameObject next()
 			{
 				do
@@ -390,7 +342,7 @@ public class Level
 			@Override
 			public void reset()
 			{
-				count=0;
+				count=-1;
 			}
 
 			@Override
