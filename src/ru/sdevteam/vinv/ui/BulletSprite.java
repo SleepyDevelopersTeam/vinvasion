@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class BulletSprite extends Sprite
 {	
-	public static final Color METAL=new Color(160, 160, 180);
+	public static final Color METAL=Color.gray;
 	
 	private int size;
 	private Color color;
@@ -22,7 +22,9 @@ public class BulletSprite extends Sprite
 	@Override
 	public synchronized void paint(Graphics g)
 	{
-		// TODO: Сделать обводку
+		g.setColor(Color.black);
+		g.fillRect((int)getX()-1, (int)getY(), size+2, size);
+		g.fillRect((int)getX(), (int)getY()-1, size, size+2);
 		g.setColor(this.color);
 		g.fillRect((int)getX(), (int)getY(), size, size);
 	}
