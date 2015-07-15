@@ -13,6 +13,7 @@ public class ExplosionSprite extends Sprite
 	public ExplosionSprite(Explosion exp)
 	{
 		super(getImage(exp.getType()), getSize(exp.getType()), getSize(exp.getType()));
+		if(getImage(exp.getType())==null) System.out.println("NULL!");
 		instance=exp;
 		pause();
 	}
@@ -35,6 +36,7 @@ public class ExplosionSprite extends Sprite
 		case SLIME:			return ResourceManager.getBufferedImage("explosions/slime");
 		case BIG_SLIME:		return ResourceManager.getBufferedImage("explosions/big_slime");
 		}
+		System.out.println("Oops");
 		return null;
 	}
 	private static int getSize(Explosion.Type type)

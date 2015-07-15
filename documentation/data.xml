@@ -80,7 +80,9 @@
 	<item type='composite' label='game.logics' base="game.logics/">
 		<ver data='game.logics.build2.txt' />
 	
-		<item type='final' label='LevelController' data='LevelController.build2.txt' />
+		<item type='final' label='LevelController' v='Build#2' data='LevelController.build2.txt' />
+		<item type='final' label='LevelController' v='Build#3' data='LevelController.build3.txt' />
+		
 		<item type='final' label='BugsMover' data='BugsMover.build2.txt' />
 		<item type='final' label='Path' data='Path.build2.txt' />
 	</item>
