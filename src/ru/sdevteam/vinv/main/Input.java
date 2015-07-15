@@ -19,7 +19,7 @@ public class Input
 	
 	private static QueueItem keyStart, keyEnd, mouseStart, mouseEnd;
 	
-	static void pushKeyEvent(KeyEvent e)
+	synchronized static void pushKeyEvent(KeyEvent e)
 	{
 		// Изменяем состояние ввода
 		switch(e.getType())
@@ -47,7 +47,7 @@ public class Input
 		keyEnd=keyEnd.next;
 	}
 	
-	static void pushMouseEvent(MouseEvent e)
+	synchronized static void pushMouseEvent(MouseEvent e)
 	{
 		// Обновляем состояние ввода
 		switch(e.getType())
@@ -108,11 +108,11 @@ public class Input
 		return current.isKeyDown(key);
 	}
 
-	public static boolean hasMoreKeyEvents()
+	public synchronized static boolean hasMoreKeyEvents()
 	{
 		return keyStart!=null;
 	}
-	public static KeyEvent getNextKeyEvent()
+	public synchronized static KeyEvent getNextKeyEvent()
 	{
 		KeyEvent result=(KeyEvent)keyStart.event;
 		keyStart=keyStart.next;
@@ -120,11 +120,11 @@ public class Input
 		return result;
 	}
 
-	public static boolean hasMoreMouseEvents()
+	public synchronized static boolean hasMoreMouseEvents()
 	{
 		return mouseStart!=null;
 	}
-	public static MouseEvent getNextMouseEvent()
+	public synchronized static MouseEvent getNextMouseEvent()
 	{
 		MouseEvent result=(MouseEvent)mouseStart.event;
 		mouseStart=mouseStart.next;
