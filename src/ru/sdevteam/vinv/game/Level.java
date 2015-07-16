@@ -301,7 +301,7 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				return lvl.poolExpl.next();
+				return (GameObject)lvl.poolExpl.next();
 			}
 
 			@Override
@@ -327,7 +327,7 @@ public class Level
 			@Override
 			public GameObject next()
 			{
-				return lvl.poolBullet.next();
+				return (GameObject)lvl.poolBullet.next();
 			}
 
 			@Override
