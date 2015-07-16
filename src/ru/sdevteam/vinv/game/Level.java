@@ -5,6 +5,7 @@ import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.game.logics.Path;
 import ru.sdevteam.vinv.ui.TiledLayer;
 import ru.sdevteam.vinv.utils.Pool;
+import ru.sdevteam.vinv.utils.PoolFactory;
 
 public class Level
 { 
@@ -35,8 +36,20 @@ public class Level
     {
         Level objLevel=new Level();
 		
-        objLevel.poolBullet=new Pool(300,Pool.getBulletFactory());
-		objLevel.poolExpl=new Pool(300,Pool.getExplosionFactory());
+        objLevel.poolBullet=new Pool(300,new PoolFactory()
+		{
+			public Object getObject()
+			{
+				return new Bullet();
+			}
+		});
+		objLevel.poolExpl=new Pool(300,new PoolFactory()
+		{
+			public Object getObject()
+			{
+				return new Explosion();
+			}
+		});
 		
         objLevel.massBugs = new Vector<GameObject>();
         objLevel.massTowers = new Vector<GameObject>();

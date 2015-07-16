@@ -7,52 +7,22 @@ import ru.sdevteam.vinv.game.GameObject;
 import ru.sdevteam.vinv.game.Level;
 
 
-interface PoolFactory
-{
-	public GameObject getObject();
-}
-
-class BulletFactory implements PoolFactory
-{
-	public GameObject getObject()
-	{
-		return new Bullet();
-	}
-}
-
-class ExplosionFactory implements PoolFactory
-{
-	public GameObject getObject()
-	{
-		return new Explosion();
-	}
-}
 class Factories
 {
-	public  GameObject getObject(PoolFactory f)
+	public  Object getObject(PoolFactory f)
 	{
 		return f.getObject();
 	}
 }
 		
-public class Pool
+public class  Pool 
 {
 	private PoolFactory f;
-    GameObject[] pool;
+    Object[] pool;
     boolean[] used;
     private int created;
 	protected int count=-1;
 	private Factories factories;
-	
-	public static BulletFactory getBulletFactory()
-	{
-		return new BulletFactory();
-	}
-	
-	public static ExplosionFactory getExplosionFactory()
-	{
-		return new ExplosionFactory();
-	}
 	
     public int getSize()
     {
@@ -76,7 +46,7 @@ public class Pool
 	
 
 
-    public GameObject getNewObject()
+    public Object getNewObject()
     {
         for (int i = 0; i < created; i++)
         {
@@ -98,7 +68,7 @@ public class Pool
             return pool[0];
         }
         used[created] = true;
-        GameObject obj=factories.getObject(f);
+        Object obj=factories.getObject(f);
         pool[created] = obj;
         //EventBroker.invoke("debugMsgChanged", "created "+created);
         
@@ -127,7 +97,7 @@ public class Pool
         used = null;
     }
 
-    public GameObject[] getArray()
+    public Object[] getArray()
     {
         int count=0;
         int j=0;
@@ -138,7 +108,7 @@ public class Pool
                 count++;
             }
         }
-        GameObject[] mass=new GameObject[count];
+        Object[] mass=new Object[count];
         for(int i=0;i<pool.length;i++)
         {
             if (used[i])
@@ -151,7 +121,7 @@ public class Pool
     }
 	
 
-	public GameObject next()
+	public Object next()
 	{
 		do
 		{
