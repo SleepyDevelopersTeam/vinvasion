@@ -1,19 +1,7 @@
 package ru.sdevteam.vinv.utils;
-
-import java.util.Vector;
-import ru.sdevteam.vinv.game.Bullet;
-import ru.sdevteam.vinv.game.Explosion;
 import ru.sdevteam.vinv.game.GameObject;
-import ru.sdevteam.vinv.game.Level;
 
 
-class Factories
-{
-	public  Object getObject(PoolFactory f)
-	{
-		return f.getObject();
-	}
-}
 		
 public class  Pool 
 {
