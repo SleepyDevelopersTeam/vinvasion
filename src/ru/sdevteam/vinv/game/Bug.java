@@ -4,10 +4,12 @@ public class Bug extends Destructable
 {
     public enum Type {NULL,NORMAL,AIR};
 	
+	protected boolean active=true;
+	public boolean isActive(){return active;}
+	public void setActive(boolean b){active=b;}
+	
 	private boolean air;
 	public boolean isAir(){return air;}
-	
-	
 	
     private Bug.Type type;
     public Bug.Type getType(){return type;}
@@ -17,7 +19,7 @@ public class Bug extends Destructable
 
     private int speed;
     public int getSpeed(){return speed;}
-
+	public void setSpeed(int s){speed=s;}
 
     public Bug()
     {
@@ -25,14 +27,21 @@ public class Bug extends Destructable
         sprite= new BugSprite(this);
     }
 
-
-    public  void onDestroyed(){
-
-    }
-    public void update()
-    {
-    	super.update();
-    }
+	public static Bug getBug(Bug.Type type)
+	{
+		Bug b = new Bug();
+		b.setType(type);
+		return b;
+	}
+	
+	@Override
+	public void bindEffect(Effect eff)
+	{
+		super.bindEffect(eff);
+		
+	}
+	
+    public  void onDestructed(){}
 
     public void setType(Type type)
     {
@@ -45,7 +54,7 @@ public class Bug extends Destructable
                          break;
             case NORMAL: speed=(int)(2+Math.random()*5);
                          setMaxHp(100);
-                         setHp(100);
+                         setHp(50);
                          break;
 			case AIR:	speed= (int)(2+Math.random()*5);
 						setMaxHp(70);
@@ -53,8 +62,13 @@ public class Bug extends Destructable
 						break;
         }
     }
+	
     //String getDescription();
     //(Buffered)Image getImage(); // возвращает изображение жука
-
+	
+	public void update()
+    {
+    	super.update();
+    }
 
 }

@@ -32,7 +32,7 @@ public class TiledLayer implements IMoveable
 		this.tileWidth=tileWidth;
 		this.tilesWidth=tilesWidth;
 		
-		map=new int[tilesWidth][tilesHeight];
+		map=new int[tilesHeight][tilesWidth];
 		
 		this.imgTilesWidth=source.getWidth()/tileWidth;
 		this.imgTilesHeight=source.getHeight()/tileHeight;
@@ -66,7 +66,9 @@ public class TiledLayer implements IMoveable
 		int xTileLU=(int)x/(int)getTileWidth();
 		int yTileLU=(int)y/(int)getTileHeight();
 		int xTileRB=(int)(x+w)/(int)getTileWidth();
+		if(xTileRB>=getTilesWidth()) xTileRB=getTilesWidth()-1;
 		int yTileRB=(int)(y+h)/(int)getTileHeight();
+		if(yTileRB>=getTilesHeight()) yTileRB=getTilesHeight()-1;
 		int i=xTileLU;
 		int j=yTileLU;
 		while (j<=yTileRB)

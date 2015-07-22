@@ -12,13 +12,20 @@ public abstract class Control implements IUpdatable, IDrawable
 	//
 	// Координаты
 	//
-	private int x=0, y=0;
+	private int x=0, y=0, oldx=0, oldy=0;
 	public int getX() { return x; }
 	public int getY() { return y; }
-	public void setX(int nx) { x=nx; }
-	public void setY(int ny) { y=ny; }
-	public void moveTo(int nx, int ny) { x=nx; y=ny; }
-	//public void moveBy(int dx, int dy) { x+=dx; y+=dy; }
+	
+	public void setX(int nx)
+	{ oldx=x; x=nx; onLocationChanged(oldx, y); }
+	
+	public void setY(int ny)
+	{ oldy=y; y=ny; onLocationChanged(x, oldy); }
+	
+	public void moveTo(int nx, int ny)
+	{ oldx=x; oldy=y; x=nx; y=ny; onLocationChanged(oldx, oldy); }
+	
+	protected void onLocationChanged(int oldx, int oldy){}
 	
 	//
 	// Размеры
@@ -87,7 +94,6 @@ public abstract class Control implements IUpdatable, IDrawable
 	}
 	
 	// TODO: test
-	// TODO: Использовать очередь событий в Input
 	public void processMouseEvent(MouseEvent ev)
 	{
 		if(!enabled) return;

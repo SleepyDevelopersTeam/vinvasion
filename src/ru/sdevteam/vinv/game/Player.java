@@ -2,25 +2,78 @@ package ru.sdevteam.vinv.game;
 
 public class Player
 {
-    private Price resources;
+    private int resources;
     private int humans;
     private int basePower;
+	private int maxBasePower;
 	
-    public Price getResources(){return resources;}
+    public int getResources(){return resources;}
     public int getHumansCount(){return humans;}
-    public int getBasePower(){return basePower;}
-	public  void setHumanCount(int n){humans=n;}
-	public void addHuman(int n){humans+=n;}
+    public int getBaseTotalPower(){return maxBasePower;}
+	public void setMaxBasePower(int max){basePower=max;}
+	public int getBasePower(){return basePower;}
 	
 
-    public Player(Price initialResources, int humans, int basePower)
+    public Player(int initialResources, int humans, int basePower)
     {
         this.humans=humans;
-        this.basePower=basePower;
+		if(basePower<maxBasePower)
+			this.basePower=basePower;
+		else
+			this.basePower=maxBasePower;
         this.resources=initialResources;
     }
 
-    
+ 
+	public  void eatHumanCount(int n)
+	{
+		humans-=n;
+		if(humans<0)
+			humans=0;
+	}
+	
+	public void addHuman(int n)
+	{
+		humans+=n;
+	}
+	
+	public int getBasedReservedPower()
+	{
+		return maxBasePower-basePower;
+	}
+	
+	public boolean reserveBasePower(int volts)
+	{
+		if(volts<basePower)
+		{
+			basePower-=volts;
+			return true;
+		}
+		return false;
+	}
+	
+	public void freeBasePower(int volts)
+	{
+		basePower-=volts;
+		if(basePower<0)
+			basePower=0;
+	}
+	
+	public boolean withdrawResources(int res)
+	{
+		if(res<resources)
+		{
+			resources-=res;
+			return true;
+		}
+		return false;
+	}
+	
+	public void addResources(int res)
+	{
+		resources+=res;
+	}
+	
     public boolean isLost()
     {
         if (humans==0)

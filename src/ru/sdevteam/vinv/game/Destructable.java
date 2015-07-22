@@ -7,7 +7,10 @@ public abstract class Destructable extends GameObject
     public int getHp(){return hp;}
     protected void setHp(int hp)
     {
-        this.hp=hp;
+		if(hp<=this.getMaxHp())
+			this.hp=hp;
+		else
+			hp=this.getMaxHp();
     }
 
     private int maxHp;
@@ -28,16 +31,35 @@ public abstract class Destructable extends GameObject
     }
 
     public void hit(Bullet b)
-    { // будет отнимать здоровье, согласуясь с типом пули и собственным состоянием
+    {  
         hp-=b.getDamage();
         if(hp<=0)
         {
-            onDestroyed();
+            onDestructed();
             hp=0;
         }
     }
 
-    protected abstract void onDestroyed(); //??? должен вызываться при достижении показателем hp нуля
+	public void hit(Explosion e)
+	{
+		hp-=e.getDamage();
+        if(hp<=0)
+        {
+            onDestructed();
+            hp=0;
+        }
+	}
+	
+	public void hit(int damage)
+	{
+		hp-=damage;
+        if(hp<=0)
+        {
+            onDestructed();
+            hp=0;
+        }
+	}
+    protected abstract void onDestructed(); 
 
     @Override
     public void update()

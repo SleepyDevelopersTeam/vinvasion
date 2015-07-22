@@ -58,7 +58,7 @@ public class Bullet extends GameObject
                          unstoppable=false;
                          speed=0;
                          break;
-            case NORMAL: damage=15;
+            case NORMAL: damage=1;
                          unstoppable=false;
                          speed=10;
                          break;
