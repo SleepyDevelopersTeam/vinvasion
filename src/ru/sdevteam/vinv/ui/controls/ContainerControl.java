@@ -128,7 +128,7 @@ public class ContainerControl extends Control
 					{
 						// курсор над тем же элементом
 						if(hovered!=null) hovered.onMouseDragging(ev);
-						if(clicked!=null) clicked.onMouseDraggingOutside(ev);
+						if(clicked!=null) clicked.onMouseDraggingOutside(ev, hovered);
 					}
 					else
 					{

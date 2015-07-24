@@ -107,7 +107,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseOut(MouseEvent ev){}
 	
 	protected void onMouseDragging(MouseEvent ev){}
-	protected void onMouseDraggingOutside(MouseEvent ev){}
+	protected void onMouseDraggingOutside(MouseEvent ev, Control dropTarget){}
 	protected void onMouseDragStart(MouseEvent ev){}
 	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter){}
 	protected void onMouseDragDroppedOutside(MouseEvent ev, Control dropTarget){}
