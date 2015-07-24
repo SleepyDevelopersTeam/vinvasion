@@ -40,7 +40,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	//
 	// Состояние
 	//
-	private boolean hovered, pressed, dragging;
+	private boolean hovered, pressed, dragging; // hovered || dragging <= pressed
 	public boolean isHovered() { return hovered; }
 	public boolean isPressed() { return pressed; }
 	public boolean isDragging() { return dragging; }
@@ -93,102 +93,9 @@ public abstract class Control implements IUpdatable, IDrawable
 		return true;
 	}
 	
-	// TODO: test
 	public void processMouseEvent(MouseEvent ev)
 	{
-		if(!enabled) return;
 		
-		if(this.contains(ev.getMouseX(), ev.getMouseY()))
-		{
-			hovered=true;
-		}
-		else
-		{
-			hovered=false;
-		}
-		
-		switch(ev.getType())
-		{
-		case MOTION:
-			if(pressed)
-			{
-				if(!dragging)
-				{
-					// !dragging && pressed => драг ещё не начался, но уже может - стоит проверить:
-					int dx=mdsx-ev.getMouseX(), dy=mdsy-ev.getMouseY();
-					if(dx*dx+dy*dy>25)
-					{
-						// ага, попался! провёл мышью больше 5px => это уже драг
-						dragging=true;
-						onMouseDragStart(ev);
-					}
-					else
-					{
-						// рано, рано...
-						if(hovered) onMouseMoved(ev);
-					}
-				}
-				else // dragging
-				{
-					onMouseDragging(ev);
-					if(hovered)
-					{
-						if(!lmh) onMouseOver(ev);
-					}
-					else
-					{
-						if(lmh) onMouseOut(ev);
-					}
-				}
-			}
-			else // !pressed
-			{
-				if(hovered)
-				{
-					if(lmh) onMouseMoved(ev);
-					else onMouseOver(ev);
-				}
-				else
-				{
-					if(lmh) onMouseOut(ev);
-				}
-			}
-			break;
-			
-		case PRESSED:
-			if(hovered)
-			{
-				pressed=true;
-				mdsx=ev.getMouseX();
-				mdsy=ev.getMouseY();
-				onMousePressed(ev);
-			}
-			break;
-			
-		case RELEASED:
-			if(dragging)
-			{
-				dragging=false;
-				onMouseDragEnd(ev);
-			}
-			if(hovered)
-			{
-				pressed=false;
-				onMouseReleased(ev);
-			}
-			break;
-			
-		case SCROLL:
-			if(hovered)
-			{
-				onMouseScroll(ev);
-			}
-			break;
-		}
-		
-		lmx=ev.getMouseX();
-		lmy=ev.getMouseY();
-		lmh=hovered;
 	}
 	
 	protected void onMouseMoved(MouseEvent ev){}
@@ -200,8 +107,13 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseOut(MouseEvent ev){}
 	
 	protected void onMouseDragging(MouseEvent ev){}
+	protected void onMouseDraggingOutside(MouseEvent ev){}
 	protected void onMouseDragStart(MouseEvent ev){}
-	protected void onMouseDragEnd(MouseEvent ev){}
+	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter){}
+	protected void onMouseDragDroppedOutside(MouseEvent ev, Control dropTarget){}
+	
+	protected void onMouseDraggedInto(MouseEvent ev){}
+	protected void onMouseDraggedOut(MouseEvent ev){}
 	
 	protected void onMouseScroll(MouseEvent ev){}
 	

@@ -15,6 +15,8 @@ public class MouseEvent
 	{
 		event=type; this.button=button;
 		this.mx=mx; this.my=my; this.delta=delta;
+		
+		handled=false;
 	}
 	
 	public int getMouseX() { return mx; }
@@ -26,4 +28,8 @@ public class MouseEvent
 	
 	public InputState getActualState() { return actualState; }
 	void setActualState(InputState s) { actualState=s; }
+	
+	private boolean handled;
+	public boolean isHandled() { return handled; }
+	public void handle() { handled=true; }
 }

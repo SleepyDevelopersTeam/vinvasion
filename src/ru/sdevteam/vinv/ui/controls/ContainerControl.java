@@ -10,6 +10,12 @@ public class ContainerControl extends Control
 {
 	protected Vector<Control> controls;
 	
+	private int lmx=-1, lmy=-1; // last mouse coords
+	private int cmx=-1, cmy=-1; // current click coords
+	// элемент, над которым курсор, и элемент, над которым была нажата кнопка мыши
+	private Control hovered=null, clicked=null;
+	private boolean draggable, dragging;
+	
 	
 	private void init()
 	{
@@ -55,9 +61,9 @@ public class ContainerControl extends Control
 	
 	protected final void paintChildren(Graphics g)
 	{
-		for(Control c: this.controls)
+		for(int i=0; i<this.controls.size(); i++)
 		{
-			c.paint(g);
+			this.controls.get(i).paint(g);
 		}
 	}
 	
@@ -66,11 +72,139 @@ public class ContainerControl extends Control
 	{
 		if(!isEnabled()) return;
 		
-		super.processMouseEvent(ev);
-		for(Control c: this.controls)
+		int x=ev.getMouseX(), y=ev.getMouseY();
+		switch(ev.getType())
 		{
-			c.processMouseEvent(ev);
+		case MOTION:
+			Control newHovered=null;
+			for(int i=this.controls.size()-1; i>=0; i--)
+			{
+				Control c=this.controls.get(i);
+				if(c.contains(x, y))
+				{
+					newHovered=c;
+					break;
+				}
+			}
+			
+			if(draggable)
+			{
+				// мышь нажата, возможен драг
+				if(cmx*cmx+cmy*cmy>25)
+				{
+					// начало драга
+					dragging=true;
+					draggable=false;
+					
+					if(newHovered==hovered)
+					{
+						// драг начался на этом же компоненте
+						if(hovered!=null) hovered.onMouseDragStart(ev);
+					}
+					else
+					{
+						// чёрт возьми, это почти невозможно!
+						// но драг начался как раз тогда, когда мышь ушла к другому компоненту
+						if(hovered!=null)
+						{
+							hovered.onMouseDragStart(ev);
+							hovered.onMouseDraggedOut(ev);
+						}
+						if(newHovered!=null)
+						{
+							newHovered.onMouseDraggedInto(ev);
+						}
+					}
+					
+				}
+			}
+			else
+			{
+				// драг невозможен => он уже идёт, либо мышь не нажата
+				if(dragging)
+				{
+					// драг
+					if(newHovered==hovered)
+					{
+						// курсор над тем же элементом
+						if(hovered!=null) hovered.onMouseDragging(ev);
+						if(clicked!=null) clicked.onMouseDraggingOutside(ev);
+					}
+					else
+					{
+						// курсор сместился со старого элемента на новый
+						if(hovered!=null) hovered.onMouseDraggedOut(ev);
+						if(newHovered!=null) newHovered.onMouseDraggedInto(ev);
+					}
+				}
+				else
+				{
+					// не драг
+					if(newHovered==hovered)
+					{
+						// курсор над тем же
+						if(hovered!=null) hovered.onMouseMoved(ev);
+					}
+					else
+					{
+						// курсор перешёл
+						if(hovered!=null) hovered.onMouseOut(ev);
+						if(newHovered!=null) newHovered.onMouseOver(ev);
+					}
+				}
+			}
+			
+			hovered=newHovered;
+			
+			break;
+		case PRESSED:
+			draggable=true;
+			cmx=x; cmy=y;
+			clicked=hovered;
+			
+			if(hovered!=null)
+			{
+				hovered.onMousePressed(ev);
+			}
+			
+			break;
+		case RELEASED:
+			//draggable=false;
+			
+			if(dragging)
+			{
+				// был драг, пора его завершить
+				dragging=false;
+				clicked.onMouseDragDroppedOutside(ev, hovered);
+				if(hovered!=clicked && hovered!=null) hovered.onMouseDragEnd(ev, clicked);
+			}
+			
+			if(hovered!=null) hovered.onMouseReleased(ev);
+			
+			cmx=cmy=-1;
+			break;
+		case SCROLL:
+			if(hovered!=null)
+			{
+				hovered.onMouseScroll(ev);
+			}
+			else
+			{
+				this.onMouseScroll(ev);
+			}
+			break;
 		}
+		
+		for(int i=this.controls.size()-1; i>=0; i--)
+		{
+			this.controls.get(i).processMouseEvent(ev);
+			//if(ev.isHandled()) return;
+		}
+		
+		lmx=x;
+		lmy=y;
+		
+		super.processMouseEvent(ev);
 	}
 	
 	@Override
@@ -99,9 +233,6 @@ public class ContainerControl extends Control
 	@Override
 	public final boolean isFocused()
 	{
-		// TODO: возможно, более оптимальное решение:
-		// всегда возвращать true, чтобы метод выполнялся быстрее и без захламления стека;
-		// но тогда дольше будет выполняться processKeyEvent верхнего в иерархии контейнера.
 		for(Control c: this.controls)
 		{
 			if(c.isFocused()) return true;
