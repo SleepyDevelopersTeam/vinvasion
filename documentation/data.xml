@@ -104,6 +104,7 @@
 		<item type='final' label='Координатные системы' data='Координатные системы.build2.txt' />
 		<item type='final' label='MVC' data='MVC.build2.txt' />
 		<item type='final' label='Использование Menu' data='Использование Menu.build3.txt' />
+		<item type='final' label='Компоненты' data='Компоненты.build3.txt' />
 
 	</item>
 </nav>
