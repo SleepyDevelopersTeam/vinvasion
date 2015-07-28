@@ -5,10 +5,8 @@ import java.util.Stack;
 
 public abstract class MenuScreen extends Screen 
 {
-	private Stack st;
 	private Menu activeMenu;
 	private Menu previosMenu;
-	private Menu nextMenu;
 	
 	
 	public void setActiveMenu(Menu m)
@@ -27,17 +25,13 @@ public abstract class MenuScreen extends Screen
 	
 	public void setNextMenu(Menu m)
 	{
-		this.nextMenu=m;
-	}
-	
-	public void setPreviousMenu(Menu m)
-	{
-		this.previosMenu=m;
+		this.previosMenu=activeMenu;
+		this.activeMenu=m;
 	}
 	
 	public void goBack()
 	{
-		nextMenu=activeMenu;
+		
 		activeMenu=previosMenu;
 	}
 

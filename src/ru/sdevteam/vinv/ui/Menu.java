@@ -5,53 +5,17 @@ import java.awt.Graphics;
 import ru.sdevteam.vinv.game.IMoveable;
 import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
+import ru.sdevteam.vinv.ui.controls.ButtonSet;
+
 import java.util.Vector;
 
-public abstract class Menu implements IDrawable, IUpdatable, IMoveable
+public abstract class Menu extends ButtonSet
 {
-	private Vector<MenuItem> listOfMenuItem;
-	public void addMenuItem(MenuItem m)
-	{
-		listOfMenuItem.add(m);
-	}
-	
-	public abstract void addMenuItem(String text);
-	
-	// добавл€ет "разделитель" (отступ) после последнего пункта меню
-	public abstract void insertSeparator();
-	
-	public void removeMenuItem(MenuItem m)
-	{
-		listOfMenuItem.remove(m);
+	public Menu(int x, int y, int width, int height, LayoutType layout) {
+		super(x, y, width, height, layout);
+		// TODO Auto-generated constructor stub
 	}
 
-	// перечисление, определ€ющее стиль меню
-	public enum Style { MAIN_MENU, INGAME_MENU }
-	
-
-	/*// обработка событий
-	public void processEvent(MouseEvent ev)
-	{
-		
-	}
-	
-	public void processEvent(KeyEvent ev)
-	{
-	
-	}
-*/
-	// вызываетс€ при выборе пользователем элемента меню item
-	protected void onItemActivated(MenuItem item)
-	{
-		
-	}
-	// вызываетс€ некоторым элементом меню, когда он выбран
-	final void itemActivated(MenuItem invoker)
-	{
-		
-	}
-
-	// поддержка стека меню
 	public Menu getPrevious()
 	{
 		return null;
@@ -62,14 +26,4 @@ public abstract class Menu implements IDrawable, IUpdatable, IMoveable
 		
 	}
 	
-	@Override
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
 }
