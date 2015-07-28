@@ -61,11 +61,10 @@ public class GameScreen extends Screen
 	synchronized public void paint(Graphics g) 
 	{
 		// TODO: Масштабирование
-		//((Graphics2D)g).translate(viewportX, viewportY);
+		((Graphics2D)g).translate(viewportX, viewportY);
 		
 		((Graphics2D)g).scale(scaleFactor, scaleFactor);
 		levelCtrl.paint(g);
-		//((Graphics2D)g).translate(-viewportX, -viewportY);
 		((Graphics2D)g).scale(1F/scaleFactor, 1F/scaleFactor);
 		
 	}
@@ -113,7 +112,7 @@ public class GameScreen extends Screen
 	
 			if(viewportX<0) viewportX=0;
 			if(viewportY<0) viewportY=0;
-			System.out.println(viewportX+" "+viewportY);
+			//System.out.println(viewportX+" "+viewportY);
 		}
 	}
 
