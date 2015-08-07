@@ -11,7 +11,10 @@
 		<item type='final' label='Input' data='Input.build2.txt' />
 		<item type='final' label='KeyEvent' data='KeyEvent.build2.txt' />
 		<item type='final' label='MouseEvent' data='MouseEvent.build2.txt' />
-		<item type='final' label='ResourceManager' data='ResourceManager.build2.txt' />
+		
+		<item type='final' label='ResourceManager' v='Build#2' data='ResourceManager.build2.txt' />
+		<item type='final' label='ResourceManager' v='Build#3' data='ResourceManager.build3.txt' />
+		
 		<item type='final' label='Profile' data='Profile.build2.txt' />
 	</item>
 	<item type='composite' label='ui' base="ui/">
@@ -29,7 +32,13 @@
 		<item type='final' label='TiledLayer' data='TiledLayer.build2.txt' />
 		<item type='final' label='Menu' data='Menu.build3.txt' />
 		<item type='final' label='MenuItem' data='MenuItem.build3.txt' />
+		
 		<item type='final' label='MessageBox' data='MessageBox.build3.txt' />
+		
+		<item type='final' label='MessageBoxButton' data='MessageBoxButton.build3.txt' />
+		
+		<item type='final' label='IDialogResultListener' data='IDialogResultListener.build3.txt' />
+		
 		<item type='final' label='IDrawable' data='IDrawable.build2.txt' />
 		<item type='final' label='IUpdatable' data='IUpdatable.build2.txt' />
 		<item type='final' label='BugSprite' data='BugSprite.build2.txt' />
