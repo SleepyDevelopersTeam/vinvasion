@@ -13,6 +13,7 @@ public class BulletSprite extends Sprite
 	
 	public BulletSprite(int size, Color clr)
 	{
+		// TODO: rewrite, make BulletSprite(Bullet)
 		super();
 		this.size=size; this.color=clr;
 		setCollisionRectangle(0, 0, size, size);

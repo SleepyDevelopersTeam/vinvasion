@@ -74,13 +74,18 @@ public class ResourceManager
 	
 	public static Image getSplash() { return splash; }
 	
+	public static Font getMainFont()
+	{
+		return (Font)fonts.get(0).data;
+	}
+	
 	public static void init()
 	{
 		String[] bullets = {"test_bullet"};
 		String[] towers = { "test_tower" };
 		String[] decos = {};
 		String[] bugs = { "test_bug" };
-		String[] fonts = {};
+		String[] fonts = { "PressStart2P.ttf" };
 		String[] tiles = { "test" };
 		String[] explosions = { "regular", "slime", "big_slime" };
 		countOfFiles = 	bullets.length +	towers.length +	decos.length + 
@@ -89,12 +94,15 @@ public class ResourceManager
 		
 		splash = BI(path + "splash.png");
 		
+		imges=new Vector<Resource>();
+		ResourceManager.fonts=new Vector<Resource>();
+		sounds=new Vector<Resource>();
+		
 		for(String name: fonts)
 		{
-			loadFont(name);
+			ResourceManager.fonts.add(new ResourceManager().new Resource(name, loadFont(name)));
 			countOfReadyFiles++;
 		}
-		imges=new Vector<Resource>();
 		
 		addImages(towers, "towers/");
 		addImages(bugs, "bugs/");
