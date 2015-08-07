@@ -13,6 +13,8 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.SwingUtilities;
 
+import ru.sdevteam.vinv.utils.DebugInfo;
+
 
 
 public class MainFrame extends Frame implements MouseListener, KeyListener, MouseWheelListener, MouseMotionListener
@@ -54,21 +56,48 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		updateTimer.setInterval(33);
 		updateTimer.addOnTickListener(new OnTickListener() 
 		{
-			
+			long time;
 			@Override
 			public void onTick() 
 			{
+				time=System.currentTimeMillis();
 				canvas.update();
+				try
+				{
+					int interval=(int)(System.currentTimeMillis()-time);
+					if(interval==0)
+						DebugInfo.setUpdateFPS(9999.99F);
+					else
+						DebugInfo.setUpdateFPS(Math.round(1000F/interval));
+				}
+				catch(ArithmeticException ex)
+				{
+					DebugInfo.setUpdateFPS(9999.99F);
+				}
 			}
 		});
 		
 		paintTimer.setInterval(33);
 		paintTimer.addOnTickListener(new OnTickListener() {
 			
+			long time;
 			@Override
 			public void onTick() 
 			{
+				time=System.currentTimeMillis();
 				canvas.repaint();
+				try
+				{
+					int interval=(int)(System.currentTimeMillis()-time);
+					if(interval==0)
+						DebugInfo.setPaintFPS(9999.99F);
+					else
+						DebugInfo.setPaintFPS(Math.round(1000F/interval));
+				}
+				catch(ArithmeticException ex)
+				{
+					DebugInfo.setPaintFPS(9999.99F);
+				}
 			}
 		});
 		updateTimer.start();

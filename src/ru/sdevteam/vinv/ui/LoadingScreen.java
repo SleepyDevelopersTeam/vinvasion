@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.main.GameCanvas;
+import ru.sdevteam.vinv.utils.DebugInfo;
 
 
 public class LoadingScreen extends Screen
@@ -45,6 +46,7 @@ public class LoadingScreen extends Screen
 	@Override
 	public void update() 
 	{
+		DebugInfo.addMessage("Loading... "+ResourceManager.getProgress());
 		if (ResourceManager.getProgress()>=1F && (System.currentTimeMillis()-t)>2000)
 		{
 			ñanvas.setActiveScreen(new GameScreen(levelNum, ñanvas));

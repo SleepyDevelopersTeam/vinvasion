@@ -11,9 +11,14 @@ public class TestScreen extends Screen
 {	
 	public TestScreen()
 	{
+		// создаём контрол
 		Control test=new TestControl();
+		// перемещаем в нужную точку
 		test.moveTo(100, 100);
+		// добавляем его на экран
 		this.addControl(test);
+		
+		// и-и, снова
 		test=new TestControl();
 		test.moveTo(100, 350);
 		this.addControl(test);
@@ -22,6 +27,7 @@ public class TestScreen extends Screen
 	@Override
 	public void update()
 	{
+		// стандартный способ для экранов, то же должно быть для событий клавиатуры, если нужно
 		super.update();
 		while(Input.hasMoreMouseEvents())
 		{
@@ -32,7 +38,10 @@ public class TestScreen extends Screen
 	@Override
 	public void paint(Graphics g)
 	{
+		// рисуем фон
 		g.setColor(new Color(50, 20, 20));
-		super.paint(g);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		// и детей на нём
+		super.paintChildren(g);
 	}
 }
