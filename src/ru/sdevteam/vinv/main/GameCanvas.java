@@ -10,6 +10,7 @@ import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.Screen;
 import ru.sdevteam.vinv.ui.LoadingScreen;
+import ru.sdevteam.vinv.ui.TestScreen;
 
 public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 {
@@ -30,6 +31,7 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	public void start()
 	{
 		this.screen = new LoadingScreen(this);
+		//this.screen=new TestScreen();
 	}
 	
 	public void update()

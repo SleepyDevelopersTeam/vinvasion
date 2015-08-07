@@ -1,6 +1,7 @@
 package ru.sdevteam.vinv.ui.controls;
 
 import java.awt.Graphics;
+import java.util.Vector;
 
 import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
@@ -71,10 +72,24 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected abstract void unfocus();
 	public abstract boolean isFocused();
 	
+	//
+	// События
+	//
+	private Vector<IControlListener> listeners;
+	public void addControlListener(IControlListener item)
+	{
+		listeners.add(item);
+	}
+	public void removeControlListener(IControlListener item)
+	{
+		listeners.remove(item);
+	}
+	
 	
 	public Control()
 	{
 		enabled=true;
+		listeners=new Vector<IControlListener>();
 	}
 	
 	public Control(int x, int y, int width, int height)
@@ -98,24 +113,102 @@ public abstract class Control implements IUpdatable, IDrawable
 		
 	}
 	
-	protected void onMouseMoved(MouseEvent ev){}
+	protected void onMouseMoved(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseMoved(ev);
+		}
+	}
 	
-	protected void onMousePressed(MouseEvent ev){}
-	protected void onMouseReleased(MouseEvent ev){}
+	protected void onMousePressed(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mousePressed(ev);
+		}
+	}
+	protected void onMouseReleased(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseReleased(ev);
+		}
+	}
 	
-	protected void onMouseOver(MouseEvent ev){}
-	protected void onMouseOut(MouseEvent ev){}
+	protected void onMouseOver(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseOver(ev);
+		}
+	}
+	protected void onMouseOut(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseOut(ev);
+		}
+	}
 	
-	protected void onMouseDragging(MouseEvent ev){}
-	protected void onMouseDraggingOutside(MouseEvent ev, Control dropTarget){}
-	protected void onMouseDragStart(MouseEvent ev){}
-	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter){}
-	protected void onMouseDragDroppedOutside(MouseEvent ev, Control dropTarget){}
+	protected void onMouseDragging(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDragging(ev);
+		}
+	}
+	protected void onMouseDraggingOutside(MouseEvent ev, Control dropTarget)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDraggingOutside(ev, dropTarget);
+		}
+	}
+	protected void onMouseDragStart(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDragStart(ev);
+		}
+	}
+	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDragEnd(ev, dragStarter);
+		}
+	}
+	protected void onMouseDragDroppedOutside(MouseEvent ev, Control dropTarget)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDragDroppedOutside(ev, dropTarget);
+		}
+	}
 	
-	protected void onMouseDraggedInto(MouseEvent ev){}
-	protected void onMouseDraggedOut(MouseEvent ev){}
+	protected void onMouseDraggedInto(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDraggedInto(ev);
+		}
+	}
+	protected void onMouseDraggedOut(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseDraggedOut(ev);
+		}
+	}
 	
-	protected void onMouseScroll(MouseEvent ev){}
+	protected void onMouseScroll(MouseEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.mouseScroll(ev);
+		}
+	}
 	
 	public void processKeyEvent(KeyEvent ev)
 	{
@@ -135,7 +228,25 @@ public abstract class Control implements IUpdatable, IDrawable
 		}
 	}
 	
-	protected void onKeyDown(KeyEvent ev){}
-	protected void onKeyUp(KeyEvent ev){}
-	protected void onKeyTyped(KeyEvent ev){}
+	protected void onKeyDown(KeyEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.keyDown(ev);
+		}
+	}
+	protected void onKeyUp(KeyEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.keyUp(ev);
+		}
+	}
+	protected void onKeyTyped(KeyEvent ev)
+	{ 
+		for(IControlListener l: listeners)
+		{
+			l.keyTyped(ev);
+		}
+	}
 }

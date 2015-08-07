@@ -117,6 +117,21 @@ public class ContainerControl extends Control
 					}
 					
 				}
+				else
+				{
+					// нет, драга (пока) нет
+					if(newHovered==hovered)
+					{
+						// курсор над тем же
+						if(hovered!=null) hovered.onMouseMoved(ev);
+					}
+					else
+					{
+						// курсор перешёл
+						if(hovered!=null) hovered.onMouseOut(ev);
+						if(newHovered!=null) newHovered.onMouseOver(ev);
+					}
+				}
 			}
 			else
 			{
@@ -128,7 +143,7 @@ public class ContainerControl extends Control
 					{
 						// курсор над тем же элементом
 						if(hovered!=null) hovered.onMouseDragging(ev);
-						if(clicked!=null) clicked.onMouseDraggingOutside(ev, hovered);
+						if(clicked!=null && clicked!=hovered) clicked.onMouseDraggingOutside(ev, hovered);
 					}
 					else
 					{
@@ -175,7 +190,7 @@ public class ContainerControl extends Control
 			{
 				// был драг, пора его завершить
 				dragging=false;
-				clicked.onMouseDragDroppedOutside(ev, hovered);
+				if(clicked!=null) clicked.onMouseDragDroppedOutside(ev, hovered);
 				if(hovered!=clicked && hovered!=null) hovered.onMouseDragEnd(ev, clicked);
 			}
 			
