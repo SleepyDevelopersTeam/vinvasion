@@ -2,6 +2,7 @@ package ru.sdevteam.vinv.ui.controls;
 
 import java.util.Vector;
 
+import ru.sdevteam.vinv.main.ControlKey;
 import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
 
@@ -69,14 +70,36 @@ public class ButtonSet extends FlowLayout
 	@Override
 	protected void onMouseMoved(MouseEvent ev)
 	{
-		// TODO: Проверка на столкновение с каждой кнопкой и выделение, если да
 		super.onMouseMoved(ev);
+		for(int i=buttons.size()-1; i>-0; i--)
+		{
+			if(buttons.get(i).contains(ev.getMouseX(), ev.getMouseY()))
+			{
+				currentButton=i;
+				focusCurrent();
+				break;
+			}
+		}
 	}
 	
 	@Override
 	protected void onKeyDown(KeyEvent ev)
 	{
-		// TODO: При нажатии клавиш влево/вправо перемещаем выделение, Enter - активируем кнопку
 		super.onKeyDown(ev);
+		if(ControlKey.LEFT.checkCode(ev.getKey()) || ControlKey.UP.checkCode(ev.getKey()))
+		{
+			focusPrevious();
+			return;
+		}
+		if(ControlKey.RIGHT.checkCode(ev.getKey()) || ControlKey.DOWN.checkCode(ev.getKey()))
+		{
+			focusNext();
+			return;
+		}
+		if(ControlKey.ACCEPT.checkCode(ev.getKey()))
+		{
+			pressFocused();
+			return;
+		}
 	}
 }
