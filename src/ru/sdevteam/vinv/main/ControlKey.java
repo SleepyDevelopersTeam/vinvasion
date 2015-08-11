@@ -6,7 +6,7 @@ public enum ControlKey
 {
 	NONE(KeyEvent.VK_UNDEFINED), 
 	LEFT(KeyEvent.VK_LEFT, KeyEvent.VK_A), RIGHT(KeyEvent.VK_RIGHT, KeyEvent.VK_D), 
-	UP(KeyEvent.VK_UP, KeyEvent.VK_W), DOWN(KeyEvent.VK_DOWN, KeyEvent.VK_W),
+	UP(KeyEvent.VK_UP, KeyEvent.VK_W), DOWN(KeyEvent.VK_DOWN, KeyEvent.VK_S),
 	PAUSE(KeyEvent.VK_ESCAPE),
 	ACCEPT(KeyEvent.VK_ENTER),
 	NEXT_TOWER(KeyEvent.VK_T), BASE(KeyEvent.VK_B), 

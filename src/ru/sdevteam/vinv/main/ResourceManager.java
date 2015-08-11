@@ -12,6 +12,8 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
+import ru.sdevteam.vinv.utils.Fonts;
+
 
 
 public class ResourceManager 
@@ -103,6 +105,7 @@ public class ResourceManager
 			ResourceManager.fonts.add(new ResourceManager().new Resource(name, loadFont(name)));
 			countOfReadyFiles++;
 		}
+		Fonts.initialize(getMainFont());
 		
 		addImages(towers, "towers/");
 		addImages(bugs, "bugs/");

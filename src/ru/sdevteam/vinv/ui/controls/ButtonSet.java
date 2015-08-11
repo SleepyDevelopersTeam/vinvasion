@@ -5,6 +5,7 @@ import java.util.Vector;
 import ru.sdevteam.vinv.main.ControlKey;
 import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
+import ru.sdevteam.vinv.utils.DebugInfo;
 
 public class ButtonSet extends FlowLayout
 {
@@ -71,7 +72,7 @@ public class ButtonSet extends FlowLayout
 	protected void onMouseMoved(MouseEvent ev)
 	{
 		super.onMouseMoved(ev);
-		for(int i=buttons.size()-1; i>-0; i--)
+		for(int i=buttons.size()-1; i>=0; i--)
 		{
 			if(buttons.get(i).contains(ev.getMouseX(), ev.getMouseY()))
 			{
@@ -86,6 +87,7 @@ public class ButtonSet extends FlowLayout
 	protected void onKeyDown(KeyEvent ev)
 	{
 		super.onKeyDown(ev);
+		DebugInfo.addMessage("KeyEvent raised!");
 		if(ControlKey.LEFT.checkCode(ev.getKey()) || ControlKey.UP.checkCode(ev.getKey()))
 		{
 			focusPrevious();

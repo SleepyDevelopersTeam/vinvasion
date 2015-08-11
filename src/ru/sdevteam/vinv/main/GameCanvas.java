@@ -36,8 +36,6 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	public void start()
 	{
 		this.screen = new LoadingScreen(this);
-		//this.screen=new TestScreen();
-		//this.screen.setSize(this.width, this.height);
 	}
 	
 	public void update()
