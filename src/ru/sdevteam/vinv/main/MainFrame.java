@@ -47,6 +47,7 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		
 		setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
+		setFocusableWindowState(isEnabled());
 		
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
