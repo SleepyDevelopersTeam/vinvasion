@@ -9,6 +9,7 @@ import java.util.Vector;
 import ru.sdevteam.vinv.main.ControlKey;
 import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
+import ru.sdevteam.vinv.utils.Colors;
 
 public class Button extends FocusableControl
 {
@@ -29,17 +30,17 @@ public class Button extends FocusableControl
 	
 	public Button()
 	{
-		super();
+		this("");
 	}
 	public Button(String text)
 	{
-		super();
-		this.text=text;
+		this(text, 0, 0, 80, 20);
 	}
 	public Button(String text, int x, int y, int width, int height)
 	{
 		super(x, y, width, height);
 		this.text=text;
+		pressedListeners=new Vector<ActionListener>();
 	}
 	
 	
@@ -53,8 +54,13 @@ public class Button extends FocusableControl
 	public void paint(Graphics g)
 	{
 		// TODO: set design and drawing
-		g.setColor(Color.red);
+		if(isFocused()) g.setColor(getBackground());
+		else g.setColor(Colors.lime());
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
+		
+		g.setFont(getFont());
+		g.setColor(getForeground());
+		g.drawString(this.getText(), 5+getX(), 5+getY()+g.getFontMetrics().getAscent());
 	}
 	
 	public final void press()
@@ -63,7 +69,7 @@ public class Button extends FocusableControl
 		onPressed();
 		for(ActionListener l: pressedListeners)
 		{
-			l.actionPerformed(null);
+			l.actionPerformed(new ActionEvent(this, 0, ""));
 		}
 	}
 	

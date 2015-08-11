@@ -7,97 +7,97 @@ public class ControlAdapter implements IControlListener
 {
 	
 	@Override
-	public void mouseMoved(MouseEvent ev)
+	public void mouseMoved(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mousePressed(MouseEvent ev)
+	public void mousePressed(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent ev)
+	public void mouseReleased(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseOver(MouseEvent ev)
+	public void mouseOver(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseOut(MouseEvent ev)
+	public void mouseOut(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDragging(MouseEvent ev)
+	public void mouseDragging(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDraggingOutside(MouseEvent ev, Control dropTarget)
+	public void mouseDraggingOutside(MouseEvent ev, Control sender, Control dropTarget)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDragStart(MouseEvent ev)
+	public void mouseDragStart(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDragEnd(MouseEvent ev, Control dragStarter)
+	public void mouseDragEnd(MouseEvent ev, Control sender, Control dragStarter)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDragDroppedOutside(MouseEvent ev, Control dropTarget)
+	public void mouseDragDroppedOutside(MouseEvent ev, Control sender, Control dropTarget)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDraggedInto(MouseEvent ev)
+	public void mouseDraggedInto(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseDraggedOut(MouseEvent ev)
+	public void mouseDraggedOut(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void mouseScroll(MouseEvent ev)
+	public void mouseScroll(MouseEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void keyDown(KeyEvent ev)
+	public void keyDown(KeyEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void keyUp(KeyEvent ev)
+	public void keyUp(KeyEvent ev, Control sender)
 	{
 		
 	}
 	
 	@Override
-	public void keyTyped(KeyEvent ev)
+	public void keyTyped(KeyEvent ev, Control sender)
 	{
 		
 	}

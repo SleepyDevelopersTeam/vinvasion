@@ -12,7 +12,13 @@ public abstract class FocusableControl extends Control
 	protected final void unfocus() { focus=false; }
 	public final void focus()
 	{
-		if(getParent()!=null) getParent().unfocus();
+		// доходим до самого верхнего компонента в иерархии
+		ContainerControl parent=getParent();
+		while(parent!=null)
+		{
+			parent.unfocus();
+			parent=parent.getParent();
+		}
 		focus=true;
 	}
 	

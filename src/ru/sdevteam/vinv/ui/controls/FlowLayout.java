@@ -51,12 +51,20 @@ public class FlowLayout extends ContainerControl
 	{
 		if(layout==LayoutType.HORIZONTAL)
 		{
-			c.setX(controls.lastElement().getX()+controls.lastElement().getWidth()+margin);
+			if(controls.size()>0)
+				c.setX(controls.lastElement().getX()+controls.lastElement().getWidth()+margin);
+			else
+				c.setX(xStart);
+			
 			alignY(c, yStart);
 		}
 		else
 		{
-			c.setY(controls.lastElement().getY()+controls.lastElement().getHeight()+margin);
+			if(controls.size()>0)
+				c.setY(controls.lastElement().getY()+controls.lastElement().getHeight()+margin);
+			else
+				c.setY(yStart);
+			
 			alignX(c, xStart);
 		}
 		

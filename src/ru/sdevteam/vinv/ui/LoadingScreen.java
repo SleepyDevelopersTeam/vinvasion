@@ -10,7 +10,7 @@ import ru.sdevteam.vinv.utils.DebugInfo;
 
 public class LoadingScreen extends Screen
 {
-	private GameCanvas ñanvas;
+	private GameCanvas canvas;
 	private long t;
 	private Image splash;
 	public int hightCanvas;
@@ -20,11 +20,11 @@ public class LoadingScreen extends Screen
 	
 	public LoadingScreen(GameCanvas owner)
 	{
-		ñanvas=owner;
+		canvas=owner;
 		t=System.currentTimeMillis();
 		splash=null;
-		hightCanvas = ñanvas.getHeight();
-		widthCanvas = ñanvas.getWidth();
+		hightCanvas = canvas.getHeight();
+		widthCanvas = canvas.getWidth();
 	}
 
 	@Override
@@ -47,9 +47,11 @@ public class LoadingScreen extends Screen
 	public void update() 
 	{
 		DebugInfo.addMessage("Loading... "+ResourceManager.getProgress());
-		if (ResourceManager.getProgress()>=1F && (System.currentTimeMillis()-t)>2000)
+		if (ResourceManager.getProgress()>=1F && (System.currentTimeMillis()-t)>500)
 		{
-			ñanvas.setActiveScreen(new GameScreen(levelNum, ñanvas));
+			//ñanvas.setActiveScreen(new GameScreen(levelNum, ñanvas));
+			Screen t=new TestScreen(); t.setSize(canvas.getWidth(), canvas.getHeight());
+			canvas.setActiveScreen(t);
 		}
 	}
 }

@@ -193,8 +193,7 @@ public class ContainerControl extends Control
 				if(clicked!=null) clicked.onMouseDragDroppedOutside(ev, hovered);
 				if(hovered!=clicked && hovered!=null) hovered.onMouseDragEnd(ev, clicked);
 			}
-			
-			if(hovered!=null) hovered.onMouseReleased(ev);
+			else if(hovered!=null) hovered.onMouseReleased(ev);
 			
 			cmx=cmy=-1;
 			break;
@@ -242,8 +241,6 @@ public class ContainerControl extends Control
 		{
 			c.unfocus();
 		}
-		if(getParent()!=null)
-			getParent().unfocus();
 	}
 	@Override
 	public final boolean isFocused()

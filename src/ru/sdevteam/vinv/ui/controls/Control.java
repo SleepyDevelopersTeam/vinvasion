@@ -1,5 +1,8 @@
 package ru.sdevteam.vinv.ui.controls;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.Vector;
 
@@ -7,6 +10,8 @@ import ru.sdevteam.vinv.main.KeyEvent;
 import ru.sdevteam.vinv.main.MouseEvent;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.IUpdatable;
+import ru.sdevteam.vinv.utils.Colors;
+import ru.sdevteam.vinv.utils.Fonts;
 
 public abstract class Control implements IUpdatable, IDrawable
 {
@@ -85,11 +90,37 @@ public abstract class Control implements IUpdatable, IDrawable
 		listeners.remove(item);
 	}
 	
+	//
+	// ״נטפע ט צגועא
+	//
+	private Font font;
+	public Font getFont() { return font; }
+	public void setFont(Font f) { font=f; }
+	
+	private FontMetrics fm;
+	protected FontMetrics getFontMetrics(Graphics g)
+	{
+		if(font==null) return null;
+		if(fm==null)
+			fm=g.getFontMetrics(this.font);
+		return fm;
+	}
+	
+	private Color fore, back;
+	public Color getForeground() { return fore; }
+	public Color getBackground() { return back; }
+	public void setForeground(Color c) { fore=c; }
+	public void setBackground(Color c) { back=c; }
+	
 	
 	public Control()
 	{
 		enabled=true;
 		listeners=new Vector<IControlListener>();
+		if(Fonts.initialized())
+			font=Fonts.main(8);
+		fore=Colors.white();
+		back=Colors.gray();
 	}
 	
 	public Control(int x, int y, int width, int height)
@@ -117,7 +148,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseMoved(ev);
+			l.mouseMoved(ev, this);
 		}
 	}
 	
@@ -125,14 +156,14 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mousePressed(ev);
+			l.mousePressed(ev, this);
 		}
 	}
 	protected void onMouseReleased(MouseEvent ev)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseReleased(ev);
+			l.mouseReleased(ev, this);
 		}
 	}
 	
@@ -140,14 +171,14 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseOver(ev);
+			l.mouseOver(ev, this);
 		}
 	}
 	protected void onMouseOut(MouseEvent ev)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseOut(ev);
+			l.mouseOut(ev, this);
 		}
 	}
 	
@@ -155,35 +186,35 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDragging(ev);
+			l.mouseDragging(ev, this);
 		}
 	}
 	protected void onMouseDraggingOutside(MouseEvent ev, Control dropTarget)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDraggingOutside(ev, dropTarget);
+			l.mouseDraggingOutside(ev, this, dropTarget);
 		}
 	}
 	protected void onMouseDragStart(MouseEvent ev)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDragStart(ev);
+			l.mouseDragStart(ev, this);
 		}
 	}
 	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDragEnd(ev, dragStarter);
+			l.mouseDragEnd(ev, this, dragStarter);
 		}
 	}
 	protected void onMouseDragDroppedOutside(MouseEvent ev, Control dropTarget)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDragDroppedOutside(ev, dropTarget);
+			l.mouseDragDroppedOutside(ev, this, dropTarget);
 		}
 	}
 	
@@ -191,14 +222,14 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDraggedInto(ev);
+			l.mouseDraggedInto(ev, this);
 		}
 	}
 	protected void onMouseDraggedOut(MouseEvent ev)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseDraggedOut(ev);
+			l.mouseDraggedOut(ev, this);
 		}
 	}
 	
@@ -206,7 +237,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.mouseScroll(ev);
+			l.mouseScroll(ev, this);
 		}
 	}
 	
@@ -232,21 +263,21 @@ public abstract class Control implements IUpdatable, IDrawable
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.keyDown(ev);
+			l.keyDown(ev, this);
 		}
 	}
 	protected void onKeyUp(KeyEvent ev)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.keyUp(ev);
+			l.keyUp(ev, this);
 		}
 	}
 	protected void onKeyTyped(KeyEvent ev)
 	{ 
 		for(IControlListener l: listeners)
 		{
-			l.keyTyped(ev);
+			l.keyTyped(ev, this);
 		}
 	}
 }
