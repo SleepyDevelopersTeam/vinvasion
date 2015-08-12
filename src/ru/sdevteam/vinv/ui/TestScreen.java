@@ -53,21 +53,6 @@ public class TestScreen extends Screen
 	}
 	
 	@Override
-	public void update()
-	{
-		if(!ResourceManager.isReady()) return;
-		super.update();
-		while(Input.hasMoreMouseEvents())
-		{
-			processMouseEvent(Input.getNextMouseEvent());
-		}
-		while(Input.hasMoreKeyEvents())
-		{
-			processKeyEvent(Input.getNextKeyEvent());
-		}
-	}
-	
-	@Override
 	public void paint(Graphics g)
 	{
 		if(!ResourceManager.isReady()) return;
