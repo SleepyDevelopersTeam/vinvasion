@@ -16,6 +16,8 @@
 		<item type='final' label='ResourceManager' v='Build#3' data='ResourceManager.build3.txt' />
 		
 		<item type='final' label='Profile' data='Profile.build2.txt' />
+		
+		<item type='final' label='LevelStorage' data='LevelStorage.build3.txt' />
 	</item>
 	<item type='composite' label='ui' base="ui/">
 		<ver data='ui.build2.txt' />
@@ -31,7 +33,9 @@
 		<item type='final' label='Sprite' data='Sprite.build2.txt' />
 		<item type='final' label='TiledLayer' data='TiledLayer.build2.txt' />
 		<item type='final' label='Menu' data='Menu.build3.txt' />
-		<item type='final' label='MenuItem' data='MenuItem.build3.txt' />
+		
+		<item type='final' label='MenuItem' v='Build#3' data='MenuItem.build3.txt' />
+		<item type='final' label='MenuItem' v='Build#4' data='MenuItem.build4.txt' />
 		
 		<item type='final' label='MessageBox' data='MessageBox.build3.txt' />
 		
@@ -49,7 +53,9 @@
 	<item type='composite' label='ui.controls' base="ui.controls/">
 		<ver data='ui.controls.build3.txt' />
 		
-		<item type='final' label='Control' data='Control.build3.txt' />
+		<item type='final' label='Control' v='Build#3' data='Control.build3.txt' />
+		<item type='final' label='Control' v='Build#4' data='Control.build4.txt' />
+		
 		<item type='final' label='ContainerControl' data='ContainerControl.build3.txt' />
 		<item type='final' label='FocusableControl' data='FocusableControl.build3.txt' />
 		<item type='final' label='FlowLayout' data='FlowLayout.build3.txt' />
@@ -75,9 +81,18 @@
 		
 		<item type='final' label='Tower' v='Build#2' data='Tower.build2.txt' />
 		<item type='final' label='Tower' v='Build#3' data='Tower.build3.txt' />
+		<item type='final' label='Tower' v='Build#4' data='Tower.build4.txt' />
 		
 		<item type='final' label='Bug' v='Build#2' data='Bug.build2.txt' />
 		<item type='final' label='Bug' v='Build#3' data='Bug.build3.txt' />
+		
+		<item type='final' label='WireHolder' v='Build#4' data='WireHolder.build4.txt' />
+		
+		<item type='final' label='IWireConnectable' v='Build#4' data='IWireConnectable.build4.txt' />
+		
+		<item type='final' label='Base' v='Build#4' data='Base.build4.txt' />
+		
+		<item type='final' label='Wave' v='Build#4' data='Wave.build4.txt' />
 		
 		<item type='final' label='Bullet' data='Bullet.build2.txt' />
 		<item type='final' label='Player' data='Player.build2.txt' />
@@ -101,6 +116,11 @@
 		
 		<item type='final' label='Vector2F' data='Vector2F.build2.txt' />
 		<item type='final' label='PhysObject' data='PhysObject.build2.txt' />
+		<item type='final' label='Colors' data='Colors.build3.txt' />
+		<item type='final' label='Fonts' data='Fonts.build3.txt' />
+		<item type='final' label='DebugInfo' data='DebugInfo.build3.txt' />
+		<item type='final' label='Pool' data='Pool.build3.txt' />
+		<item type='final' label='PoolFactory' data='PoolFactory.build3.txt' />
 	</item>
 	
 	<item type='group' label='Заметки' base="notes/">
