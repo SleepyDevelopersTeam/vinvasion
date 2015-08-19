@@ -119,6 +119,7 @@
 		<item type='final' label='Colors' data='Colors.build3.txt' />
 		<item type='final' label='Fonts' data='Fonts.build3.txt' />
 		<item type='final' label='DebugInfo' data='DebugInfo.build3.txt' />
+		<item type='final' label='TextRenderer' data='TextRenderer.build4.txt' />
 		<item type='final' label='Pool' data='Pool.build3.txt' />
 		<item type='final' label='PoolFactory' data='PoolFactory.build3.txt' />
 	</item>
