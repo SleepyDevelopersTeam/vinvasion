@@ -83,7 +83,7 @@ public class ResourceManager
 	
 	public static void init()
 	{
-		String[] bullets = {"test_bullet"};
+		String[] bullets = { "test_bullet", "bullets" };
 		String[] towers = { "test_tower", "machinegun", "flamethrower" };
 		String[] decos = { "base", "wireholder", "tree1", "tree2" };
 		String[] bugs = { "test_bug" };

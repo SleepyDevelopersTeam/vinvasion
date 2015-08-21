@@ -3,35 +3,65 @@ package ru.sdevteam.vinv.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import ru.sdevteam.vinv.game.Bullet;
+import ru.sdevteam.vinv.main.ResourceManager;
+import ru.sdevteam.vinv.utils.Colors;
+
 public class BulletSprite extends Sprite
-{	
-	public static final Color METAL=Color.gray;
-	
+{
+	private Bullet instance;
 	private int size;
-	private Color color;
 	
-	
-	public BulletSprite(int size, Color clr)
+	private void configure()
 	{
-		// TODO: rewrite, make BulletSprite(Bullet)
-		super();
-		this.size=size; this.color=clr;
-		setCollisionRectangle(0, 0, size, size);
+		switch(instance.getType())
+		{
+		case NORMAL:
+			setCollisionRectangle(2, 2, 1, 1);
+			size=1;
+			break;
+		case FLAME:
+			setCollisionRectangle(0, 0, 5, 5);
+			size=5;
+			break;
+		}
+	}
+	
+	
+	public BulletSprite(Bullet b)
+	{
+		super(ResourceManager.getBufferedImage("bullets/bullets"), 5, 5);
+		instance=b;
+		configure();
+		//play();
 	}
 	
 	
 	@Override
 	public synchronized void paint(Graphics g)
 	{
-		g.setColor(Color.black);
-		g.fillRect((int)getX()-1, (int)getY(), size+2, size);
-		g.fillRect((int)getX(), (int)getY()-1, size, size+2);
-		g.setColor(this.color);
-		g.fillRect((int)getX(), (int)getY(), size, size);
+		switch(instance.getType())
+		{
+		case NORMAL:
+			g.setColor(Colors.black());
+			g.fillRect((int)getX()-1, (int)getY(), 3, 1);
+			g.fillRect((int)getX(), (int)getY()-1, 1, 3);
+			g.setColor(Colors.gray());
+			g.fillRect((int)getX(), (int)getY(), 1, 1);
+			break;
+		case FLAME:
+			super.paint(g);
+			break;
+		}
 	}
 	
-	@Override
+	/*@Override
 	public int getWidth(){ return size; }
 	@Override
-	public int getHeight(){ return size; }
+	public int getHeight(){ return size; }*/
+	
+	public void onTypeChanged()
+	{
+		configure();
+	}
 }

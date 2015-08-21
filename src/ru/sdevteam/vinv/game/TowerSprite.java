@@ -1,5 +1,7 @@
 package ru.sdevteam.vinv.game;
 
+import java.awt.image.BufferedImage;
+
 import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.utils.Vector2F;
@@ -7,11 +9,20 @@ import ru.sdevteam.vinv.utils.Vector2F;
 public class TowerSprite extends Sprite
 {
 	private Tower instanse;
+	int rotationImages=1;
 	
 	public TowerSprite(Tower t)
 	{
-		super(ResourceManager.getBufferedImage("towers/test_tower"), 32, 32);
+		super(getImage(t.getTowerType()), 32, 32);
 		instanse=t;
+		switch(t.getTowerType())
+		{
+		case MGUN:
+			rotationImages=12;
+			break;
+		case FLAME_THROWER:
+			rotationImages=8;
+		}
 		pause();
 	}
 	
@@ -21,9 +32,20 @@ public class TowerSprite extends Sprite
 		super.update();
 		
 		// TODO: обновляем спрайт в соответствии с состоянием instanse
-		// test tower has 12 rotation images
 		
-		int frame=Vector2F.getDiscreteRotation(12, instanse.getRotation());
+		int frame=Vector2F.getDiscreteRotation(rotationImages, instanse.getRotation());
 		gotoFrame(frame);
+	}
+	
+	private static BufferedImage getImage(Tower.Type type)
+	{
+		switch(type)
+		{
+		case MGUN:
+			return ResourceManager.getBufferedImage("towers/machinegun");
+		case FLAME_THROWER:
+			return ResourceManager.getBufferedImage("towers/flamethrower");
+		}
+		return ResourceManager.getBufferedImage("towers/test_tower");
 	}
 }

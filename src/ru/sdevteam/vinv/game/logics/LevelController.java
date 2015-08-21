@@ -112,20 +112,31 @@ public class LevelController implements IUpdatable, IDrawable
 		}
 		while(PaintBulletsIterator.hasMoreObjects())
 		{
-			PaintBulletsIterator.next().getSprite().paint(g);
+			try
+			{
+				Sprite s=PaintBulletsIterator.next()
+				.
+				getSprite();
+				s
+				.
+				paint(g);
+			}
+			catch(NullPointerException ex)
+			{
+				PaintBulletsIterator.reset();
+				while(PaintBulletsIterator.hasMoreObjects())
+				{
+					GameObject o=PaintBulletsIterator.next();
+					System.out.println(o==null?"null":"not null");
+				}
+				System.out.println();
+				ex.printStackTrace();
+				System.exit(0);
+			}
 		}
 		while(PaintDecosIterator.hasMoreObjects())
 		{
-			System.out.println("lool");
-			GameObject o=PaintDecosIterator
-			.next();
-			if(o==null)
-			{
-				System.out.println("Oh no motherfucker no-o!");
-				break;
-			}
-			o.getSprite()
-			.paint(g);
+			PaintDecosIterator.next().getSprite().paint(g);
 		}
 		while(PaintExplosionsIterator.hasMoreObjects())
 		{
@@ -326,18 +337,18 @@ public class LevelController implements IUpdatable, IDrawable
 				{
 					if (tow.canShoot()) 
 					{	
-						Bullet bug1 = modelOfLevel.getBullet(tow.getX(),tow.getY(),tow.getBulletType());
+						Bullet newBullet = modelOfLevel.getBullet(tow.getX(),tow.getY(),tow.getBulletType());
 						//System.out.println("Fire");
-						bug1.bindEffectsFrom(tow);
+						newBullet.bindEffectsFrom(tow);
 						
-						float flightTime=distanceBugToTower.getMagnitude()/bug1.getSpeed();
+						float flightTime=distanceBugToTower.getMagnitude()/newBullet.getSpeed();
 
 						Vector2F displacement=mover.getBugVelocity(bug);
 						displacement.multipleBy(flightTime);
 						distanceBugToTower.add(displacement);
 
-						Vector2F vectorOfBulletSpeed = new Vector2F(distanceBugToTower, bug1.getSpeed());
-						bug1.setVelocity(vectorOfBulletSpeed);
+						Vector2F vectorOfBulletSpeed = new Vector2F(distanceBugToTower, newBullet.getSpeed());
+						newBullet.setVelocity(vectorOfBulletSpeed);
 						tow.shoot();
 
 						tow.rotate(distanceBugToTower.getDirection());

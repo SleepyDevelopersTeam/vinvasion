@@ -12,6 +12,6 @@ public class FlameThrower extends Tower
 		price=10;
 		shootingRadius=70;
 		sprite= new TowerSprite(this);
-		reloadTimeMillis=50;
+		reloadTimeMillis=20;
 	}
 }

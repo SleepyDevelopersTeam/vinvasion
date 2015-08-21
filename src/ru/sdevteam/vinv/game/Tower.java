@@ -1,6 +1,6 @@
 package ru.sdevteam.vinv.game;
 
-public class Tower extends Destructable implements IWireConnectable
+public abstract class Tower extends Destructable implements IWireConnectable
 {
     protected long lastShoot;
     protected long reloadTimeMillis;
@@ -33,7 +33,7 @@ public class Tower extends Destructable implements IWireConnectable
 		bulletType=Bullet.Type.NORMAL;
 		price=10;
 		shootingRadius=100;
-		sprite= new TowerSprite(this);
+		//sprite= new TowerSprite(this);
 		reloadTimeMillis=100;
     }
 

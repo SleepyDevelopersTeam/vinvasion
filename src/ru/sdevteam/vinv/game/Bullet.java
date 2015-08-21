@@ -10,7 +10,7 @@ import ru.sdevteam.vinv.utils.Vector2F;
 
 public class Bullet extends GameObject
 {
-    public enum Type {NULL,NORMAL,FLAME};
+    public enum Type { NULL, NORMAL, FLAME };
 
     private Bullet.Type type;
     public Bullet.Type getType(){return type;}
@@ -43,9 +43,9 @@ public class Bullet extends GameObject
     public Bullet()
     {
         phys=new PhysObject();
-        convertTo(Type.NULL);
         //this.sprite=new Sprite(ResourceManager.getBufferedImage("bullets/test_bullet"));
-        this.sprite=new BulletSprite(1, BulletSprite.METAL);
+        convertTo(Type.NULL);
+        this.sprite=new BulletSprite(this);
     }
 
 
@@ -58,16 +58,36 @@ public class Bullet extends GameObject
                          unstoppable=false;
                          speed=0;
                          break;
-            case NORMAL: damage=1;
+            case NORMAL: damage=2;
                          unstoppable=false;
                          speed=10;
                          break;
+            case FLAME:
+            	damage=1;
+            	unstoppable=false;
+            	speed=5;
+            	break;
         }
+        if(this.sprite!=null) ((BulletSprite)this.sprite).onTypeChanged();
     }
     public void update()
     {
+    	super.update();
         phys.update();
         moveTo(phys.location().getX(),phys.location().getY());
+        
+        // хаотичное движение пламени
+        if(this.type==Type.FLAME)
+        {
+        	if(Math.random()<0.1)
+        	{
+        		phys.velocity().rotate(phys.velocity().getDirection()-0.05F);
+        	}
+        	else if(Math.random()<0.2)
+        	{
+        		phys.velocity().rotate(phys.velocity().getDirection()+0.05F);
+        	}
+        }
     }
 
     @Override
