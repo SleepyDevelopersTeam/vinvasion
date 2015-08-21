@@ -101,11 +101,10 @@ public class Level
         objLevel.levelPath.addPoint(464F, 112F);
         objLevel.levelPath.addPoint(176F, 112F);
         objLevel.levelPath.addPoint(176F, 304F);
-        objLevel.levelPath.addPoint(560F, 304F);
-        objLevel.levelPath.addPoint(560F, 16F);
+        objLevel.levelPath.addPoint(592F, 304F);
+        objLevel.levelPath.addPoint(592F, 16F);
         objLevel.levelPath.addPoint(16F, 16F);
-		
-        objLevel.levelPath.addPoint(16F, 16F);
+	
         objLevel.levelPath.addPoint(16F, 336F);
         objLevel.levelPath.addPoint(112F, 336F);
         objLevel.levelPath.addPoint(112F, 48F);
@@ -115,8 +114,8 @@ public class Level
         objLevel.levelPath.addPoint(464F, 112F);
         objLevel.levelPath.addPoint(176F, 112F);
         objLevel.levelPath.addPoint(176F, 304F);
-        objLevel.levelPath.addPoint(560F, 304F);
-        objLevel.levelPath.addPoint(560F, 16F);
+        objLevel.levelPath.addPoint(592F, 304F);
+        objLevel.levelPath.addPoint(592F, 16F);
         objLevel.levelPath.addPoint(16F, 16F);
 		
         return objLevel;
@@ -133,12 +132,14 @@ public class Level
 			for(int j=0;j<map[i].length;j++)
 			{
 				if((int)(Math.random()*10)==0)
-					map[i][j]=18;
+					map[i][j]=17;
 				else
 					map[i][j]=0;
 			}
 		}
-		for(int i=0;i<10;i++)
+		//road
+		map[0][0] = 10;
+		for(int i=1;i<10;i++)
 		{
 			map[i][0] = 9;
 		}
@@ -146,11 +147,110 @@ public class Level
 		map[10][1] =8;
 		map[10][2] =8;
 		map[10][3] =12;
-		for(int i=0;i<10;i++)
+		for(int i=1;i<10;i++)
 		{
-			map[i][0] = 9;
+			map[i][3] = 9;
 		}
+		map[1][3] = 10;
+		for(int i=4;i<17;i++)
+		{
+			map[1][i] = 8;
+		}
+		map[1][17] = 11;
+		for(int i=2;i<7;i++)
+		{
+			map[i][17] = 9;
+		}
+		map[7][17] = 12;
+		map[7][16] = 8;
+		map[7][15] = 8;
+		map[7][14] = 13;
+		map[6][14] = 9;
+		map[5][14] = 9;
+		map[4][14] = 9;
+		map[3][14] = 11;
+		for(int i=6;i<14;i++)
+		{
+			map[3][i] = 8;
+		}
+		map[3][5] = 10;
+		for(int i=4;i<9;i++)
+		{
+			map[i][5] = 9;
+		}
+		map[9][5] = 13;
+		for(int i=6;i<18;i++)
+		{
+			map[9][i] = 8;
+		}
+		map[9][18] = 12;
+		for(int i=1;i<9;i++)
+		{
+			map[i][18] = 9;
+		}
+		map[0][18] = 11;
+		for(int i=1;i<18;i++)
+		{
+			map[0][i] = 8;
+		}
+		//end of road
 		
+		//sea
+		for(int i=20;i<30;i++)
+		{
+			for(int j=0;j<12;j++)
+				map[j][i] = 23;
+		}
+		for(int i=0;i<12;i++)
+		{
+			map[i][19] = 30;
+		}
+		map[12][19] = 29;
+		for(int i=20;i<30;i++)
+		{
+			map[12][i] = 28;
+		}
+		//end of sea
+		
+		//forest
+		for(int i=15;i<30;i++)
+		{
+			for(int j=0;j<30;j++)
+				map[i][j] = 17;
+		}
+		for(int i=13;i<15;i++)
+		{
+			for(int j=19;j<30;j++)
+				map[i][j] = 16;
+		}
+		//end of forest
+		
+		//zig hail!
+		for(int i=16;i<23;i++)
+		{
+			map[i][15] = 1;
+		}
+		for(int i=12;i<19;i++)
+		{
+			map[19][i] = 1;
+		}
+		for(int i=16;i<18;i++)
+		{
+			map[16][i] = 1;
+		}
+		for(int i=13;i<15;i++)
+		{
+			map[22][i] = 1;
+		}
+		for(int i=19;i<22;i++)
+		{
+			map[i][18] = 1;
+		}
+		for(int i=17;i<19;i++)
+		{
+			map[i][12] = 1;
+		}
+		// end of hail
 		
 		tLayer.setMap(map);
 	}
