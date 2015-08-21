@@ -72,7 +72,7 @@ public class Level
         aBug.setY(100);
 
         Bug bBug=new Bug();
-		bBug.setType(Bug.Type.NORMAL);
+		bBug.setType(Bug.Type.AIR);
         bBug.setX(200);
         bBug.setY(200);
 		
@@ -88,9 +88,9 @@ public class Level
 		objLevel.addBug(cBug);
         
         objLevel.levelPath=new Path();
-        objLevel.levelPath.addPoint(368F, 336F);
-        objLevel.levelPath.addPoint(368F, 48F);
-        objLevel.levelPath.addPoint(336F, 16F);
+        objLevel.levelPath.addPoint(16F, 16F);
+        objLevel.levelPath.addPoint(16F, 336F);
+        objLevel.levelPath.addPoint(200F, 336F);
         objLevel.levelPath.addPoint(48F, 16F);
         objLevel.levelPath.addPoint(16F, 48F);
         objLevel.levelPath.addPoint(16F, 336F);
@@ -208,6 +208,13 @@ public class Level
 		if( massWave.size()>0 )
 			return true;
 		return false;
+	}
+	
+	public Wave getActiveWave()
+	{
+		if(massWave.size()>0)
+			return massWave.firstElement();
+		return null;
 	}
 	
 	public Bug getNextBug()
