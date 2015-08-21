@@ -7,6 +7,7 @@ public class MachineGun extends Tower
 	
 	MachineGun()
 	{
+		super();
 		shootGround=false;
 		bulletType=Bullet.Type.NORMAL;
 		towerType= Tower.Type.MGUN;

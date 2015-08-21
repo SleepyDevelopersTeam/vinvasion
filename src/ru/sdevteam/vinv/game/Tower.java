@@ -1,13 +1,13 @@
 package ru.sdevteam.vinv.game;
 
-public class Tower extends Destructable
+public class Tower extends Destructable implements IWireConnectable
 {
     protected long lastShoot;
     protected long reloadTimeMillis;
     protected boolean repairing;
 	protected boolean shootGround;
 	protected boolean shootAir;
-	private boolean active;
+	protected boolean active;
 
     protected String name;
     public String getName(){return name;}
@@ -74,10 +74,7 @@ public class Tower extends Destructable
 		return false;
 	}
 	
-    public void onDestructed()
-    {
-        
-    }
+    public void onDestructed(){}
 	
 	public void activate()
 	{
@@ -87,6 +84,26 @@ public class Tower extends Destructable
     public void deactivate()
 	{
 		active=false;
+	}
+	
+	public boolean isCharged()
+	{
+		return false;
+	}
+
+	public boolean isConsumer()
+	{
+		return true;
+	}
+
+	public boolean isConductor()
+	{
+		return false;
+	}
+
+	public boolean isGenerator()
+	{
+		return false;
 	}
 	
     public void update()
