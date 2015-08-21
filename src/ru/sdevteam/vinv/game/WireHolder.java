@@ -78,7 +78,7 @@ public class WireHolder extends Decoration implements IWireConnectable
 		{
 			if(vector.get(i).isGenerator())
 				return (Base)vector.get(i);
-			if(vector.get(i).isConductor())
+			if(vector.get(i).isConductor() && vector.get(i) != this )
 				b1 = findBase(index);
 			if (b1 != null)
 				b = b1;
