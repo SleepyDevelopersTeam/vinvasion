@@ -347,7 +347,7 @@ public class LevelController implements IUpdatable, IDrawable
 		//
 		// Волны
 		//
-		/*
+		
 		modelOfLevel.getActiveWave().update();
 		if(!hasBugs && modelOfLevel.isWaveEmpty())
 		{
@@ -377,6 +377,5 @@ public class LevelController implements IUpdatable, IDrawable
 				mover.addBug(b);
 			}
 		}
-		 */
 	}
 }
