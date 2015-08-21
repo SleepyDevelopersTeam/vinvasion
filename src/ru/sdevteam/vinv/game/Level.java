@@ -64,7 +64,7 @@ public class Level
 		objLevel.base = new Base(objLevel.player);
 		objLevel.base.setX(592);
 		objLevel.base.setY(16);
-		objLevel.massDecos.add(objLevel.base);
+		//objLevel.massDecos.add(objLevel.base);
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
         Tower aTower=new MachineGun();
