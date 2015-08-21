@@ -60,9 +60,8 @@ public class Level
 		objLevel.player = new Player(100, 20, 50);
 		
 		Base base = new Base(objLevel.player);
-		base.setX(592);
-		base.setY(16);
-		objLevel.massDecos.add(base);
+		base.setX(496);
+		base.setY(400);
 		objLevel.massDecos.add(base);
 		
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
@@ -108,10 +107,12 @@ public class Level
         objLevel.levelPath.addPoint(176F, 112F);
         objLevel.levelPath.addPoint(176F, 304F);
         objLevel.levelPath.addPoint(592F, 304F);
-        objLevel.levelPath.addPoint(592F, 16F);
-        objLevel.levelPath.addPoint(16F, 16F);
-	
-        objLevel.levelPath.addPoint(16F, 336F);
+        objLevel.levelPath.addPoint(592F, 464F);
+        objLevel.levelPath.addPoint(16F, 464F);
+        objLevel.levelPath.addPoint(16F, 400F);
+        objLevel.levelPath.addPoint(464F, 400F);
+		 objLevel.levelPath.addPoint(592F, 464F);
+        /*objLevel.levelPath.addPoint(16F, 336F);
         objLevel.levelPath.addPoint(112F, 336F);
         objLevel.levelPath.addPoint(112F, 48F);
         objLevel.levelPath.addPoint(560F, 48F);
@@ -122,7 +123,7 @@ public class Level
         objLevel.levelPath.addPoint(176F, 304F);
         objLevel.levelPath.addPoint(592F, 304F);
         objLevel.levelPath.addPoint(592F, 16F);
-        objLevel.levelPath.addPoint(16F, 16F);
+        objLevel.levelPath.addPoint(16F, 16F);*/
 		
         return objLevel;
     }
@@ -189,16 +190,34 @@ public class Level
 		{
 			map[9][i] = 8;
 		}
-		map[9][18] = 12;
-		for(int i=1;i<9;i++)
+		
+		for(int i=10;i<14;i++)
 		{
 			map[i][18] = 9;
 		}
-		map[0][18] = 11;
+		map[9][18] = 11;
+		map[14][18] = 12;
+		for(int i=1;i<18;i++)
+		{
+			map[14][i] = 8;
+		}
+		map[14][0] = 13; 
+		map[13][0] = 9; 
+		map[12][0] = 10; 
+		for(int i=1;i<16;i++)
+		{
+			map[12][i] = 8;
+		}
+		/*map[9][18] = 12;
+		for(int i=1;i<9;i++)
+		{
+			map[i][18] = 9;
+		}*/
+		/*map[0][18] = 11;
 		for(int i=1;i<18;i++)
 		{
 			map[0][i] = 8;
-		}
+		}*/
 		//end of road
 		
 		//sea
