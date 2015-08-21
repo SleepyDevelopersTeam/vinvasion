@@ -90,25 +90,31 @@ public class Level
         objLevel.levelPath=new Path();
         objLevel.levelPath.addPoint(16F, 16F);
         objLevel.levelPath.addPoint(16F, 336F);
-        objLevel.levelPath.addPoint(200F, 336F);
-        objLevel.levelPath.addPoint(48F, 16F);
-        objLevel.levelPath.addPoint(16F, 48F);
+        objLevel.levelPath.addPoint(112F, 336F);
+        objLevel.levelPath.addPoint(112F, 48F);
+        objLevel.levelPath.addPoint(560F, 48F);
+        objLevel.levelPath.addPoint(560F, 240F);
+        objLevel.levelPath.addPoint(464F, 240F);
+        objLevel.levelPath.addPoint(464F, 112F);
+        objLevel.levelPath.addPoint(176F, 112F);
+        objLevel.levelPath.addPoint(176F, 304F);
+        objLevel.levelPath.addPoint(560F, 304F);
+        objLevel.levelPath.addPoint(560F, 16F);
+        objLevel.levelPath.addPoint(16F, 16F);
+		
+        objLevel.levelPath.addPoint(16F, 16F);
         objLevel.levelPath.addPoint(16F, 336F);
-        objLevel.levelPath.addPoint(48F, 368F);
-        objLevel.levelPath.addPoint(336F, 368F);
-        objLevel.levelPath.addPoint(368F, 336F);
-        objLevel.levelPath.addPoint(368F, 48F);
-        objLevel.levelPath.addPoint(336F, 16F);
-        objLevel.levelPath.addPoint(48F, 16F);
-        objLevel.levelPath.addPoint(16F, 48F);
-        objLevel.levelPath.addPoint(16F, 336F);
-        objLevel.levelPath.addPoint(48F, 368F);
-        objLevel.levelPath.addPoint(336F, 368F);
-        objLevel.levelPath.addPoint(368F, 336F);
-        objLevel.levelPath.addPoint(368F, 48F);
-        objLevel.levelPath.addPoint(336F, 16F);
-        objLevel.levelPath.addPoint(48F, 16F);
-        objLevel.levelPath.addPoint(1050F, 1050F);
+        objLevel.levelPath.addPoint(112F, 336F);
+        objLevel.levelPath.addPoint(112F, 48F);
+        objLevel.levelPath.addPoint(560F, 48F);
+        objLevel.levelPath.addPoint(560F, 240F);
+        objLevel.levelPath.addPoint(464F, 240F);
+        objLevel.levelPath.addPoint(464F, 112F);
+        objLevel.levelPath.addPoint(176F, 112F);
+        objLevel.levelPath.addPoint(176F, 304F);
+        objLevel.levelPath.addPoint(560F, 304F);
+        objLevel.levelPath.addPoint(560F, 16F);
+        objLevel.levelPath.addPoint(16F, 16F);
 		
         return objLevel;
     }
@@ -129,6 +135,16 @@ public class Level
 					map[i][j]=0;
 			}
 		}
+		for(int i=0;i<10;i++)
+		{
+			map[i][0] = 9;
+		}
+		map[10][0] = 13;
+		map[10][1] =8;
+		map[10][2] =8;
+		
+		
+		
 		tLayer.setMap(map);
 	}
 	
