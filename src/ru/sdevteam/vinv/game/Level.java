@@ -12,6 +12,7 @@ public class Level
 	private Vector<GameObject> massTowers; 
     private Vector<GameObject> massBugs;
 	private Vector<GameObject> massDecos;
+	private Vector<Wave> massWave;
 
 	private Pool poolBullet;
 	private Pool poolExpl;
@@ -194,6 +195,29 @@ public class Level
 	public void markInactive(Bug b)
 	{
 		b.setActive(false);
+	}
+	
+	public void activateNextWave()
+	{
+		if(massWave.firstElement().isEmpty())
+			massWave.remove(0);
+	}
+	
+	public boolean hasMoreWaves()
+	{
+		if( massWave.size()>0 )
+			return true;
+		return false;
+	}
+	
+	public Bug getNextBug()
+	{
+		return massWave.firstElement().getNextBug();
+	}
+	
+	public boolean isWaveEmpty()
+	{
+		return massWave.firstElement().isEmpty();
 	}
 	
 	public class Iterator
