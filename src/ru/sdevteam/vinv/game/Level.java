@@ -18,7 +18,7 @@ public class Level
 	private Pool poolExpl;
 
 	private Player player;
-	public Player createPlayer(){return null;}
+	public Player createPlayer(){return player;}
 
     private Path levelPath;
     public Path getLevelPath()
@@ -142,7 +142,11 @@ public class Level
 		map[10][0] = 13;
 		map[10][1] =8;
 		map[10][2] =8;
-		
+		map[10][3] =12;
+		for(int i=0;i<10;i++)
+		{
+			map[i][0] = 9;
+		}
 		
 		
 		tLayer.setMap(map);
