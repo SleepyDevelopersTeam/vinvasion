@@ -29,8 +29,9 @@ public class WireHolder extends Decoration implements IWireConnectable
 	
 	public boolean isCharged()
 	{
+		Vector v = new Vector();
 		Base b = null;
-		b = findBase(0);
+		b = findBase(v);
 		if(b != null)
 			return true;
 		return false;
@@ -53,8 +54,9 @@ public class WireHolder extends Decoration implements IWireConnectable
 	
 	public boolean requirePower(int power)
 	{		
+		Vector v = new Vector();
 		Base b = null;
-		b = findBase(0);
+		b = findBase(v);
 		if(b == null)
 			return false;
 		return b.requirePower(power);
@@ -62,27 +64,29 @@ public class WireHolder extends Decoration implements IWireConnectable
 	
 	public void freePower(int power)
 	{
+		Vector v = new Vector();
 		Base b = null;
-		b = findBase(0);
+		b = findBase(v);
 		if(b != null);
 		b.freePower(power);
 	}
 	
-	private Base findBase(int index)
+	private Base findBase(Vector v)
 	{
 		Base b = null,b1 = null;
-		index++;
-		if( index> 20) 
+		if(v.contains(this)) 
 			return null;
 		for( int i=0;i<vector.size();i++)
 		{
 			if(vector.get(i).isGenerator())
 				return (Base)vector.get(i);
 			if(vector.get(i).isConductor() && vector.get(i) != this )
-				b1 = findBase(index);
+				b1 = findBase(v);
 			if (b1 != null)
 				b = b1;
+		
 		}
+		v.add(this);
 		return b;
 			
 	}
