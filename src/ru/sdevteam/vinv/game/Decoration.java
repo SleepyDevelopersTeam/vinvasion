@@ -42,6 +42,7 @@ public class Decoration extends Destructable
 		leavesRuins = false;
 		ruins = null;
 		expt = null;
+		setMaxHp(Integer.MAX_VALUE);
 		setHp(1);
 	}
 	public Decoration(Sprite a, boolean isUnstable, boolean isHitable, boolean isleavesRuins, Decoration Ruins, Explosion.Type Expt)
@@ -53,6 +54,7 @@ public class Decoration extends Destructable
 		leavesRuins = isleavesRuins;
 		ruins = Ruins;
 		expt = Expt;
+		setMaxHp(Integer.MAX_VALUE);
 		setHp(1);
 	}
 	//TODO: Use decorationSprite
