@@ -8,7 +8,6 @@ import ru.sdevteam.vinv.ui.Sprite;
 
 public class Decoration extends Destructable
 {
-	private Sprite s;
 	private boolean unstable;
 	private boolean hitable;
 	private boolean leavesRuins;
@@ -35,7 +34,7 @@ public class Decoration extends Destructable
 	}
 	public Decoration(Sprite a)
 	{
-		s = a;
+		sprite = a;
 		destructedListener = new Vector<ActionListener>();
 		unstable  = false;
 		hitable = true;
@@ -45,7 +44,7 @@ public class Decoration extends Destructable
 	}
 	public Decoration(Sprite a, boolean isUnstable, boolean isHitable, boolean isleavesRuins, Decoration Ruins, Explosion.Type Expt)
 	{
-		s = a;
+		sprite = a;
 		destructedListener = new Vector<ActionListener>();
 		unstable  = isUnstable;
 		hitable = isHitable;
