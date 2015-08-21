@@ -74,13 +74,12 @@ public class WireHolder extends Decoration implements IWireConnectable
 	private Base findBase(Vector v)
 	{
 		Base b = null,b1 = null;
-		if(v.contains(this)) 
-			return null;
+
 		for( int i=0;i<vector.size();i++)
 		{
 			if(vector.get(i).isGenerator())
 				return (Base)vector.get(i);
-			if(vector.get(i).isConductor() && vector.get(i) != this )
+			if(!vector.get(i).isConsumer() && vector.get(i) != this && !v.contains(vector.get(i)) )
 				b1 = findBase(v);
 			if (b1 != null)
 				b = b1;
