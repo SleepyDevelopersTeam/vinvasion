@@ -25,7 +25,9 @@
 		<item type='final' label='Screen' v='Build#2' data='Screen.build2.txt' />
 		<item type='final' label='Screen' v='Build#3' data='Screen.build3.txt' />
 		
-		<item type='final' label='GameScreen' data='GameScreen.build2.txt' />
+		<item type='final' label='GameScreen' v='Build#2' data='GameScreen.build2.txt' />
+		<item type='final' label='GameScreen' v='Build#4' data='GameScreen.build4.txt' />
+		
 		<item type='final' label='LoadingScreen' data='LoadingScreen.build2.txt' />
 		<item type='final' label='MenuScreen' data='MenuScreen.build3.txt' />
 		<item type='final' label='ProfileScreen' data='ProfileScreen.build3.txt' />
@@ -68,6 +70,7 @@
 		
 		<item type='final' label='Level' v='Build#2' data='Level.build2.txt' />
 		<item type='final' label='Level' v='Build#3' data='Level.build3.txt' />
+		<item type='final' label='Level' v='Build#4' data='Level.build4.txt' />
 		
 		<item type='final' label='Level.Iterator' data='Level.Iterator.build2.txt' />
 		
@@ -106,6 +109,7 @@
 	
 		<item type='final' label='LevelController' v='Build#2' data='LevelController.build2.txt' />
 		<item type='final' label='LevelController' v='Build#3' data='LevelController.build3.txt' />
+		<item type='final' label='LevelController' v='Build#4' data='LevelController.build4.txt' />
 		
 		<item type='final' label='BugsMover' data='BugsMover.build2.txt' />
 		<item type='final' label='Path' data='Path.build2.txt' />
