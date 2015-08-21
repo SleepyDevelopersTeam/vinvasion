@@ -49,9 +49,9 @@ public class LoadingScreen extends Screen
 		DebugInfo.addMessage("Loading... "+ResourceManager.getProgress());
 		if (ResourceManager.getProgress()>=1F && (System.currentTimeMillis()-t)>500)
 		{
-			//ñanvas.setActiveScreen(new GameScreen(levelNum, ñanvas));
+			canvas.setActiveScreen(new GameScreen(levelNum, canvas));
 			Screen t=new TestScreen(); t.setSize(canvas.getWidth(), canvas.getHeight());
-			canvas.setActiveScreen(t);
+			//canvas.setActiveScreen(t);
 		}
 	}
 }
