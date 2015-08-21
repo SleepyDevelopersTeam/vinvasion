@@ -16,6 +16,7 @@ public class Player
 
     public Player(int initialResources, int humans, int basePower)
     {
+		maxBasePower = 100;
         this.humans=humans;
 		if(basePower<maxBasePower)
 			this.basePower=basePower;
