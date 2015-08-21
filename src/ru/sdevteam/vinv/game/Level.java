@@ -12,7 +12,7 @@ public class Level
 	private Vector<GameObject> massTowers; 
     private Vector<GameObject> massBugs;
 	private Vector<GameObject> massDecos;
-	private Vector<Wave> massWave;
+	private Vector<Wave> massWaves;
 
 	private Pool poolBullet;
 	private Pool poolExpl;
@@ -55,6 +55,9 @@ public class Level
         objLevel.massBugs = new Vector<GameObject>();
         objLevel.massTowers = new Vector<GameObject>();
 		objLevel.massDecos = new Vector<GameObject>();
+		objLevel.massWaves = new Vector<Wave>();
+		
+		objLevel.player = new Player(100, 20, 50);
 		
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
@@ -219,32 +222,32 @@ public class Level
 	
 	public void activateNextWave()
 	{
-		if(massWave.firstElement().isEmpty())
-			massWave.remove(0);
+		if(massWaves.firstElement().isEmpty())
+			massWaves.remove(0);
 	}
 	
 	public boolean hasMoreWaves()
 	{
-		if( massWave.size()>0 )
+		if( massWaves.size()>0 )
 			return true;
 		return false;
 	}
 	
 	public Wave getActiveWave()
 	{
-		if(massWave.size()>0)
-			return massWave.firstElement();
+		if(massWaves.size()>0)
+			return massWaves.firstElement();
 		return null;
 	}
 	
 	public Bug getNextBug()
 	{
-		return massWave.firstElement().getNextBug();
+		return massWaves.firstElement().getNextBug();
 	}
 	
 	public boolean isWaveEmpty()
 	{
-		return massWave.firstElement().isEmpty();
+		return massWaves.firstElement().isEmpty();
 	}
 	
 	public class Iterator
