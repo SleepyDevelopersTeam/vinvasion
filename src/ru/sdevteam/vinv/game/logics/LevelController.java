@@ -21,7 +21,17 @@ public class LevelController implements IUpdatable, IDrawable
 	private Level modelOfLevel;
 	private GameScreen screen;
 	private BugsMover mover;
+	
 	private Player player;
+	public Player getPlayer()
+	{
+		return player;
+	}
+	
+	private boolean paused;
+	public boolean isPaused() { return paused; }
+	public void pause() { paused=true; }
+	public void unpause() { paused=false; }
 
 	private Iterator UpdateBugsIterator;
 	private Iterator UpdateTowersIterator;
@@ -34,19 +44,8 @@ public class LevelController implements IUpdatable, IDrawable
 	private Iterator PaintBulletsIterator;
 	private Iterator PaintDecosIterator;
 	private Iterator PaintExplosionsIterator;
+
 	
-
-
-	public void onPathEndReached(Bug invoker)
-	{
-		modelOfLevel.removeBug(invoker);
-		//TODO:decrease people on the mainBase
-	}
-
-	public Player getPlayer()
-	{
-		return player;
-	}
 	public LevelController(GameScreen a, Level l) 
 	{  
 		modelOfLevel = l;
@@ -84,6 +83,13 @@ public class LevelController implements IUpdatable, IDrawable
 		}
 	}
 
+	
+	public void onPathEndReached(Bug invoker)
+	{
+		modelOfLevel.removeBug(invoker);
+		//TODO:decrease people on the mainBase
+	}
+	
 	public void paint(Graphics g) 
 	{
 		modelOfLevel.getFone().paint(g, 0, 0, screen.getViewPortWidth(), screen.getViewPortHeight());
@@ -116,8 +122,20 @@ public class LevelController implements IUpdatable, IDrawable
 		}
 	}
 
+	private boolean hasBugs=false; // есть ли жуки на уровне
+	private int ticksForNextWave=0;
 	public void update() 
 	{
+		//
+		//  од обновлений, происход€щих и в паузе, и в игре
+		//
+		
+		if(paused) return;
+		
+		//
+		//  од обновлений, происход€щих только вне паузы
+		//
+		
 		UpdateBugsIterator.reset();
 		UpdateBulletsIterator.reset();
 		UpdateTowersIterator.reset();
@@ -257,8 +275,10 @@ public class LevelController implements IUpdatable, IDrawable
 		mover.update();
 
 		UpdateBugsIterator.reset();
+		hasBugs=false;
 		while(UpdateBugsIterator.hasMoreObjects())
 		{
+			hasBugs=true;
 			GameObject bug = UpdateBugsIterator.next();
 			bug.update();
 			if (((Bug)bug).getHp()==0)
@@ -267,7 +287,6 @@ public class LevelController implements IUpdatable, IDrawable
 				expl.explode();
 				modelOfLevel.markInactive( ((Bug)bug) );
 			}
-			
 		}
 		
 		UpdateTowersIterator.reset();
@@ -323,6 +342,41 @@ public class LevelController implements IUpdatable, IDrawable
 				modelOfLevel.disposeBullet( ((Bullet)a) );
 			}
 			
-		}		
+		}
+		
+		//
+		// ¬олны
+		//
+		/*
+		modelOfLevel.getActiveWave().update();
+		if(!hasBugs && modelOfLevel.isWaveEmpty())
+		{
+			if(ticksForNextWave==-1)
+			{
+				// начало ожидани€
+				ticksForNextWave=300;
+			}
+			else if(ticksForNextWave>0)
+			{
+				// ожидаем...
+				--ticksForNextWave;
+			}
+			else if(ticksForNextWave==0)
+			{
+				// всЄ, врем€ вышло
+				modelOfLevel.activateNextWave();
+				ticksForNextWave=-1; // в начало ожидани€
+			}
+		}
+		if(!modelOfLevel.isWaveEmpty())
+		{
+			Bug b=modelOfLevel.getNextBug();
+			if(b!=null)
+			{
+				modelOfLevel.addBug(b);
+				mover.addBug(b);
+			}
+		}
+		 */
 	}
 }
