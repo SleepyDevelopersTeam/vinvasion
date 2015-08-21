@@ -8,6 +8,7 @@ import ru.sdevteam.vinv.ui.Sprite;
 
 public class Decoration extends Destructable
 {
+	// TODO: сделать долбанный update, который будет в случае unstable убавлять hp!!! 
 	private boolean unstable;
 	private boolean hitable;
 	private boolean leavesRuins;
@@ -41,6 +42,7 @@ public class Decoration extends Destructable
 		leavesRuins = false;
 		ruins = null;
 		expt = null;
+		setHp(1);
 	}
 	public Decoration(Sprite a, boolean isUnstable, boolean isHitable, boolean isleavesRuins, Decoration Ruins, Explosion.Type Expt)
 	{
@@ -51,6 +53,7 @@ public class Decoration extends Destructable
 		leavesRuins = isleavesRuins;
 		ruins = Ruins;
 		expt = Expt;
+		setHp(1);
 	}
 	//TODO: Use decorationSprite
 	public static Decoration createTree()

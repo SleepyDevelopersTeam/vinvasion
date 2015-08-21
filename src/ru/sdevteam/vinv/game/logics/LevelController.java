@@ -12,6 +12,7 @@ import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.IDrawable;
+import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.utils.Vector2F;
 import ru.sdevteam.vinv.ui.GameScreen;
 import ru.sdevteam.vinv.game.Player;
@@ -115,7 +116,16 @@ public class LevelController implements IUpdatable, IDrawable
 		}
 		while(PaintDecosIterator.hasMoreObjects())
 		{
-			PaintDecosIterator.next().getSprite().paint(g);
+			System.out.println("lool");
+			GameObject o=PaintDecosIterator
+			.next();
+			if(o==null)
+			{
+				System.out.println("Oh no motherfucker no-o!");
+				break;
+			}
+			o.getSprite()
+			.paint(g);
 		}
 		while(PaintExplosionsIterator.hasMoreObjects())
 		{
