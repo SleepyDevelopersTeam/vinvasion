@@ -50,6 +50,7 @@ public class LevelController implements IUpdatable, IDrawable
 	{  
 		modelOfLevel = l;
 		screen=a;
+		player=l.createPlayer();
 
 		UpdateBugsIterator = modelOfLevel.createBugsIterator();
 		UpdateTowersIterator = modelOfLevel.createTowersIterator();
@@ -123,7 +124,7 @@ public class LevelController implements IUpdatable, IDrawable
 	}
 
 	private boolean hasBugs=false; // есть ли жуки на уровне
-	private int ticksForNextWave=0;
+	private int ticksForNextWave=-1;
 	public void update() 
 	{
 		//
@@ -135,6 +136,12 @@ public class LevelController implements IUpdatable, IDrawable
 		//
 		// Код обновлений, происходящих только вне паузы
 		//
+		
+		// проверка на проигрыш
+		if(player.isLost())
+		{
+			// screen.onDefeat();
+		}
 		
 		UpdateBugsIterator.reset();
 		UpdateBulletsIterator.reset();
@@ -348,33 +355,43 @@ public class LevelController implements IUpdatable, IDrawable
 		// Волны
 		//
 		
-		modelOfLevel.getActiveWave().update();
-		if(!hasBugs && modelOfLevel.isWaveEmpty())
+		if(modelOfLevel.getActiveWave()!=null) 
 		{
-			if(ticksForNextWave==-1)
+			modelOfLevel.getActiveWave().update();
+			if(!hasBugs && modelOfLevel.isWaveEmpty())
 			{
-				// начало ожидания
-				ticksForNextWave=300;
+				if(ticksForNextWave==-1)
+				{
+					// начало ожидания
+					ticksForNextWave=300;
+				}
+				else if(ticksForNextWave>0)
+				{
+					// ожидаем...
+					--ticksForNextWave;
+				}
+				else if(ticksForNextWave==0)
+				{
+					// всё, время вышло
+					if(modelOfLevel.hasMoreWaves())
+					{
+						modelOfLevel.activateNextWave();
+					}
+					else
+					{
+						//screen.onVictory();
+					}
+					ticksForNextWave=-1; // в начало ожидания
+				}
 			}
-			else if(ticksForNextWave>0)
+			if(!modelOfLevel.isWaveEmpty())
 			{
-				// ожидаем...
-				--ticksForNextWave;
-			}
-			else if(ticksForNextWave==0)
-			{
-				// всё, время вышло
-				modelOfLevel.activateNextWave();
-				ticksForNextWave=-1; // в начало ожидания
-			}
-		}
-		if(!modelOfLevel.isWaveEmpty())
-		{
-			Bug b=modelOfLevel.getNextBug();
-			if(b!=null)
-			{
-				modelOfLevel.addBug(b);
-				mover.addBug(b);
+				Bug b=modelOfLevel.getNextBug();
+				if(b!=null)
+				{
+					modelOfLevel.addBug(b);
+					mover.addBug(b);
+				}
 			}
 		}
 	}
