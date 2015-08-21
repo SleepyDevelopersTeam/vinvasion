@@ -89,8 +89,8 @@ public class Level
         cBug.setX(250);
         cBug.setY(250);
         
-        //objLevel.addTower(aTower);
-        //objLevel.addTower(bTower);
+        objLevel.addTower(aTower);
+        objLevel.addTower(bTower);
 		objLevel.addBug(aBug);
         objLevel.addBug(bBug);
 		objLevel.addBug(cBug);
