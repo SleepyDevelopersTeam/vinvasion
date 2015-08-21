@@ -3,7 +3,7 @@ package ru.sdevteam.vinv.game;
 
 public abstract class Destructable extends GameObject
 {    
-    private int hp;
+    protected int hp;
     public int getHp(){return hp;}
     protected void setHp(int hp)
     {
