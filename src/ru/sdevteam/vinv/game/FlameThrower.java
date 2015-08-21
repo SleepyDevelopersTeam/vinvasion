@@ -5,6 +5,7 @@ public class FlameThrower extends Tower
 	
 	public FlameThrower()
 	{
+		super();
 		shootGround=true;
 		bulletType=Bullet.Type.FLAME;
 		towerType= Tower.Type.FLAME_THROWER;

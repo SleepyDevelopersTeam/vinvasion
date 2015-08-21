@@ -5,6 +5,7 @@ public class AntiAirGun extends Tower
 {
 	AntiAirGun()
 	{
+		super();
 		shootGround=true;
 		bulletType=Bullet.Type.NORMAL;
 		towerType= Tower.Type.AIR_GUN;
