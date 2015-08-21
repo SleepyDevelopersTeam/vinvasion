@@ -22,7 +22,7 @@ public class Base extends Decoration implements IWireConnectable
 	
 	public Base(Player p)
 	{
-		super(null,false,true,false,null,null);
+		super(null,false,false,false,null,null);
 		this.sprite=DecorationSprite.getBaseSprite(this);
 		player = p;
 		hp = 100;
