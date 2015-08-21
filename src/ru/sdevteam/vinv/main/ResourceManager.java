@@ -84,15 +84,23 @@ public class ResourceManager
 	public static void init()
 	{
 		String[] bullets = {"test_bullet"};
-		String[] towers = { "test_tower" };
-		String[] decos = {};
+		String[] towers = { "test_tower", "machinegun", "flamethrower" };
+		String[] decos = { "base", "wireholder", "tree1", "tree2" };
 		String[] bugs = { "test_bug" };
 		String[] fonts = { "PressStart2P.ttf" };
 		String[] tiles = { "test" };
 		String[] explosions = { "regular", "slime", "big_slime" };
+		String[] uis =
+		{
+				"button_d", "button_h", "button_p", "button_r", // standart button images
+				"mainmenu", "menuitem_r", "menuitem_h", // main menu images
+				"msg_large", // messagebox images
+				"panel", "res_resources", "res_humans", "res_power", // resource panel images
+				"tower_button_r", "tower_button_h", "tower_button_p", "tower_button_d" // tower button images
+		};
 		countOfFiles = 	bullets.length +	towers.length +	decos.length + 
 						bugs.length +		fonts.length +	tiles.length +
-						explosions.length;
+						explosions.length +	uis.length;
 		
 		splash = BI(path + "splash.png");
 		
@@ -112,6 +120,8 @@ public class ResourceManager
 		addImages(bullets, "bullets/");
 		addImages(tiles, "tiles/");
 		addImages(explosions, "explosions/");
+		addImages(decos, "decos/");
+		addImages(uis, "ui/");
 		
 		ready = true;
 	}
