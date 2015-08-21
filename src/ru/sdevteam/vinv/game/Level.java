@@ -14,6 +14,8 @@ public class Level
 	private Vector<GameObject> massDecos;
 	private Vector<Wave> massWaves;
 
+	private Base base;
+	
 	private Pool poolBullet;
 	private Pool poolExpl;
 
@@ -59,6 +61,10 @@ public class Level
 		
 		objLevel.player = new Player(100, 20, 50);
 		
+		objLevel.base = new Base(objLevel.player);
+		objLevel.base.setX(592);
+		objLevel.base.setY(16);
+		objLevel.massDecos.add(objLevel.base);
 		objLevel.createTiledLayer(ResourceManager.getBufferedImage("tiles/test"), 32, 32, 30, 30);
 
         Tower aTower=new MachineGun();
