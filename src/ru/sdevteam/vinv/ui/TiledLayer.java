@@ -151,4 +151,10 @@ public class TiledLayer implements IMoveable
 		x+=dx;
 		y+=dy;
 	}
+	
+	
+	public static boolean isFreeCell(int tileIndex)
+	{
+		return tileIndex>=0 && tileIndex<8; 
+	}
 }

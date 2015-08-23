@@ -13,6 +13,7 @@ import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.Sprite;
+import ru.sdevteam.vinv.ui.TiledLayer;
 import ru.sdevteam.vinv.utils.Vector2F;
 import ru.sdevteam.vinv.ui.GameScreen;
 import ru.sdevteam.vinv.game.Player;
@@ -86,10 +87,102 @@ public class LevelController implements IUpdatable, IDrawable
 	}
 
 	
+	//
+	// для взаимодействия с игроком
+	//
+	private int getColumn(int x)
+	{
+		return x/modelOfLevel.getFone().getTileWidth();
+	}
+	private int getRow(int y)
+	{
+		return y/modelOfLevel.getFone().getTileHeight();
+	}
+	
+	public boolean placeTower(Tower item, int x, int y)
+	{
+		if(placeObject(item, x, y))
+		{
+			modelOfLevel.addTower(item);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean placeDecoration(Decoration item, int x, int y)
+	{
+		if(placeObject(item, x, y))
+		{
+			modelOfLevel.addDeco(item);
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean placeObject(GameObject item, int x, int y)
+	{
+		int col=getColumn(x);
+		int row=getRow(y);
+		
+		// можно ли в данной ячейке поставить башню?
+		if(!TiledLayer.isFreeCell(modelOfLevel.getFone().getTileIndexAt(row, col))) return false;
+		
+		item.moveTo(col*modelOfLevel.getFone().getTileWidth(), row*modelOfLevel.getFone().getTileHeight());
+		
+		// теперь проверим, нет ли там уже башни
+		Iterator i=modelOfLevel.createTowersIterator();
+		while(i.hasMoreObjects())
+		{
+			if(i.next().getSprite().collidesWith(item.getSprite()))
+				return false;
+		}
+		// и каких-нибудь декораций
+		i=modelOfLevel.createDecosIterator();
+		while(i.hasMoreObjects())
+		{
+			if(i.next().getSprite().collidesWith(item.getSprite()))
+				return false;
+		}
+		
+		// sector clear! roger that!
+		return true;
+	}
+	
+	public void removeTower(Tower item)
+	{
+		modelOfLevel.removeTower(item);
+	}
+	
+	public Tower getTowerUnderCursor(int x, int y)
+	{
+		Iterator i=modelOfLevel.createTowersIterator();
+		while(i.hasMoreObjects())
+		{
+			Tower t=(Tower)i.next();
+			if(t.getSprite().contains(x, y))
+				return t;
+		}
+		return null;
+	}
+	
+	public Decoration getDecoUnderCursor(int x, int y)
+	{
+		Iterator i=modelOfLevel.createDecosIterator();
+		while(i.hasMoreObjects())
+		{
+			Decoration d=(Decoration)i.next();
+			if(d.getSprite().contains(x, y))
+				return d;
+		}
+		return null;
+	}
+	
+	
 	public void onPathEndReached(Bug invoker)
 	{
 		modelOfLevel.removeBug(invoker);
 		//TODO:decrease people on the mainBase
+		player.eatHumanCount(invoker.getHp()/10);
 	}
 	
 	public void paint(Graphics g) 
