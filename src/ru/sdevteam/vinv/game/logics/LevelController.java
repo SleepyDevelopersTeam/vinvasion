@@ -423,14 +423,22 @@ public class LevelController implements IUpdatable, IDrawable
 			{
 				
 				Bug bug=(Bug)UpdateBugsIterator.next();
+				//попытка улучшить алгоритм пуль
+				float x,y,r,k;
+				x = bug.getX()-tow.getX();
+				y = bug.getY()-tow.getY();
+				r = (float) Math.sqrt(x*x+y*y);
+				k = r/8;
+				x = x/k;
+				y = y/k;
 				
-				Vector2F distanceBugToTower=new Vector2F( (bug.getX()-tow.getX()),(bug.getY()-tow.getY()));
+				Vector2F distanceBugToTower=new Vector2F( (bug.getX()-tow.getX()-x),(bug.getY()-tow.getY())-y);
 				if(distanceBugToTower.getMagnitude()<200F)
 					// //bug into radius of Tower )
 				{
 					if (tow.canShoot()) 
 					{	
-						Bullet newBullet = modelOfLevel.getBullet(tow.getX(),tow.getY(),tow.getBulletType());
+						Bullet newBullet = modelOfLevel.getBullet(tow.getX()+x,tow.getY()+y,tow.getBulletType());
 						//System.out.println("Fire");
 						newBullet.bindEffectsFrom(tow);
 						

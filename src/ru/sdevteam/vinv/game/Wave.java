@@ -50,6 +50,7 @@ public class Wave implements IUpdatable
 	{
 		vector.clear();
 		timeVector.clear();
+		timeVector.add(0);
 	}
 	
 	public Bug getNextBug()
