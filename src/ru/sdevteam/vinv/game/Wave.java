@@ -15,6 +15,8 @@ public class Wave implements IUpdatable
 	public Wave()
 	{
 		vector = new Vector<Bug>();
+		timeVector = new Vector<Integer>();
+		timeVector.add(0);
 		time = 0;
 		index = 0;
 		

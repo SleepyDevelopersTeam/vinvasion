@@ -48,15 +48,15 @@ public class Bug extends Destructable
         this.type=type;
         switch(this.type)
         {
-            case NULL:   speed=0;
+            case NULL:   speed = 0;
                          setMaxHp(0);
                          setHp(0);
                          break;
-            case NORMAL: speed=(int)(2+Math.random()*5);
+            case NORMAL: speed = 5;//(int)(2+Math.random()*5);
                          setMaxHp(100);
                          setHp(50);
                          break;
-			case AIR:	speed= (int)(2+Math.random()*5);
+			case AIR:	speed = 7;//(int)(2+Math.random()*5);
 						setMaxHp(70);
 						setHp(70);
 						break;

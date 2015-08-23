@@ -76,24 +76,27 @@ public class Level
 		
         Bug aBug=new Bug();
 		aBug.setType(Bug.Type.NORMAL);
-        aBug.setX(100);
-        aBug.setY(100);
-
         Bug bBug=new Bug();
-		bBug.setType(Bug.Type.AIR);
-        bBug.setX(200);
-        bBug.setY(200);
-		
+		bBug.setType(Bug.Type.NORMAL);
 		Bug cBug=new Bug();
-		cBug.setType(Bug.Type.NORMAL);
-        cBug.setX(250);
-        cBug.setY(250);
+		cBug.setType(Bug.Type.AIR);
         
+		Wave wave1 = new Wave();
+		wave1.addBug(aBug);
+		wave1.addLongTimeInterval();
+		wave1.addBug(bBug);
+		wave1.addLongTimeInterval();
+		wave1.addLongTimeInterval();
+		wave1.addLongTimeInterval();
+		wave1.addBug(cBug);
+		
+		objLevel.massWaves.add(wave1);
+		
         objLevel.addTower(aTower);
         objLevel.addTower(bTower);
-		objLevel.addBug(aBug);
-        objLevel.addBug(bBug);
-		objLevel.addBug(cBug);
+		//objLevel.addBug(aBug);
+		//objLevel.addBug(bBug);
+		//objLevel.addBug(cBug);
         
         objLevel.levelPath=new Path();
         objLevel.levelPath.addPoint(16F, 16F);
