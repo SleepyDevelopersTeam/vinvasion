@@ -423,6 +423,8 @@ public class LevelController implements IUpdatable, IDrawable
 			{
 				
 				Bug bug=(Bug)UpdateBugsIterator.next();
+				// TODO: нанять трезвого наводчика
+				
 				//попытка улучшить алгоритм пуль
 				float x,y,r,k;
 				x = bug.getX()-tow.getX();
