@@ -1,9 +1,11 @@
 package ru.sdevteam.vinv.game;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.Sprite;
+import ru.sdevteam.vinv.utils.Colors;
 import ru.sdevteam.vinv.utils.Vector2F;
 
 public class TowerSprite extends Sprite
@@ -24,6 +26,7 @@ public class TowerSprite extends Sprite
 			rotationImages=8;
 		}
 		pause();
+		setCollisionRectangle(2, 2, 28, 28);
 	}
 	
 	@Override

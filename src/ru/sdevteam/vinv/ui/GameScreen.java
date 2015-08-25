@@ -2,11 +2,15 @@ package ru.sdevteam.vinv.ui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import ru.sdevteam.vinv.game.Decoration;
+import ru.sdevteam.vinv.game.FlameThrower;
 import ru.sdevteam.vinv.game.Level;
+import ru.sdevteam.vinv.game.Tower;
 import ru.sdevteam.vinv.game.logics.LevelController;
 import ru.sdevteam.vinv.main.GameCanvas;
 import ru.sdevteam.vinv.main.MouseEvent;
@@ -14,18 +18,30 @@ import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.controls.Button;
 import ru.sdevteam.vinv.ui.controls.Control;
 import ru.sdevteam.vinv.ui.controls.FocusableControl;
+import ru.sdevteam.vinv.ui.controls.IButtonPressedListener;
 import ru.sdevteam.vinv.utils.Colors;
 import ru.sdevteam.vinv.utils.DebugInfo;
 import ru.sdevteam.vinv.utils.Fonts;
 
-public class GameScreen extends Screen
+public class GameScreen extends Screen implements IButtonPressedListener
 {
 	private LevelController levelCtrl;
+	
+	// viewport
 	private float viewportX;
+	public float getViewportX() { return viewportX; }
 	private float viewportY;
+	public float getViewportY() { return viewportY; }
 	private float viewportWidth;
+	public float getViewPortWidth() { return viewportWidth; }
 	private float viewportHeight;
+	public float getViewPortHeight() { return viewportHeight; }
 	private int scaleFactor;
+	public int getScaleFactor() { return scaleFactor; }
+	
+	// вспомогательное, дл€ постройки
+	public Tower towerToPlace=null;
+	public Decoration decoToPlace=null;
 	
 	// images
 	private static BufferedImage 
@@ -33,6 +49,36 @@ public class GameScreen extends Screen
 	res_r=ResourceManager.getBufferedImage("ui/res_resources"),
 	res_h=ResourceManager.getBufferedImage("ui/res_humans"),
 	res_p=ResourceManager.getBufferedImage("ui/res_power");
+	
+	// controls
+	private SwitchableButton pauseBtn, buildBtn;
+	public void buttonPressed(Button sender)
+	{
+		if(sender==pauseBtn)
+		{
+			if(pauseBtn.switched)
+			{
+				levelCtrl.pause();
+			}
+			else
+			{
+				levelCtrl.unpause();
+			}
+			return;
+		}
+		
+		if(sender==buildBtn)
+		{
+			if(buildBtn.switched)
+			{
+				towerToPlace=new FlameThrower();
+			}
+			else
+			{
+				towerToPlace=null;
+			}
+		}
+	}
 	
 	
 	public GameScreen(int levelNum, GameCanvas canvas)
@@ -52,36 +98,20 @@ public class GameScreen extends Screen
 		
 		addControl(this.new LevelWrapperControl(getWidth(), getHeight(), this));
 		
-		Button pauseBtn=this.new SwitchableButton(getWidth()-31, getHeight()-31, 
+		pauseBtn=this.new SwitchableButton(getWidth()-31, getHeight()-31, 
 						"ui/pause_r", "ui/pause_h", "ui/pause_p");
+		pauseBtn.addButtonPressedListener(this);
 		addControl(pauseBtn);
+		
+		buildBtn=this.new SwitchableButton(getWidth()-70, getHeight()-31, 
+				"ui/build_r", "ui/build_h", "ui/build_p");
+		buildBtn.addButtonPressedListener(this);
+		addControl(buildBtn);
 	}
 	
-	public int getScaleFactor()
-	{
-		return scaleFactor;
-	}
-	
-	public float getViewportX()
-	{
-		return viewportX;
-	}
-	
-	public float getViewportY()
-	{
-		return viewportY;
-	}
-	
-	public float getViewPortWidth()
-	{
-		return viewportWidth;
-	}
-	
-	public float getViewPortHeight()
-	{
-		return viewportHeight;
-	}
-	
+	//
+	// ќбработка окончани€ игры
+	//
 	public void onVictory()
 	{
 		
@@ -90,6 +120,7 @@ public class GameScreen extends Screen
 	{
 		
 	}
+	
 	
 	@Override
 	synchronized public void paint(Graphics g) 
@@ -150,7 +181,8 @@ public class GameScreen extends Screen
 	{
 		GameScreen parent;
 		boolean dragging;
-		float oldx, oldy;
+		float oldx, oldy; // дл€ перетаскивани€ окна просмотра
+		Rectangle hilightedCell; // подсвеченна€ €чейка при постройке
 		
 		public LevelWrapperControl(int w, int h, GameScreen parent)
 		{
@@ -210,7 +242,7 @@ public class GameScreen extends Screen
 			
 			if(ev.getDelta()<0) 
 			{
-				if(scaleFactor<80) 
+				if(scaleFactor<8) 
 				{
 					scaleFactor*=2;
 					viewportWidth/=2;
@@ -222,7 +254,7 @@ public class GameScreen extends Screen
 			else 
 				if(ev.getDelta()>0)
 				{
-					if(scaleFactor>2) 
+					if(scaleFactor>1) 
 					{
 						scaleFactor/=2;
 						viewportWidth*=2;
@@ -264,22 +296,55 @@ public class GameScreen extends Screen
 		}
 		
 		@Override
-		public void update()
+		protected void onMouseMoved(MouseEvent ev)
 		{
-			// nothing
+			super.onMouseMoved(ev);
+			if(towerToPlace!=null)
+			{
+				hilightedCell=levelCtrl.getCellBounds((int)viewportX+ev.getMouseX()/scaleFactor,
+						(int)viewportY+ev.getMouseY()/scaleFactor);
+			}
+			else
+			{
+				hilightedCell=null;
+			}
 		}
-
+		
+		@Override
+		protected void onMouseReleased(MouseEvent ev)
+		{
+			super.onMouseReleased(ev);
+			
+			if(towerToPlace!=null)
+			{
+				levelCtrl.placeTower(towerToPlace,
+						(int)viewportX+ev.getMouseX()/scaleFactor,
+						(int)viewportY+ev.getMouseY()/scaleFactor);
+				buildBtn.press();
+			}
+		}
+		
+		@Override
+		public void update(){}
+		
 		@Override
 		public void paint(Graphics g)
 		{
-			// nothing
-			g.drawRect(getX()+5, getY()+5, getWidth()/4-10, getHeight()/4-10);
+			if(hilightedCell!=null)
+			{
+				g.setColor(Colors.blue());
+				g.drawRect((hilightedCell.x-(int)viewportX)*scaleFactor,
+						(hilightedCell.y-(int)viewportY)*scaleFactor,
+						hilightedCell.width*scaleFactor, hilightedCell.height*scaleFactor);
+			}
 		}
 	}
 	
 	private class SwitchableButton extends Button
 	{
 		BufferedImage r, h, p;
+		boolean switched;
+		
 		public SwitchableButton(int x, int y, String rname, String hname, String pname)
 		{
 			moveTo(x, y);
@@ -293,7 +358,7 @@ public class GameScreen extends Screen
 		@Override
 		public void paint(Graphics g)
 		{
-			if(isFocused())
+			if(switched)
 			{
 				g.drawImage(p, getX(), getY(), null);
 				return;
@@ -310,10 +375,7 @@ public class GameScreen extends Screen
 		protected void onPressed()
 		{
 			super.onPressed();
-			if(this.isFocused())
-				this.unfocus();
-			else 
-				this.focus();
+			switched=!switched;
 		}
 	}
 }

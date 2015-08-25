@@ -186,7 +186,10 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 	//
 	
 	// collision rectangle
-	private int cx=0, cy=0, cw, ch;
+	private int cx=0;
+	private int cy=0;
+	private int cw;
+	private int ch;
 	
 	public void setCollisionRectangle(int x, int y, int width, int height)
 	{
@@ -206,11 +209,11 @@ public class Sprite implements IDrawable, IUpdatable, IMoveable
 	public boolean collidesWith(Sprite s)
 	{
 		if(s.x+s.cx+s.cw<x+cx) return false;
-		if(s.x+s.cx>x+cx+w) return false;
+		if(s.x+s.cx>x+cx+cw) return false;
 		// столкновение по x прошло
 		
 		if(s.y+s.cy+s.ch<y+cy) return false;
-		if(s.y+s.cy>y+cy+h) return false;
+		if(s.y+s.cy>y+cy+ch) return false;
 		// столкновение по y прошло
 		return true;
 	}

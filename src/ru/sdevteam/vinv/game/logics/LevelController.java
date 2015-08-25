@@ -1,6 +1,7 @@
 package ru.sdevteam.vinv.game.logics;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import ru.sdevteam.vinv.game.Bug;
 import ru.sdevteam.vinv.game.Bullet;
@@ -14,6 +15,7 @@ import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.ui.TiledLayer;
+import ru.sdevteam.vinv.utils.DebugInfo;
 import ru.sdevteam.vinv.utils.Vector2F;
 import ru.sdevteam.vinv.ui.GameScreen;
 import ru.sdevteam.vinv.game.Player;
@@ -99,12 +101,25 @@ public class LevelController implements IUpdatable, IDrawable
 		return y/modelOfLevel.getFone().getTileHeight();
 	}
 	
+	public Rectangle getCellBounds(int cursorx, int cursory)
+	{
+		int width=modelOfLevel.getFone().getTileWidth();
+		int height=modelOfLevel.getFone().getTileHeight();
+		int x=(cursorx/width)*width;
+		int y=(cursory/height)*height;
+		return new Rectangle(x, y, width, height);
+	}
+	
 	public boolean placeTower(Tower item, int x, int y)
 	{
 		if(placeObject(item, x, y))
 		{
-			modelOfLevel.addTower(item);
-			return true;
+			if(player.withdrawResources(item.getPrice()))
+			{
+				modelOfLevel.addTower(item);
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}
@@ -127,14 +142,18 @@ public class LevelController implements IUpdatable, IDrawable
 		// можно ли в данной ячейке поставить башню?
 		if(!TiledLayer.isFreeCell(modelOfLevel.getFone().getTileIndexAt(row, col))) return false;
 		
-		item.moveTo(col*modelOfLevel.getFone().getTileWidth(), row*modelOfLevel.getFone().getTileHeight());
+		item.getSprite().moveTo(col*modelOfLevel.getFone().getTileWidth(),
+								row*modelOfLevel.getFone().getTileHeight());
 		
 		// теперь проверим, нет ли там уже башни
 		Iterator i=modelOfLevel.createTowersIterator();
 		while(i.hasMoreObjects())
 		{
 			if(i.next().getSprite().collidesWith(item.getSprite()))
+			{
+				DebugInfo.addMessage("Tower-to-tower collision!");
 				return false;
+			}
 		}
 		// и каких-нибудь декораций
 		i=modelOfLevel.createDecosIterator();
