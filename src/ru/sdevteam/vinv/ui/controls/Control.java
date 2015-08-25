@@ -153,14 +153,16 @@ public abstract class Control implements IUpdatable, IDrawable
 	}
 	
 	protected void onMousePressed(MouseEvent ev)
-	{ 
+	{
+		pressed=true;
 		for(IControlListener l: listeners)
 		{
 			l.mousePressed(ev, this);
 		}
 	}
 	protected void onMouseReleased(MouseEvent ev)
-	{ 
+	{
+		pressed=false;
 		for(IControlListener l: listeners)
 		{
 			l.mouseReleased(ev, this);
@@ -168,14 +170,16 @@ public abstract class Control implements IUpdatable, IDrawable
 	}
 	
 	protected void onMouseOver(MouseEvent ev)
-	{ 
+	{
+		hovered=true;
 		for(IControlListener l: listeners)
 		{
 			l.mouseOver(ev, this);
 		}
 	}
 	protected void onMouseOut(MouseEvent ev)
-	{ 
+	{
+		hovered=false;
 		for(IControlListener l: listeners)
 		{
 			l.mouseOut(ev, this);
@@ -197,21 +201,27 @@ public abstract class Control implements IUpdatable, IDrawable
 		}
 	}
 	protected void onMouseDragStart(MouseEvent ev)
-	{ 
+	{
+		mdsx=ev.getMouseX(); mdsy=ev.getMouseY();
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseDragStart(ev, this);
 		}
 	}
 	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter)
-	{ 
+	{
+		mdsx=mdsy=-1;
 		for(IControlListener l: listeners)
 		{
 			l.mouseDragEnd(ev, this, dragStarter);
 		}
 	}
 	protected void onMouseDragDroppedOutside(MouseEvent ev, Control dropTarget)
-	{ 
+	{
+		mdsx=mdsy=-1;
+		pressed=false;
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseDragDroppedOutside(ev, this, dropTarget);
@@ -219,14 +229,18 @@ public abstract class Control implements IUpdatable, IDrawable
 	}
 	
 	protected void onMouseDraggedInto(MouseEvent ev)
-	{ 
+	{
+		pressed=true; hovered=true;
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseDraggedInto(ev, this);
 		}
 	}
 	protected void onMouseDraggedOut(MouseEvent ev)
-	{ 
+	{
+		hovered=false;
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseDraggedOut(ev, this);

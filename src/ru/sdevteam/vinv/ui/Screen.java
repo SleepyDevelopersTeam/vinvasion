@@ -2,7 +2,8 @@ package ru.sdevteam.vinv.ui;
 
 import ru.sdevteam.vinv.main.Input;
 import ru.sdevteam.vinv.main.ResourceManager;
-import ru.sdevteam.vinv.ui.controls.ContainerControl;;
+import ru.sdevteam.vinv.ui.controls.ContainerControl;
+import ru.sdevteam.vinv.utils.DebugInfo;
 
 public abstract class Screen extends ContainerControl implements IDrawable, IUpdatable
 {
@@ -20,6 +21,7 @@ public abstract class Screen extends ContainerControl implements IDrawable, IUpd
 		while(Input.hasMoreMouseEvents())
 		{
 			processMouseEvent(Input.getNextMouseEvent());
+			//DebugInfo.addMessage("Event processed"+Math.random());
 		}
 		while(Input.hasMoreKeyEvents())
 		{

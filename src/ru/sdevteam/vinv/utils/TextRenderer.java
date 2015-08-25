@@ -19,16 +19,16 @@ public class TextRenderer
 	{
 		
 	}
-	public static void drawString(Graphics g, int x, int y, HorizontalAlignment h, String text);
-	public static void drawString(Graphics g, int x, int y, VerticalAlignment v, String text);
+	public static void drawString(Graphics g, int x, int y, HorizontalAlignment h, String text){}
+	public static void drawString(Graphics g, int x, int y, VerticalAlignment v, String text){}
 	// отрисовывает многострочный текст в заданном прямоугольнике с заданным выравниванием
 	public static void drawMultiline(Graphics g, int x, int y, int width, int height, HorizontalAlignment h, VerticalAlignment v, String text)
 	{
 		
 	}
 	// выравнивание по умолчанию то же
-	public static void drawMultiline(Graphics g, int x, int y, int width, int height, HorizontalAlignment h, String text);
-	public static void drawMultiline(Graphics g, int x, int y, int width, int height, VerticalAlignment v, String text);
-	public static void drawMultiline(Graphics g, int x, int y, int width, int height, String text);
+	public static void drawMultiline(Graphics g, int x, int y, int width, int height, HorizontalAlignment h, String text){}
+	public static void drawMultiline(Graphics g, int x, int y, int width, int height, VerticalAlignment v, String text){}
+	public static void drawMultiline(Graphics g, int x, int y, int width, int height, String text){}
 
 }

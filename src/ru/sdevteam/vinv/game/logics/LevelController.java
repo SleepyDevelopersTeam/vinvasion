@@ -187,7 +187,8 @@ public class LevelController implements IUpdatable, IDrawable
 	
 	public void paint(Graphics g) 
 	{
-		modelOfLevel.getFone().paint(g, 0, 0, screen.getViewPortWidth(), screen.getViewPortHeight());
+		modelOfLevel.getFone().paint(g, screen.getViewportX(), screen.getViewportY(),
+										screen.getViewPortWidth(), screen.getViewPortHeight());
 		
 		PaintBugsIterator.reset();
 		PaintBulletsIterator.reset();
@@ -205,27 +206,7 @@ public class LevelController implements IUpdatable, IDrawable
 		}
 		while(PaintBulletsIterator.hasMoreObjects())
 		{
-			try
-			{
-				Sprite s=PaintBulletsIterator.next()
-				.
-				getSprite();
-				s
-				.
-				paint(g);
-			}
-			catch(NullPointerException ex)
-			{
-				PaintBulletsIterator.reset();
-				while(PaintBulletsIterator.hasMoreObjects())
-				{
-					GameObject o=PaintBulletsIterator.next();
-					System.out.println(o==null?"null":"not null");
-				}
-				System.out.println();
-				ex.printStackTrace();
-				System.exit(0);
-			}
+			PaintBulletsIterator.next().getSprite().paint(g);
 		}
 		while(PaintDecosIterator.hasMoreObjects())
 		{

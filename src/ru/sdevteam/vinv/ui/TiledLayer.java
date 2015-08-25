@@ -64,11 +64,17 @@ public class TiledLayer implements IMoveable
 	public void paint(Graphics g, float x, float y, float w, float h)
 	{
 		int xTileLU=(int)x/(int)getTileWidth();
+		if(xTileLU<0) xTileLU=0;
+		
 		int yTileLU=(int)y/(int)getTileHeight();
+		if(yTileLU<0) yTileLU=0;
+		
 		int xTileRB=(int)(x+w)/(int)getTileWidth();
 		if(xTileRB>=getTilesWidth()) xTileRB=getTilesWidth()-1;
+		
 		int yTileRB=(int)(y+h)/(int)getTileHeight();
 		if(yTileRB>=getTilesHeight()) yTileRB=getTilesHeight()-1;
+		
 		int i=xTileLU;
 		int j=yTileLU;
 		while (j<=yTileRB)

@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
@@ -12,7 +13,9 @@ import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.Screen;
 import ru.sdevteam.vinv.ui.LoadingScreen;
 import ru.sdevteam.vinv.ui.TestScreen;
+import ru.sdevteam.vinv.utils.Colors;
 import ru.sdevteam.vinv.utils.DebugInfo;
+import ru.sdevteam.vinv.utils.Fonts;
 
 public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 {
@@ -20,13 +23,15 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	private Image buffer;
 	Graphics buffg;
 	private int width, height;
+	public int getCanvasWidth() { return width; }
+	public int getCanvasHeight() { return height; }
 	
 	private Font f;
 	
 	public GameCanvas(int w, int h)
 	{
-		width = w;
-		height = h;
+		width = w/2;
+		height = h/2;
 		//buffer = createImage(width, height);
 		buffer=new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 		buffg=buffer.getGraphics();
@@ -52,7 +57,7 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	public void paint (Graphics item)
 	{
 		if(this.screen == null) return;
-		buffg.setColor(Color.black);
+		buffg.setColor(Colors.black());
 		buffg.fillRect(0, 0, getWidth(), getHeight());
 		this.screen.paint(buffg);
 		
@@ -61,7 +66,7 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 		{
 			try
 			{
-				f=ResourceManager.getMainFont().deriveFont(10F);
+				f=Fonts.main(8);
 			}
 			catch(NullPointerException ex)
 			{
@@ -80,7 +85,9 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 			buffg.drawString(DebugInfo.getMessage(3), 2, 80);
 		}
 		
+		((Graphics2D)item).scale(2, 2);
 		item.drawImage(buffer, 0, 0, null);
+		((Graphics2D)item).scale(0.5, 0.5);
 	}
 
 	public void setActiveScreen (Screen item)

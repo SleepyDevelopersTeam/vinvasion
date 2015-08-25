@@ -13,6 +13,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.SwingUtilities;
 
+import ru.sdevteam.vinv.main.MouseEvent.Button;
 import ru.sdevteam.vinv.utils.DebugInfo;
 
 
@@ -150,14 +151,14 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		if(SwingUtilities.isLeftMouseButton(e))
 		{
 			System.out.println("LMB is pressed");
-			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
 					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
 			Input.pushMouseEvent(m);	
 		}
 		else if (SwingUtilities.isRightMouseButton(e))
 		{
-			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
-					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
+					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.RIGHT);
 			Input.pushMouseEvent(m);
 			System.out.println("RMB is pressed");
 		}
@@ -167,35 +168,39 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	{
 		if(SwingUtilities.isLeftMouseButton(e))
 		{
-			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
 					ru.sdevteam.vinv.main.MouseEvent.Type.RELEASED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
 			Input.pushMouseEvent(m);
 		}
 		else if (SwingUtilities.isRightMouseButton(e))
 		{
-			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
-					ru.sdevteam.vinv.main.MouseEvent.Type.RELEASED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
+			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
+					ru.sdevteam.vinv.main.MouseEvent.Type.RELEASED, ru.sdevteam.vinv.main.MouseEvent.Button.RIGHT);
 			Input.pushMouseEvent(m);
 		}
 	}
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
-				ru.sdevteam.vinv.main.MouseEvent.Type.MOTION, ru.sdevteam.vinv.main.MouseEvent.Button.NONE);
+		// TODO
+		ru.sdevteam.vinv.main.MouseEvent.Button b=Button.NONE;
+		if(SwingUtilities.isLeftMouseButton(e)) b=Button.LEFT;
+		if(SwingUtilities.isRightMouseButton(e)) b=Button.RIGHT;
+		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
+				ru.sdevteam.vinv.main.MouseEvent.Type.MOTION, b);
 		Input.pushMouseEvent(m);
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) 
 	{
-		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), 0, 
+		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
 				ru.sdevteam.vinv.main.MouseEvent.Type.MOTION, ru.sdevteam.vinv.main.MouseEvent.Button.NONE);
 		Input.pushMouseEvent(m);
 	}
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) 
 	{
-		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX(), e.getY(), e.getWheelRotation(), 
+		ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, e.getWheelRotation(), 
 				ru.sdevteam.vinv.main.MouseEvent.Type.SCROLL , ru.sdevteam.vinv.main.MouseEvent.Button.WHEEL);
 		Input.pushMouseEvent(m);
 	}
