@@ -15,6 +15,7 @@ import ru.sdevteam.vinv.game.logics.LevelController;
 import ru.sdevteam.vinv.main.GameCanvas;
 import ru.sdevteam.vinv.main.MouseEvent;
 import ru.sdevteam.vinv.main.ResourceManager;
+import ru.sdevteam.vinv.ui.MessageBox.DialogResult;
 import ru.sdevteam.vinv.ui.controls.Button;
 import ru.sdevteam.vinv.ui.controls.Control;
 import ru.sdevteam.vinv.ui.controls.FocusableControl;
@@ -52,6 +53,7 @@ public class GameScreen extends Screen implements IButtonPressedListener
 	
 	// controls
 	private SwitchableButton pauseBtn, buildBtn;
+	private MessageBox mb;
 	public void buttonPressed(Button sender)
 	{
 		if(sender==pauseBtn)
@@ -59,10 +61,17 @@ public class GameScreen extends Screen implements IButtonPressedListener
 			if(pauseBtn.switched)
 			{
 				levelCtrl.pause();
+				
+				mb=new MessageBox("Title", "");
+				mb.addButton(DialogResult.OK);
+				mb.addButton(DialogResult.CANCEL);
+				mb.addButton(DialogResult.NONE);
+				showMessageBox(mb);
 			}
 			else
 			{
 				levelCtrl.unpause();
+				mb.close();
 			}
 			return;
 		}

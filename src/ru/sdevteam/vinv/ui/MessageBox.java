@@ -1,77 +1,156 @@
 package ru.sdevteam.vinv.ui;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.security.InvalidParameterException;
+import java.util.Vector;
+
+import ru.sdevteam.vinv.main.ResourceManager;
+import ru.sdevteam.vinv.ui.controls.Button;
+import ru.sdevteam.vinv.ui.controls.ButtonSet;
+import ru.sdevteam.vinv.ui.controls.FocusableControl;
+import ru.sdevteam.vinv.ui.controls.IButtonPressedListener;
+import ru.sdevteam.vinv.utils.DebugInfo;
 
 
-public class MessageBox implements IDrawable, IUpdatable
+public class MessageBox extends ButtonSet implements IButtonPressedListener
 {
-	public enum DialogResult { NONE, OK, CANCEL, YES, NO, OTHER}
+	public enum DialogResult { NONE, OK, CANCEL, YES, NO }
+	
+	// images
+	private static BufferedImage large=ResourceManager.getBufferedImage("ui/msg_large");
 
-	private String title,message;
+	private String title, message;
+	public String getTitle() { return title; }
+	public void setTitle(String caption) { title=caption; }
+	public String getMessage() { return message; }
+	public void setMessage(String msg) { message=msg; }
+	
 	private boolean visible;
-	private DialogResult result;
-
 	public boolean isShown()
 	{
 		return visible;
 	}
+	
+	private DialogResult result;
+	public MessageBox.DialogResult getDialogResult() { return result; }
+	protected void setDialogResult(DialogResult result)
+	{ this.result=result; if(result!=DialogResult.NONE) close(); }
+	
+	// подложка
+	private FocusableControl background;
+	
 
 	public MessageBox(String title, String message)
 	{
+		super(LayoutType.HORIZONTAL);
 		this.title=title;
 		this.message=message;
 		result=DialogResult.NONE;
+		
+		background=new FocusableControl()
+		{
+			@Override
+			public void paint(Graphics g)
+			{
+			}
+			@Override
+			public void update()
+			{
+			}
+		};
+		
+		listeners=new Vector<IDialogResultListener>();
 	}
 
+	
 	public void show()
 	{
 		visible=true;
+		
+		// разворачиваемся на всю доступную площадь
+		moveTo(getParent().getX(), getParent().getY());
+		setSize(getParent().getWidth(), getParent().getHeight());
+		
+		DebugInfo.addMessage(getX()+30+" "+(getY()+getHeight()-30));
+		
+		setStartPoint(getX()+30, getY()+getHeight()-30);
+		
+		background.moveTo(getX(), getY());
+		background.setSize(getParent().getWidth(), getParent().getHeight());
+		background.focus();
 	}
+	
 	public void close()
 	{
 		visible=false;
+		this.unfocus();
+		onDialogResult();
 	}
-	public void close(DialogResult withResult)
+	
+	private Vector<IDialogResultListener> listeners;
+	public void addDialogResultListener(IDialogResultListener item)
+	{ listeners.add(item); }
+	public void removeDialogResultListener(IDialogResultListener item)
+	{ listeners.remove(item); }
+	
+	protected void onDialogResult()
 	{
-		result=withResult;
-		visible=false;
+		for(IDialogResultListener l: listeners)
+		{
+			l.dialogResult(this, result);
+		}
 	}
-
-
-	public String getTitle()
+	
+	
+	public void addButton(DialogResult result)
 	{
-		return title;
+		addButton(new MessageBoxButton(result));
 	}
-	public String getMessage()
+	public void addButton(DialogResult result, String text)
 	{
-		return message;
+		addButton(new MessageBoxButton(text, result));
 	}
-	public void setTitle(String caption)
+	@Override
+	public void addButton(Button item)
 	{
-		title=caption;
+		try
+		{ 
+			MessageBoxButton b=(MessageBoxButton)item;
+			b.addButtonPressedListener(this);
+			super.addButton(item);
+		}
+		catch(ClassCastException ex)
+		{ throw new InvalidParameterException("Cannot add not a MessageBoxButton instance"); }
 	}
-	public void setMessage(String msg)
+	@Override
+	public void buttonPressed(Button sender)
 	{
-		message=msg;
+		
 	}
-
-	MessageBox.DialogResult getDialogResult()
-	{
-		return result;
-	}
+	
+	
 
 
 	public void paint(Graphics g)
 	{
-		g.drawRect(500, 500, 200, 100);
-		g.drawString(message, 600, 550);
+		if(!visible) return;
+		
+		int x=getX()+(background.getWidth()-large.getWidth())/2;
+		int y=getY()+(background.getHeight()-large.getHeight())/2;
+		
+		g.drawImage(large, x, y, null);
+		
+		x+=5; y+=5;
+		g.setFont(getFont());
+		g.setColor(getForeground());
+		g.drawString(title, x, y+getFontMetrics(g).getAscent());
+		
+		paintChildren(g);
 	}
 
 	public void update()
 	{
-		
+		super.update();
 	}
-
-
-
 }
