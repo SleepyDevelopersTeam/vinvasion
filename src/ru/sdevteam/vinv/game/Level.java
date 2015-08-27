@@ -363,7 +363,7 @@ public class Level
 	
 	public Wave getActiveWave()
 	{
-		if(massWaves.size()>0)
+		if(massWaves.size()>1)
 			return massWaves.firstElement();
 		return null;
 	}
@@ -375,7 +375,9 @@ public class Level
 	
 	public boolean isWaveEmpty()
 	{
-		return massWaves.firstElement().isEmpty();
+		if (massWaves.firstElement() != null)
+			return massWaves.firstElement().isEmpty();
+		return true;
 	}
 	
 	public class Iterator
