@@ -13,6 +13,7 @@ public class Level
     private Vector<GameObject> massBugs;
 	private Vector<GameObject> massDecos;
 	private Vector<Wave> massWaves;
+	private Wave activeWave;
 	
 	private Pool poolBullet;
 	private Pool poolExpl;
@@ -58,6 +59,7 @@ public class Level
 		objLevel.massWaves = new Vector<Wave>();
 		
 		objLevel.player = new Player(100, 20, 50);
+		objLevel.activeWave = null;
 		
 		Base base = new Base(objLevel.player);
 		base.setX(496);
@@ -350,8 +352,8 @@ public class Level
 	
 	public void activateNextWave()
 	{
-		if(massWaves.firstElement().isEmpty())
-			massWaves.remove(0);
+		activeWave = massWaves.firstElement();
+		massWaves.remove(0);
 	}
 	
 	public boolean hasMoreWaves()
@@ -363,21 +365,17 @@ public class Level
 	
 	public Wave getActiveWave()
 	{
-		if(massWaves.size()>1)
-			return massWaves.firstElement();
-		return null;
+		return activeWave;
 	}
 	
 	public Bug getNextBug()
 	{
-		return massWaves.firstElement().getNextBug();
+		return activeWave.getNextBug();
 	}
 	
 	public boolean isWaveEmpty()
 	{
-		if (massWaves.firstElement() != null)
-			return massWaves.firstElement().isEmpty();
-		return true;
+		return activeWave.isEmpty();
 	}
 	
 	public class Iterator
