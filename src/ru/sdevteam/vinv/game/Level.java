@@ -93,6 +93,7 @@ public class Level
 		wave1.addBug(cBug);
 		
 		objLevel.massWaves.add(wave1);
+		objLevel.activeWave = wave1;
 		
         objLevel.addTower(aTower);
         objLevel.addTower(bTower);
