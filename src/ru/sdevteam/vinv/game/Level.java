@@ -78,19 +78,20 @@ public class Level
 		
         Bug aBug=new Bug();
 		aBug.setType(Bug.Type.NORMAL);
-        Bug bBug=new Bug();
-		bBug.setType(Bug.Type.NORMAL);
-		Bug cBug=new Bug();
-		cBug.setType(Bug.Type.AIR);
+ 
         
 		Wave wave1 = new Wave();
-		wave1.addBug(aBug);
-		wave1.addLongTimeInterval();
-		wave1.addBug(bBug);
-		wave1.addLongTimeInterval();
-		wave1.addLongTimeInterval();
-		wave1.addLongTimeInterval();
-		wave1.addBug(cBug);
+		for(int i=0;i<15;i++)
+		{
+			Bug b = new Bug();
+			if(i < 10)
+				b.setType(Bug.Type.NORMAL);
+			else
+				b.setType(Bug.Type.AIR);
+			wave1.addBug(b);
+			if((i+1)%5 == 0 && i != 0 )
+				wave1.addLongTimeInterval();
+		}
 		
 		objLevel.massWaves.add(wave1);
 		objLevel.activeWave = wave1;
