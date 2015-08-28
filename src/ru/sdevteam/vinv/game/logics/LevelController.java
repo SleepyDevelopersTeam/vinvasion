@@ -435,7 +435,7 @@ public class LevelController implements IUpdatable, IDrawable
 				y = y/k;
 				
 				Vector2F distanceBugToTower=new Vector2F( (bug.getX()-tow.getX()-x),(bug.getY()-tow.getY())-y);
-				if(distanceBugToTower.getMagnitude()<200F)
+				if(distanceBugToTower.getMagnitude()<tow.getShootingRadius())
 					// //bug into radius of Tower )
 				{
 					if (tow.canShoot()) 
