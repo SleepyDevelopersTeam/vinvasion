@@ -38,7 +38,7 @@ public class Level
     {
         Level objLevel=new Level();
 		
-        objLevel.poolBullet=new Pool(300,new PoolFactory()
+        objLevel.poolBullet=new Pool(600,new PoolFactory()
 		{
 			public Object getObject()
 			{
