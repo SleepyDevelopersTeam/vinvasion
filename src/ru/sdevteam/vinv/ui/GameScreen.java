@@ -21,7 +21,9 @@ public class GameScreen extends Screen
 	private int posMouseX;
 	private int posMouseY;
 	private int delta;
-		
+	private float screenHeight;
+	private float screenWidth;
+	
 	public GameScreen(int levelNum, GameCanvas canvas)
 	{
 		this.levelCtrl=new LevelController(this, Level.createLevel(levelNum));
@@ -30,6 +32,9 @@ public class GameScreen extends Screen
 		viewportY=0;
 		viewportHeight=canvas.getHeight();
 		viewportWidth=canvas.getWidth();
+		screenHeight=canvas.getHeight();
+		screenWidth=canvas.getWidth();
+
 	}
 	
 	public int getScaleFactor()
@@ -61,12 +66,11 @@ public class GameScreen extends Screen
 	synchronized public void paint(Graphics g) 
 	{
 		// TODO: Масштабирование
-		((Graphics2D)g).translate(viewportX, viewportY);
-		
+		((Graphics2D)g).translate(-viewportX, -viewportY);
 		((Graphics2D)g).scale(scaleFactor, scaleFactor);
 		levelCtrl.paint(g);
 		((Graphics2D)g).scale(1F/scaleFactor, 1F/scaleFactor);
-		
+		((Graphics2D)g).translate(viewportX, viewportY);
 	}
 
 	@Override
@@ -101,7 +105,7 @@ public class GameScreen extends Screen
 					}
 				}
 			
-			if(delta!=0)
+			if((delta!=0) && (scaleFactor>=2) && (scaleFactor<8))
 			{
 				float k;
 				if(delta<0) k=1/2;
@@ -110,8 +114,10 @@ public class GameScreen extends Screen
 				viewportY=viewportY+(1-k)*(posMouseY-viewportY);
 			}
 	
-			if(viewportX<0) viewportX=0;
-			if(viewportY<0) viewportY=0;
+			//if(viewportX<0) viewportX=0;
+			//if(viewportY<0) viewportY=0;
+		//	if(viewportX>(screenWidth-viewportWidth)) viewportX=screenWidth-viewportWidth;
+			//if(viewportY>(screenHeight-viewportHeight)) viewportY=screenHeight-viewportHeight;
 			//System.out.println(viewportX+" "+viewportY);
 		}
 	}
