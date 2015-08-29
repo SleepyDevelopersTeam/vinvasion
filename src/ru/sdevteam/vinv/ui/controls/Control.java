@@ -65,6 +65,11 @@ public abstract class Control implements IUpdatable, IDrawable
 	public void enable() { enabled=true; }
 	public void disable() { enabled=false; }
 	
+	private boolean visible;
+	public boolean isVisible() { return visible; }
+	public void setVisibility(boolean visible) { this.visible=visible; }
+	public void show() { visible=true; }
+	public void hide() { visible=false; }
 	//
 	// Иерархия
 	//
@@ -117,6 +122,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	public Control()
 	{
 		enabled=true;
+		visible=true;
 		listeners=new Vector<IControlListener>();
 		if(Fonts.initialized())
 			font=Fonts.main(8);

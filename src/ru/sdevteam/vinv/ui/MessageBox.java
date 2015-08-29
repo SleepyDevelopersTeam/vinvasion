@@ -29,10 +29,9 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 	public String getMessage() { return message; }
 	public void setMessage(String msg) { message=msg; }
 	
-	private boolean visible;
 	public boolean isShown()
 	{
-		return visible;
+		return isVisible();
 	}
 	
 	private DialogResult result;
@@ -50,6 +49,8 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 		this.title=title;
 		this.message=message;
 		result=DialogResult.NONE;
+		
+		hide();
 		
 		background=new FocusableControl()
 		{
@@ -72,9 +73,10 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 	}
 
 	
+	@Override
 	public void show()
 	{
-		visible=true;
+		super.show();
 		
 		// разворачиваемся на всю доступную площадь
 		moveTo(getParent().getX(), getParent().getY());
@@ -95,7 +97,7 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 	
 	public void close()
 	{
-		visible=false;
+		hide();
 		this.unfocus();
 		onDialogResult();
 	}
@@ -145,9 +147,7 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 	protected int getPictureX() { return getX()+(background.getWidth()-large.getWidth())/2; }
 	protected int getPictureY() { return getY()+(background.getHeight()-large.getHeight())/2; }
 	public void paint(Graphics g)
-	{
-		if(!visible) return;
-		
+	{		
 		int x=getPictureX();
 		int y=getPictureY();
 		

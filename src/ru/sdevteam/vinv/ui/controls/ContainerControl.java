@@ -63,7 +63,7 @@ public class ContainerControl extends Control
 	{
 		for(int i=0; i<this.controls.size(); i++)
 		{
-			this.controls.get(i).paint(g);
+			if(this.controls.get(i).isVisible()) this.controls.get(i).paint(g);
 		}
 	}
 	
