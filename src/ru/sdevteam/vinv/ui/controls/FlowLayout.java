@@ -27,7 +27,7 @@ public class FlowLayout extends ContainerControl
 	public int getMargin() { return margin; }
 	
 	public void setStartPoint(int x, int y)
-	{ x=xStart; y=yStart; reorganize(); }
+	{ xStart=x; yStart=y; reorganize(); }
 	
 	public void setMargin(int m) { margin=m; reorganize(); }
 	

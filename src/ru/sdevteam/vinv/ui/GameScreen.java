@@ -61,17 +61,17 @@ public class GameScreen extends Screen implements IButtonPressedListener
 			if(pauseBtn.switched)
 			{
 				levelCtrl.pause();
-				
-				mb=new MessageBox("Title", "");
+				/*
+				mb=new MessageBox("Title", "Ву-ха-ха мсжбокс такс такс што тут у нас ага! Переносы строк такс такс не работает ничего жопа всё накрылось а-а-а-а-а-а!");
 				mb.addButton(DialogResult.OK);
 				mb.addButton(DialogResult.CANCEL);
 				mb.addButton(DialogResult.NONE);
-				showMessageBox(mb);
+				showMessageBox(mb);*/
 			}
 			else
 			{
 				levelCtrl.unpause();
-				mb.close();
+				//mb.close();
 			}
 			return;
 		}
@@ -90,14 +90,14 @@ public class GameScreen extends Screen implements IButtonPressedListener
 	}
 	
 	
-	public GameScreen(int levelNum, GameCanvas canvas)
+	public GameScreen(int levelNum)
 	{
 		this.levelCtrl=new LevelController(this, Level.createLevel(levelNum));
 		scaleFactor=1;
 		viewportX=0;
 		viewportY=0;
-		viewportHeight=canvas.getCanvasHeight()/scaleFactor;
-		viewportWidth=canvas.getCanvasWidth()/scaleFactor;
+		viewportHeight=GameCanvas.getInstance().getCanvasHeight()/scaleFactor;
+		viewportWidth=GameCanvas.getInstance().getCanvasWidth()/scaleFactor;
 		
 		setFont(Fonts.main(10));
 		
@@ -123,11 +123,48 @@ public class GameScreen extends Screen implements IButtonPressedListener
 	//
 	public void onVictory()
 	{
-		
+		MessageBox victoryBox=new MessageBox("Победа!", "Все жуки уничтожены, единственный уровень в этой игре чист.");
+		victoryBox.addButton(DialogResult.YES, "Выход");
+		victoryBox.addButton(DialogResult.NO, "В меню");
+		victoryBox.addDialogResultListener(new IDialogResultListener()
+		{
+			@Override
+			public void dialogResult(MessageBox sender, DialogResult result)
+			{
+				if(result==DialogResult.YES)
+				{
+					System.exit(0);
+				}
+				if(result==DialogResult.NO)
+				{
+					GameCanvas.getInstance().setActiveScreen(new GameScreen(1));
+				}
+			}
+		});
+		this.showMessageBox(victoryBox);
 	}
 	public void onDefeat()
 	{
-		
+		levelCtrl.pause();
+		MessageBox defeatBox=new MessageBox("Поражение", "Ну что ты за днище такое, слил единственный уровень в игре!");
+		defeatBox.addButton(DialogResult.YES, "Заново");
+		defeatBox.addButton(DialogResult.NO, "В меню");
+		defeatBox.addDialogResultListener(new IDialogResultListener()
+		{
+			@Override
+			public void dialogResult(MessageBox sender, DialogResult result)
+			{
+				if(result==DialogResult.YES)
+				{
+					GameCanvas.getInstance().setActiveScreen(new GameScreen(1));
+				}
+				if(result==DialogResult.NO)
+				{
+					GameCanvas.getInstance().setActiveScreen(new GameScreen(1));
+				}
+			}
+		});
+		this.showMessageBox(defeatBox);
 	}
 	
 	

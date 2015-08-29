@@ -11,6 +11,7 @@ import ru.sdevteam.vinv.main.MouseEvent;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.utils.Colors;
+import ru.sdevteam.vinv.utils.DebugInfo;
 import ru.sdevteam.vinv.utils.Fonts;
 
 public abstract class Control implements IUpdatable, IDrawable
@@ -155,6 +156,8 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMousePressed(MouseEvent ev)
 	{
 		pressed=true;
+		DebugInfo.addMessage("Pressed: "+pressed);
+		
 		for(IControlListener l: listeners)
 		{
 			l.mousePressed(ev, this);
@@ -163,6 +166,8 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseReleased(MouseEvent ev)
 	{
 		pressed=false;
+		DebugInfo.addMessage("Released: "+pressed);
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseReleased(ev, this);
@@ -172,6 +177,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseOver(MouseEvent ev)
 	{
 		hovered=true;
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseOver(ev, this);
@@ -180,6 +186,7 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseOut(MouseEvent ev)
 	{
 		hovered=false;
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseOut(ev, this);
@@ -212,6 +219,8 @@ public abstract class Control implements IUpdatable, IDrawable
 	protected void onMouseDragEnd(MouseEvent ev, Control dragStarter)
 	{
 		mdsx=mdsy=-1;
+		pressed=false;
+		
 		for(IControlListener l: listeners)
 		{
 			l.mouseDragEnd(ev, this, dragStarter);

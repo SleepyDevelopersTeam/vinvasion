@@ -200,7 +200,7 @@ public class LevelController implements IUpdatable, IDrawable
 	public void onPathEndReached(Bug invoker)
 	{
 		modelOfLevel.removeBug(invoker);
-		//TODO:decrease people on the mainBase
+		
 		player.eatHumanCount(invoker.getHp()/10);
 	}
 	
@@ -254,7 +254,7 @@ public class LevelController implements IUpdatable, IDrawable
 		// проверка на проигрыш
 		if(player.isLost())
 		{
-			// screen.onDefeat();
+			screen.onDefeat();
 		}
 		
 		UpdateBugsIterator.reset();
@@ -503,7 +503,7 @@ public class LevelController implements IUpdatable, IDrawable
 					}
 					else
 					{
-						//screen.onVictory();
+						screen.onVictory();
 					}
 					ticksForNextWave=-1; // в начало ожидания
 				}
