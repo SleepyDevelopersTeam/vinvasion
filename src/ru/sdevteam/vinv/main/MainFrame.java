@@ -39,7 +39,7 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 		width = screenSize.width;
 		setSize(width, height);
 		
-		canvas = new GameCanvas(width, height);
+		canvas = GameCanvas.createInstance(width, height);
 		canvas.setSize(this.getSize());
 		
 		this.add(canvas);
@@ -150,7 +150,6 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 	{
 		if(SwingUtilities.isLeftMouseButton(e))
 		{
-			System.out.println("LMB is pressed");
 			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
 					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.LEFT);
 			Input.pushMouseEvent(m);	
@@ -160,7 +159,6 @@ public class MainFrame extends Frame implements MouseListener, KeyListener, Mous
 			ru.sdevteam.vinv.main.MouseEvent m = new ru.sdevteam.vinv.main.MouseEvent(e.getX()/2, e.getY()/2, 0, 
 					ru.sdevteam.vinv.main.MouseEvent.Type.PRESSED, ru.sdevteam.vinv.main.MouseEvent.Button.RIGHT);
 			Input.pushMouseEvent(m);
-			System.out.println("RMB is pressed");
 		}
 	}
 	@Override

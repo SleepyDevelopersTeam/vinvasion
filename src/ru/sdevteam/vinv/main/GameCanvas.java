@@ -28,7 +28,10 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 	
 	private Font f;
 	
-	public GameCanvas(int w, int h)
+	private static GameCanvas instance;
+	
+	
+	private GameCanvas(int w, int h)
 	{
 		width = w/2;
 		height = h/2;
@@ -38,9 +41,18 @@ public class GameCanvas extends Canvas implements IDrawable, IUpdatable
 		f=null;
 	}
 	
+	
+	public static GameCanvas getInstance() { return instance; }
+	static GameCanvas createInstance(int w, int h)
+	{
+		instance=new GameCanvas(w, h);
+		return instance;
+	}
+	
+	
 	public void start()
 	{
-		this.screen = new LoadingScreen(this);
+		this.screen = new LoadingScreen();
 	}
 	
 	public void update()

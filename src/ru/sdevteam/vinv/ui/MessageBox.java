@@ -10,7 +10,10 @@ import ru.sdevteam.vinv.ui.controls.Button;
 import ru.sdevteam.vinv.ui.controls.ButtonSet;
 import ru.sdevteam.vinv.ui.controls.FocusableControl;
 import ru.sdevteam.vinv.ui.controls.IButtonPressedListener;
+import ru.sdevteam.vinv.utils.Colors;
 import ru.sdevteam.vinv.utils.DebugInfo;
+import ru.sdevteam.vinv.utils.Fonts;
+import ru.sdevteam.vinv.utils.TextRenderer;
 
 
 public class MessageBox extends ButtonSet implements IButtonPressedListener
@@ -26,10 +29,9 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 	public String getMessage() { return message; }
 	public void setMessage(String msg) { message=msg; }
 	
-	private boolean visible;
 	public boolean isShown()
 	{
-		return visible;
+		return isVisible();
 	}
 	
 	private DialogResult result;
@@ -48,11 +50,16 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 		this.message=message;
 		result=DialogResult.NONE;
 		
+		hide();
+		
 		background=new FocusableControl()
 		{
 			@Override
 			public void paint(Graphics g)
 			{
+				g.setColor(Colors.red());
+				//DebugInfo.addMessage(getX()+";"+getY()+", "+getWidth()+";"+getHeight());
+				//g.fillRect(getX(), getY(), getWidth(), getHeight());
 			}
 			@Override
 			public void update()
@@ -60,13 +67,16 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 			}
 		};
 		
+		//addControl(background);
+		
 		listeners=new Vector<IDialogResultListener>();
 	}
 
 	
+	@Override
 	public void show()
 	{
-		visible=true;
+		super.show();
 		
 		// разворачиваемся на всю доступную площадь
 		moveTo(getParent().getX(), getParent().getY());
@@ -74,16 +84,20 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 		
 		DebugInfo.addMessage(getX()+30+" "+(getY()+getHeight()-30));
 		
-		setStartPoint(getX()+30, getY()+getHeight()-30);
+		// говнокод
+		background.setSize(getParent().getWidth(), getParent().getHeight());
+		setStartPoint(getPictureX()+10, getPictureY()+large.getHeight()-25);
+		setMargin(3);
 		
 		background.moveTo(getX(), getY());
 		background.setSize(getParent().getWidth(), getParent().getHeight());
-		background.focus();
+		if(buttons.size()==0) background.focus();
+		else buttons.firstElement().focus();
 	}
 	
 	public void close()
 	{
-		visible=false;
+		hide();
 		this.unfocus();
 		onDialogResult();
 	}
@@ -126,25 +140,28 @@ public class MessageBox extends ButtonSet implements IButtonPressedListener
 	@Override
 	public void buttonPressed(Button sender)
 	{
-		
+		setDialogResult(((MessageBoxButton)sender).getDialogResult());
 	}
 	
 	
-
-
+	protected int getPictureX() { return getX()+(background.getWidth()-large.getWidth())/2; }
+	protected int getPictureY() { return getY()+(background.getHeight()-large.getHeight())/2; }
 	public void paint(Graphics g)
-	{
-		if(!visible) return;
-		
-		int x=getX()+(background.getWidth()-large.getWidth())/2;
-		int y=getY()+(background.getHeight()-large.getHeight())/2;
+	{		
+		int x=getPictureX();
+		int y=getPictureY();
 		
 		g.drawImage(large, x, y, null);
 		
 		x+=5; y+=5;
-		g.setFont(getFont());
+		g.setFont(Fonts.main(10));
 		g.setColor(getForeground());
 		g.drawString(title, x, y+getFontMetrics(g).getAscent());
+		
+		y+=15;
+		g.setFont(getFont());
+		//TextRenderer.drawMultiline(g, x, y, large.getWidth()-10, large.getHeight()-30, getMessage());
+		
 		
 		paintChildren(g);
 	}
