@@ -96,6 +96,7 @@ public class ResourceManager
 				"mainmenu", "menuitem_r", "menuitem_h", // main menu images
 				"msg_large", // messagebox images
 				"panel", "res_resources", "res_humans", "res_power", // resource panel images
+				"pause_r", "pause_h", "pause_p", "build_r", "build_h", "build_p", //resource panel buttons
 				"tower_button_r", "tower_button_h", "tower_button_p", "tower_button_d" // tower button images
 		};
 		countOfFiles = 	bullets.length +	towers.length +	decos.length + 

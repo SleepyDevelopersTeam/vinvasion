@@ -1,6 +1,7 @@
 package ru.sdevteam.vinv.game.logics;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import ru.sdevteam.vinv.game.Bug;
 import ru.sdevteam.vinv.game.Bullet;
@@ -14,6 +15,7 @@ import ru.sdevteam.vinv.ui.IUpdatable;
 import ru.sdevteam.vinv.ui.IDrawable;
 import ru.sdevteam.vinv.ui.Sprite;
 import ru.sdevteam.vinv.ui.TiledLayer;
+import ru.sdevteam.vinv.utils.DebugInfo;
 import ru.sdevteam.vinv.utils.Vector2F;
 import ru.sdevteam.vinv.ui.GameScreen;
 import ru.sdevteam.vinv.game.Player;
@@ -99,12 +101,25 @@ public class LevelController implements IUpdatable, IDrawable
 		return y/modelOfLevel.getFone().getTileHeight();
 	}
 	
+	public Rectangle getCellBounds(int cursorx, int cursory)
+	{
+		int width=modelOfLevel.getFone().getTileWidth();
+		int height=modelOfLevel.getFone().getTileHeight();
+		int x=(cursorx/width)*width;
+		int y=(cursory/height)*height;
+		return new Rectangle(x, y, width, height);
+	}
+	
 	public boolean placeTower(Tower item, int x, int y)
 	{
 		if(placeObject(item, x, y))
 		{
-			modelOfLevel.addTower(item);
-			return true;
+			if(player.withdrawResources(item.getPrice()))
+			{
+				modelOfLevel.addTower(item);
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}
@@ -127,14 +142,18 @@ public class LevelController implements IUpdatable, IDrawable
 		// можно ли в данной €чейке поставить башню?
 		if(!TiledLayer.isFreeCell(modelOfLevel.getFone().getTileIndexAt(row, col))) return false;
 		
-		item.moveTo(col*modelOfLevel.getFone().getTileWidth(), row*modelOfLevel.getFone().getTileHeight());
+		item.getSprite().moveTo(col*modelOfLevel.getFone().getTileWidth(),
+								row*modelOfLevel.getFone().getTileHeight());
 		
 		// теперь проверим, нет ли там уже башни
 		Iterator i=modelOfLevel.createTowersIterator();
 		while(i.hasMoreObjects())
 		{
 			if(i.next().getSprite().collidesWith(item.getSprite()))
+			{
+				DebugInfo.addMessage("Tower-to-tower collision!");
 				return false;
+			}
 		}
 		// и каких-нибудь декораций
 		i=modelOfLevel.createDecosIterator();
@@ -187,7 +206,8 @@ public class LevelController implements IUpdatable, IDrawable
 	
 	public void paint(Graphics g) 
 	{
-		modelOfLevel.getFone().paint(g, 0, 0, screen.getViewPortWidth(), screen.getViewPortHeight());
+		modelOfLevel.getFone().paint(g, screen.getViewportX(), screen.getViewportY(),
+										screen.getViewPortWidth(), screen.getViewPortHeight());
 		
 		PaintBugsIterator.reset();
 		PaintBulletsIterator.reset();
@@ -205,27 +225,7 @@ public class LevelController implements IUpdatable, IDrawable
 		}
 		while(PaintBulletsIterator.hasMoreObjects())
 		{
-			try
-			{
-				Sprite s=PaintBulletsIterator.next()
-				.
-				getSprite();
-				s
-				.
-				paint(g);
-			}
-			catch(NullPointerException ex)
-			{
-				PaintBulletsIterator.reset();
-				while(PaintBulletsIterator.hasMoreObjects())
-				{
-					GameObject o=PaintBulletsIterator.next();
-					System.out.println(o==null?"null":"not null");
-				}
-				System.out.println();
-				ex.printStackTrace();
-				System.exit(0);
-			}
+			PaintBulletsIterator.next().getSprite().paint(g);
 		}
 		while(PaintDecosIterator.hasMoreObjects())
 		{
@@ -423,6 +423,8 @@ public class LevelController implements IUpdatable, IDrawable
 			{
 				
 				Bug bug=(Bug)UpdateBugsIterator.next();
+				// TODO: нан€ть трезвого наводчика
+				
 				//попытка улучшить алгоритм пуль
 				float x,y,r,k;
 				x = bug.getX()-tow.getX();
@@ -433,7 +435,7 @@ public class LevelController implements IUpdatable, IDrawable
 				y = y/k;
 				
 				Vector2F distanceBugToTower=new Vector2F( (bug.getX()-tow.getX()-x),(bug.getY()-tow.getY())-y);
-				if(distanceBugToTower.getMagnitude()<200F)
+				if(distanceBugToTower.getMagnitude()<tow.getShootingRadius())
 					// //bug into radius of Tower )
 				{
 					if (tow.canShoot()) 

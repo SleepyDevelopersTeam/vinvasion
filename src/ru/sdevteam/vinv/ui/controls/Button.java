@@ -1,9 +1,6 @@
 package ru.sdevteam.vinv.ui.controls;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import ru.sdevteam.vinv.main.ControlKey;
@@ -17,12 +14,12 @@ public class Button extends FocusableControl
 	public String getText() { return text; }
 	public void setText(String ntext) { text=ntext; }
 	
-	private Vector<ActionListener> pressedListeners;
-	public void addButtonPressedListener(ActionListener l)
+	private Vector<IButtonPressedListener> pressedListeners;
+	public void addButtonPressedListener(IButtonPressedListener l)
 	{
 		pressedListeners.add(l);
 	}
-	public void removeButtonPressedListener(ActionListener l)
+	public void removeButtonPressedListener(IButtonPressedListener l)
 	{
 		pressedListeners.remove(l);
 	}
@@ -40,7 +37,7 @@ public class Button extends FocusableControl
 	{
 		super(x, y, width, height);
 		this.text=text;
-		pressedListeners=new Vector<ActionListener>();
+		pressedListeners=new Vector<IButtonPressedListener>();
 	}
 	
 	
@@ -67,9 +64,9 @@ public class Button extends FocusableControl
 	{
 		if(!isFocused()) focus();
 		onPressed();
-		for(ActionListener l: pressedListeners)
+		for(IButtonPressedListener l: pressedListeners)
 		{
-			l.actionPerformed(new ActionEvent(this, 0, ""));
+			l.buttonPressed(this);
 		}
 	}
 	

@@ -45,7 +45,7 @@ public class Player
 	
 	public boolean reserveBasePower(int volts)
 	{
-		if(volts<basePower)
+		if(volts<=basePower)
 		{
 			basePower-=volts;
 			return true;
@@ -55,14 +55,14 @@ public class Player
 	
 	public void freeBasePower(int volts)
 	{
-		basePower-=volts;
-		if(basePower<0)
-			basePower=0;
+		basePower+=volts;
+		if(basePower>maxBasePower)
+			basePower=maxBasePower;
 	}
 	
 	public boolean withdrawResources(int res)
 	{
-		if(res<resources)
+		if(res<=resources)
 		{
 			resources-=res;
 			return true;

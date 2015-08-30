@@ -13,6 +13,7 @@ public class Level
     private Vector<GameObject> massBugs;
 	private Vector<GameObject> massDecos;
 	private Vector<Wave> massWaves;
+	private Wave activeWave;
 	
 	private Pool poolBullet;
 	private Pool poolExpl;
@@ -37,7 +38,7 @@ public class Level
     {
         Level objLevel=new Level();
 		
-        objLevel.poolBullet=new Pool(300,new PoolFactory()
+        objLevel.poolBullet=new Pool(600,new PoolFactory()
 		{
 			public Object getObject()
 			{
@@ -58,6 +59,7 @@ public class Level
 		objLevel.massWaves = new Vector<Wave>();
 		
 		objLevel.player = new Player(100, 20, 50);
+		objLevel.activeWave = null;
 		
 		Base base = new Base(objLevel.player);
 		base.setX(496);
@@ -76,21 +78,23 @@ public class Level
 		
         Bug aBug=new Bug();
 		aBug.setType(Bug.Type.NORMAL);
-        Bug bBug=new Bug();
-		bBug.setType(Bug.Type.NORMAL);
-		Bug cBug=new Bug();
-		cBug.setType(Bug.Type.AIR);
+ 
         
 		Wave wave1 = new Wave();
-		wave1.addBug(aBug);
-		wave1.addLongTimeInterval();
-		wave1.addBug(bBug);
-		wave1.addLongTimeInterval();
-		wave1.addLongTimeInterval();
-		wave1.addLongTimeInterval();
-		wave1.addBug(cBug);
+		for(int i=0;i<15;i++)
+		{
+			Bug b = new Bug();
+			if(i < 10)
+				b.setType(Bug.Type.NORMAL);
+			else
+				b.setType(Bug.Type.AIR);
+			wave1.addBug(b);
+			if((i+1)%5 == 0 && i != 0 )
+				wave1.addLongTimeInterval();
+		}
 		
 		objLevel.massWaves.add(wave1);
+		objLevel.activeWave = wave1;
 		
         objLevel.addTower(aTower);
         objLevel.addTower(bTower);
@@ -350,8 +354,8 @@ public class Level
 	
 	public void activateNextWave()
 	{
-		if(massWaves.firstElement().isEmpty())
-			massWaves.remove(0);
+		activeWave = massWaves.firstElement();
+		massWaves.remove(0);
 	}
 	
 	public boolean hasMoreWaves()
@@ -363,19 +367,17 @@ public class Level
 	
 	public Wave getActiveWave()
 	{
-		if(massWaves.size()>0)
-			return massWaves.firstElement();
-		return null;
+		return activeWave;
 	}
 	
 	public Bug getNextBug()
 	{
-		return massWaves.firstElement().getNextBug();
+		return activeWave.getNextBug();
 	}
 	
 	public boolean isWaveEmpty()
 	{
-		return massWaves.firstElement().isEmpty();
+		return activeWave.isEmpty();
 	}
 	
 	public class Iterator
