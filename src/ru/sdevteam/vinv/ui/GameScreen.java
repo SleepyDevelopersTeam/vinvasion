@@ -390,12 +390,12 @@ public class GameScreen extends Screen implements IButtonPressedListener
 						viewportHeight*=2;
 					}
 				}
-			
+			if(oldScf!=scaleFactor)
 			{
-				float k;
+				/*float k;
 				if(ev.getDelta()<0) k=0.5F;
 				else k=2F;
-				
+				*/
 				// TODO: correct the formula
 				//viewportX+=(1-k)*(ev.getMouseX()-viewportX);
 				//viewportY+=(1-k)*(ev.getMouseY()-viewportY);
@@ -404,9 +404,9 @@ public class GameScreen extends Screen implements IButtonPressedListener
 				viewportX+=dx;
 				viewportY+=dy;*/
 				//k=scaleFactor/oldScf;
-				viewportX+=ev.getMouseX()/(1-k)/scaleFactor;
-				viewportY+=ev.getMouseY()/(1-k)/scaleFactor;
-				
+				viewportX+=ev.getMouseX()/oldScf-ev.getMouseX()/scaleFactor;
+				viewportY+=ev.getMouseY()/oldScf-ev.getMouseY()/scaleFactor;
+					
 				//int dx=(int)(x*(zoom/newZoom-1)/zoom);
 				//int dy=(int)(y*(zoom/newZoom-1)/zoom);
 				
