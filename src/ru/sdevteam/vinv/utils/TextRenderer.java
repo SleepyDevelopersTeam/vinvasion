@@ -12,7 +12,8 @@ public class TextRenderer
 	// отрисовывает строку text так, чтобы её левый верхний угол находился в (x;y)
 	public static void drawString(Graphics g, int x, int y, String text)
 	{
-		g.setColor(Color.black);
+		FontMetrics f = g.getFontMetrics();
+		y+=f.getHeight();
 		g.drawString(text, x, y);
 	}
 	// отрисовывает строку text относительно точки (x;y) с заданным выравниванием
@@ -22,6 +23,7 @@ public class TextRenderer
 		FontMetrics f = g.getFontMetrics();
 		int width = f.stringWidth(text);
 		int height = f.getHeight();
+		y+=f.getHeight();
 		switch(h)
 		{
 			case RIGHT:
@@ -48,6 +50,7 @@ public class TextRenderer
 	{
 		FontMetrics f = g.getFontMetrics();
 		int width = f.stringWidth(text);
+		y+=f.getHeight();
 		switch(h)
 		{
 			case RIGHT:
@@ -64,6 +67,7 @@ public class TextRenderer
 	{
 		FontMetrics f = g.getFontMetrics();
 		int height = f.getHeight();
+		y+=f.getHeight();
 		switch(v)
 		{
 			case CENTER:
@@ -83,6 +87,7 @@ public class TextRenderer
 		String string,helpString;
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
+		y+=f.getHeight();
 		switch(h)
 		{
 			case RIGHT:
@@ -104,7 +109,7 @@ public class TextRenderer
 		ht = y+height-f.getHeight();
 		string = "";
 		
-		while( st.hasMoreTokens() || y < ht )
+		while( st.hasMoreTokens() && y < ht )
 		{
 			helpString = st.nextToken();
 			if( f.stringWidth(string)+f.stringWidth(helpString) <= width)
@@ -129,7 +134,7 @@ public class TextRenderer
 						g.drawString(string, x+(int)(width-f.stringWidth(string))/2, y);
 						break;
 				}
-				y = y+f.getHeight()+3;
+				y = y+f.getHeight();
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
@@ -148,6 +153,7 @@ public class TextRenderer
 		String string,helpString;
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
+		y+=f.getHeight();
 		switch(h)
 		{
 			case RIGHT:
@@ -160,7 +166,7 @@ public class TextRenderer
 		ht = y+height-f.getHeight();
 		string = "";
 		
-		while( st.hasMoreTokens() || y < ht )
+		while( st.hasMoreTokens() && y < ht )
 		{
 			helpString = st.nextToken();
 			if( f.stringWidth(string)+f.stringWidth(helpString) <= width)
@@ -185,7 +191,7 @@ public class TextRenderer
 						g.drawString(string, x+(int)(width-f.stringWidth(string))/2, y);
 						break;
 				}
-				y = y+f.getHeight()+3;
+				y = y+f.getHeight();
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
@@ -203,6 +209,7 @@ public class TextRenderer
 		String string,helpString;
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
+		y+=f.getHeight();
 		switch(v)
 		{
 			case CENTER:
@@ -215,7 +222,7 @@ public class TextRenderer
 		ht = y+height-f.getHeight();
 		string = "";
 		
-		while( st.hasMoreTokens() || y < ht )
+		while( st.hasMoreTokens() && y < ht )
 		{
 			helpString = st.nextToken();
 			if( f.stringWidth(string)+f.stringWidth(helpString) <= width)
@@ -226,7 +233,7 @@ public class TextRenderer
 			{
 				string = string.substring(0, string.length()-1);
 				g.drawString(string, x, y);
-				y = y+f.getHeight()+3;
+				y = y+f.getHeight();
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
@@ -245,9 +252,10 @@ public class TextRenderer
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
 		ht = y+height-f.getHeight();
+		y+=f.getHeight();
 		string = "";
 		
-		while( st.hasMoreTokens() || y < ht )
+		while( st.hasMoreTokens() && y < ht )
 		{
 			helpString = st.nextToken();
 			if( f.stringWidth(string)+f.stringWidth(helpString) <= width)
@@ -258,7 +266,7 @@ public class TextRenderer
 			{
 				string = string.substring(0, string.length()-1);
 				g.drawString(string, x, y);
-				y = y+f.getHeight()+3;
+				y = y+f.getHeight();
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
