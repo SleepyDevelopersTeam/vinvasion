@@ -290,6 +290,7 @@ public class GameScreen extends Screen implements IButtonPressedListener
 		
 		//((Graphics2D)g).scale(0.5F, 0.5F);
 		// endof Èםעונפויס
+
 	}
 
 	@Override
@@ -390,7 +391,6 @@ public class GameScreen extends Screen implements IButtonPressedListener
 					}
 				}
 			
-			if(ev.getDelta()!=0)
 			{
 				float k;
 				if(ev.getDelta()<0) k=0.5F;
