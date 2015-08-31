@@ -3,9 +3,7 @@ package ru.sdevteam.vinv.game;
 
 public class MachineGun extends Tower
 {
-	
-	
-	MachineGun()
+	public MachineGun()
 	{
 		super();
 		shootGround=false;
@@ -15,5 +13,9 @@ public class MachineGun extends Tower
 		shootingRadius=100;
 		sprite= new TowerSprite(this);
 		reloadTimeMillis=100;
+		
+		requiredPower=0;
+		
+		active=true;
 	}
 }

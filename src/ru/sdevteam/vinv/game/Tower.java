@@ -24,8 +24,11 @@ public abstract class Tower extends Destructable implements IWireConnectable
 	
 	protected Type towerType;
     public Type getTowerType(){return towerType;}
+    
+    protected int requiredPower;
+    public int getRequiredPower() { return requiredPower; }
 	
-	public enum Type{MGUN,FLAME_THROWER,AIR_GUN}
+	public enum Type { MGUN, FLAME_THROWER, AIR_GUN }
 
 
     public Tower()
@@ -35,6 +38,8 @@ public abstract class Tower extends Destructable implements IWireConnectable
 		shootingRadius=100;
 		//sprite= new TowerSprite(this);
 		reloadTimeMillis=100;
+		
+		active=false;
     }
 
 
@@ -85,6 +90,8 @@ public abstract class Tower extends Destructable implements IWireConnectable
 	{
 		active=false;
 	}
+    
+    public boolean isActive() { return active; }
 	
 	public boolean isCharged()
 	{
@@ -104,6 +111,12 @@ public abstract class Tower extends Destructable implements IWireConnectable
 	public boolean isGenerator()
 	{
 		return false;
+	}
+	
+	@Override
+	public void onCircuitChanged()
+	{
+		
 	}
 	
     public void update()

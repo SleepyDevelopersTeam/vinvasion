@@ -7,10 +7,10 @@ import ru.sdevteam.vinv.main.ResourceManager;
 
 public class DecorationSprite extends Sprite
 {	
-	private Decoration instance;
+	protected Decoration instance;
 	
 	
-	private DecorationSprite(BufferedImage src, int w, int h)
+	protected DecorationSprite(BufferedImage src, int w, int h)
 	{
 		super(src, w, h);
 	}
@@ -25,7 +25,7 @@ public class DecorationSprite extends Sprite
 	
 	public static DecorationSprite getWireHolderSprite(Decoration wireholder)
 	{
-		DecorationSprite r=new DecorationSprite(ResourceManager.getBufferedImage("decos/wireholder"), 16, 16);
+		DecorationSprite r=new WireHolderSprite();
 		r.instance=wireholder;
 		return r;
 	}

@@ -80,7 +80,7 @@ public class ContainerControl extends Control
 			for(int i=this.controls.size()-1; i>=0; i--)
 			{
 				Control c=this.controls.get(i);
-				if(c.contains(x, y))
+				if(c.contains(x, y) && c.isVisible())
 				{
 					newHovered=c;
 					break;
@@ -211,7 +211,7 @@ public class ContainerControl extends Control
 		
 		for(int i=this.controls.size()-1; i>=0; i--)
 		{
-			this.controls.get(i).processMouseEvent(ev);
+			if(this.controls.get(i).isVisible()) this.controls.get(i).processMouseEvent(ev);
 			//if(ev.isHandled()) return;
 		}
 		

@@ -9,8 +9,12 @@ import java.awt.image.BufferedImage;
 
 import ru.sdevteam.vinv.game.Decoration;
 import ru.sdevteam.vinv.game.FlameThrower;
+import ru.sdevteam.vinv.game.IWireConnectable;
+import ru.sdevteam.vinv.game.MachineGun;
+import ru.sdevteam.vinv.game.GameObject;
 import ru.sdevteam.vinv.game.Level;
 import ru.sdevteam.vinv.game.Tower;
+import ru.sdevteam.vinv.game.WireHolder;
 import ru.sdevteam.vinv.game.logics.LevelController;
 import ru.sdevteam.vinv.main.GameCanvas;
 import ru.sdevteam.vinv.main.MouseEvent;
@@ -18,8 +22,10 @@ import ru.sdevteam.vinv.main.ResourceManager;
 import ru.sdevteam.vinv.ui.MessageBox.DialogResult;
 import ru.sdevteam.vinv.ui.controls.Button;
 import ru.sdevteam.vinv.ui.controls.Control;
+import ru.sdevteam.vinv.ui.controls.FlowLayout;
 import ru.sdevteam.vinv.ui.controls.FocusableControl;
 import ru.sdevteam.vinv.ui.controls.IButtonPressedListener;
+import ru.sdevteam.vinv.ui.controls.FlowLayout.LayoutType;
 import ru.sdevteam.vinv.utils.Colors;
 import ru.sdevteam.vinv.utils.DebugInfo;
 import ru.sdevteam.vinv.utils.Fonts;
@@ -40,54 +46,12 @@ public class GameScreen extends Screen implements IButtonPressedListener
 	private int scaleFactor;
 	public int getScaleFactor() { return scaleFactor; }
 	
-	// вспомогательное, дл€ постройки
-	public Tower towerToPlace=null;
-	public Decoration decoToPlace=null;
-	
 	// images
 	private static BufferedImage 
 	panel=ResourceManager.getBufferedImage("ui/panel"),
 	res_r=ResourceManager.getBufferedImage("ui/res_resources"),
 	res_h=ResourceManager.getBufferedImage("ui/res_humans"),
 	res_p=ResourceManager.getBufferedImage("ui/res_power");
-	
-	// controls
-	private SwitchableButton pauseBtn, buildBtn;
-	private MessageBox mb;
-	public void buttonPressed(Button sender)
-	{
-		if(sender==pauseBtn)
-		{
-			if(pauseBtn.switched)
-			{
-				levelCtrl.pause();
-				/*
-				mb=new MessageBox("Title", "¬у-ха-ха мсжбокс такс такс што тут у нас ага! ѕереносы строк такс такс не работает ничего жопа всЄ накрылось а-а-а-а-а-а!");
-				mb.addButton(DialogResult.OK);
-				mb.addButton(DialogResult.CANCEL);
-				mb.addButton(DialogResult.NONE);
-				showMessageBox(mb);*/
-			}
-			else
-			{
-				levelCtrl.unpause();
-				//mb.close();
-			}
-			return;
-		}
-		
-		if(sender==buildBtn)
-		{
-			if(buildBtn.switched)
-			{
-				towerToPlace=new FlameThrower();
-			}
-			else
-			{
-				towerToPlace=null;
-			}
-		}
-	}
 	
 	
 	public GameScreen(int levelNum)
@@ -101,12 +65,12 @@ public class GameScreen extends Screen implements IButtonPressedListener
 		
 		setFont(Fonts.main(10));
 		
-		// временна€ строчка
-		//setSize(canvas.getWidth(), canvas.getHeight());
 		setSize((int)viewportWidth, (int)viewportHeight);
 		
+		// взаимодействие с уровнем
 		addControl(this.new LevelWrapperControl(getWidth(), getHeight(), this));
 		
+		// кнопки панели
 		pauseBtn=this.new SwitchableButton(getWidth()-31, getHeight()-31, 
 						"ui/pause_r", "ui/pause_h", "ui/pause_p");
 		pauseBtn.addButtonPressedListener(this);
@@ -116,6 +80,29 @@ public class GameScreen extends Screen implements IButtonPressedListener
 				"ui/build_r", "ui/build_h", "ui/build_p");
 		buildBtn.addButtonPressedListener(this);
 		addControl(buildBtn);
+		
+		// "меню" постройки
+		buildMenu=new FlowLayout(LayoutType.VERTICAL);
+		buildMenu.moveTo(buildBtn.getX()-10, buildBtn.getY()-10);
+		buildMenu.setMargin(2);
+		
+		tower1Btn=this.new TowerBuildButton(new FlameThrower());
+		tower1Btn.addButtonPressedListener(this);
+		buildMenu.addControl(tower1Btn);
+		
+		tower2Btn=this.new TowerBuildButton(new MachineGun());
+		tower2Btn.addButtonPressedListener(this);
+		buildMenu.addControl(tower2Btn);
+		
+		wireHolderBtn=this.new TowerBuildButton(new WireHolder());
+		wireHolderBtn.addButtonPressedListener(this);
+		buildMenu.addControl(wireHolderBtn);
+		
+		buildMenu.setY(buildMenu.getY()-buildMenu.getHeight());
+		buildMenu.setStartPoint(buildMenu.getX(), buildMenu.getY());
+		this.addControl(buildMenu);
+		
+		switchBuildMode(false);
 	}
 	
 	//
@@ -166,6 +153,97 @@ public class GameScreen extends Screen implements IButtonPressedListener
 		});
 		this.showMessageBox(defeatBox);
 	}
+	
+	//
+	// »нтерфейс
+	//
+	private SwitchableButton pauseBtn, buildBtn;
+	private MessageBox mb;
+	// вспомогательное, дл€ постройки
+	public Tower towerToPlace=null;
+	public Decoration decoToPlace=null;
+	
+	public void buttonPressed(Button sender)
+	{
+		if(sender==pauseBtn)
+		{
+			if(pauseBtn.switched)
+			{
+				levelCtrl.pause();
+				/*
+				mb=new MessageBox("Title", "¬у-ха-ха мсжбокс такс такс што тут у нас ага! ѕереносы строк такс такс не работает ничего жопа всЄ накрылось а-а-а-а-а-а!");
+				mb.addButton(DialogResult.OK);
+				mb.addButton(DialogResult.CANCEL);
+				mb.addButton(DialogResult.NONE);
+				showMessageBox(mb);*/
+			}
+			else
+			{
+				levelCtrl.unpause();
+				//mb.close();
+			}
+			return;
+		}
+		
+		if(sender==buildBtn)
+		{
+			if(buildBtn.switched)
+			{
+				//towerToPlace=new FlameThrower();
+			}
+			else
+			{
+				//towerToPlace=null;
+			}
+			switchBuildMode(buildBtn.switched);
+		}
+		
+		if(sender==tower1Btn)
+		{
+			tower2Btn.switched=false;
+			wireHolderBtn.switched=false;
+			
+			towerToPlace=new FlameThrower();
+			decoToPlace=null;
+		}
+		
+		if(sender==tower2Btn)
+		{
+			tower1Btn.switched=false;
+			wireHolderBtn.switched=false;
+			
+			towerToPlace=new MachineGun();
+			decoToPlace=null;
+		}
+		
+		if(sender==wireHolderBtn)
+		{
+			tower1Btn.switched=false;
+			tower2Btn.switched=false;
+			
+			towerToPlace=null;
+			decoToPlace=new WireHolder();
+		}
+	}
+	
+	// TODO: возможно, сделать массив кнопок
+	private SwitchableButton tower1Btn, tower2Btn, wireHolderBtn;
+	private FlowLayout buildMenu;
+	private void switchBuildMode(boolean state)
+	{
+		buildMenu.setVisibility(state);
+		
+		if(!state)
+		{
+			towerToPlace=null;
+			decoToPlace=null;
+			
+			tower1Btn.switched=false;
+			tower2Btn.switched=false;
+			wireHolderBtn.switched=false;
+		}
+	}
+	
 	
 	
 	@Override
@@ -229,6 +307,10 @@ public class GameScreen extends Screen implements IButtonPressedListener
 		boolean dragging;
 		float oldx, oldy; // дл€ перетаскивани€ окна просмотра
 		Rectangle hilightedCell; // подсвеченна€ €чейка при постройке
+		
+		// провода и их отрисовка
+		IWireConnectable clicked; // первый столб
+		int mx, my; // мышь
 		
 		public LevelWrapperControl(int w, int h, GameScreen parent)
 		{
@@ -345,7 +427,7 @@ public class GameScreen extends Screen implements IButtonPressedListener
 		protected void onMouseMoved(MouseEvent ev)
 		{
 			super.onMouseMoved(ev);
-			if(towerToPlace!=null)
+			if(towerToPlace!=null || decoToPlace!=null)
 			{
 				hilightedCell=levelCtrl.getCellBounds((int)viewportX+ev.getMouseX()/scaleFactor,
 						(int)viewportY+ev.getMouseY()/scaleFactor);
@@ -354,6 +436,8 @@ public class GameScreen extends Screen implements IButtonPressedListener
 			{
 				hilightedCell=null;
 			}
+			
+			mx=ev.getMouseX(); my=ev.getMouseY();
 		}
 		
 		@Override
@@ -367,6 +451,80 @@ public class GameScreen extends Screen implements IButtonPressedListener
 						(int)viewportX+ev.getMouseX()/scaleFactor,
 						(int)viewportY+ev.getMouseY()/scaleFactor);
 				buildBtn.press();
+			}
+			else if(decoToPlace!=null)
+			{
+				levelCtrl.placeDecoration(decoToPlace,
+						(int)viewportX+ev.getMouseX()/scaleFactor,
+						(int)viewportY+ev.getMouseY()/scaleFactor);
+				buildBtn.press();
+			}
+			else
+			{
+				try
+				{
+					IWireConnectable deco=(IWireConnectable)levelCtrl.getDecoUnderCursor(
+							(int)viewportX+ev.getMouseX()/scaleFactor,
+							(int)viewportY+ev.getMouseY()/scaleFactor);
+					
+					if(deco==null)
+					{
+						// декораций нет; может, есть башн€?
+						
+						deco=(IWireConnectable)levelCtrl.getTowerUnderCursor(
+								(int)viewportX+ev.getMouseX()/scaleFactor,
+								(int)viewportY+ev.getMouseY()/scaleFactor);
+					}
+					if(deco==null)
+					{
+						// мдас. ну что же, кто-то не попал
+						clicked=null;
+						return;
+					}
+					
+					if(clicked==null)
+					{
+						// первый столб (или не столб) выбран
+						DebugInfo.addMessage("New 1st obj!");
+						clicked=deco;
+					}
+					else
+					{
+						// второй столб (или не столб) выбран
+						if(clicked==deco)
+						{
+							// == клик по пустому месту
+							clicked=null;
+							DebugInfo.addMessage("clicked==deco");
+						}
+						else
+						{
+							// проводим питание сюда
+							boolean succeed=false;
+							if(clicked.isConductor())
+							{
+								// первый тыкнутый - столб
+								((WireHolder)clicked).connectTo(deco);
+								succeed=true;
+							}
+							else if(deco.isConductor())
+							{
+								// нет, тогда второй тыкнутый - столб
+								((WireHolder)deco).connectTo(clicked);
+								succeed=true;
+							}
+							
+							// ну и в любом случае, вот так
+							clicked=null;
+						}
+					}
+				}
+				catch(ClassCastException ex)
+				{
+					// не IWireConnectable, == клик по пустому месту
+					clicked=null;
+					DebugInfo.addMessage("not a IWireConnectable");
+				}
 			}
 		}
 		
@@ -382,6 +540,15 @@ public class GameScreen extends Screen implements IButtonPressedListener
 				g.drawRect((hilightedCell.x-(int)viewportX)*scaleFactor,
 						(hilightedCell.y-(int)viewportY)*scaleFactor,
 						hilightedCell.width*scaleFactor, hilightedCell.height*scaleFactor);
+			}
+			
+			if(clicked!=null)
+			{
+				g.setColor(Colors.black());
+				g.drawLine(
+						(int)((((GameObject)clicked).getX()-(int)viewportX)*scaleFactor),
+						(int)((((GameObject)clicked).getY()-(int)viewportY)*scaleFactor),
+						mx, my);
 			}
 		}
 	}
@@ -422,6 +589,43 @@ public class GameScreen extends Screen implements IButtonPressedListener
 		{
 			super.onPressed();
 			switched=!switched;
+		}
+	}
+	
+	private class TowerBuildButton extends SwitchableButton
+	{
+		BufferedImage d;
+		GameObject icon;
+		
+		
+		public TowerBuildButton(GameObject icon)
+		{
+			super(0, 0, "ui/tower_button_r", "ui/tower_button_h", "ui/tower_button_p");
+			this.icon=icon;
+			d=ResourceManager.getBufferedImage("ui/tower_button_d");
+			
+			icon.moveTo(getX()+getWidth()/2, getY()+getHeight()/2);
+		}
+		
+		
+		@Override
+		public void paint(Graphics g)
+		{
+			if(!isEnabled())
+				g.drawImage(d, getX(), getY(), null);
+			else
+				super.paint(g);
+			
+			icon.getSprite().paint(g);
+		}
+		
+		// поскольку экземпл€ры класса будут переразмещатьс€ после их создани€
+		// внутри соотв. алгоритма FlowLayout, в который их предстоит добавить,
+		// то така€ штука нам точно не помешает
+		@Override
+		protected void onLocationChanged(int oldx, int oldy)
+		{
+			if(icon!=null) icon.moveTo(getX()+getWidth()/2, getY()+getHeight()/2);
 		}
 	}
 }

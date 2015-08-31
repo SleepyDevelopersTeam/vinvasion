@@ -1,5 +1,9 @@
 package ru.sdevteam.vinv.ui.controls;
 
+import java.awt.Graphics;
+
+import ru.sdevteam.vinv.utils.Colors;
+
 public class FlowLayout extends ContainerControl
 {
 	public enum LayoutType { CUSTOM, VERTICAL, HORIZONTAL }
@@ -57,8 +61,9 @@ public class FlowLayout extends ContainerControl
 				c.setX(xStart);
 			
 			alignY(c, yStart);
+			setWidth(c.getX()+c.getWidth()-getX());
 		}
-		else
+		else if(layout==LayoutType.VERTICAL)
 		{
 			if(controls.size()>0)
 				c.setY(controls.lastElement().getY()+controls.lastElement().getHeight()+margin);
@@ -66,6 +71,7 @@ public class FlowLayout extends ContainerControl
 				c.setY(yStart);
 			
 			alignX(c, xStart);
+			setHeight(c.getY()+c.getHeight()-getY());
 		}
 		
 		super.addControl(c);
@@ -104,7 +110,7 @@ public class FlowLayout extends ContainerControl
 		{
 			setWidth(c.getX()+c.getWidth()-getX());
 		}
-		else
+		else if(layout==LayoutType.VERTICAL)
 		{
 			setHeight(c.getY()+c.getHeight()-getY());
 		}

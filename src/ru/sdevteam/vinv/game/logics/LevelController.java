@@ -142,8 +142,8 @@ public class LevelController implements IUpdatable, IDrawable
 		// можно ли в данной ячейке поставить башню?
 		if(!TiledLayer.isFreeCell(modelOfLevel.getFone().getTileIndexAt(row, col))) return false;
 		
-		item.getSprite().moveTo(col*modelOfLevel.getFone().getTileWidth(),
-								row*modelOfLevel.getFone().getTileHeight());
+		item.moveTo(col * modelOfLevel.getFone().getTileWidth()  + modelOfLevel.getFone().getTileWidth() /2,
+					row * modelOfLevel.getFone().getTileHeight() + modelOfLevel.getFone().getTileHeight()/2);
 		
 		// теперь проверим, нет ли там уже башни
 		Iterator i=modelOfLevel.createTowersIterator();

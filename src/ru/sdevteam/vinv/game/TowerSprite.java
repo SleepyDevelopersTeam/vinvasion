@@ -36,8 +36,15 @@ public class TowerSprite extends Sprite
 		
 		// TODO: обновляем спрайт в соответствии с состоянием instanse
 		
-		int frame=Vector2F.getDiscreteRotation(rotationImages, instanse.getRotation());
-		gotoFrame(frame);
+		if(instanse.isActive())
+		{
+			int frame=Vector2F.getDiscreteRotation(rotationImages, instanse.getRotation());
+			gotoFrame(frame);
+		}
+		else
+		{
+			gotoFrame(rotationImages);
+		}
 	}
 	
 	private static BufferedImage getImage(Tower.Type type)

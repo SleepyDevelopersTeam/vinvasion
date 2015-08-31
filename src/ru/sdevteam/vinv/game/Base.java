@@ -40,6 +40,11 @@ public class Base extends Decoration implements IWireConnectable
 		player.freeBasePower(power);
 	}
 	
+	public int getMaxPower()
+	{
+		return player.getBaseTotalPower();
+	}
+	
 	public boolean isCharged()
 	{
 		return false;
@@ -58,5 +63,11 @@ public class Base extends Decoration implements IWireConnectable
 	public boolean isGenerator()
 	{
 		return true;
+	}
+	
+	@Override
+	public void onCircuitChanged()
+	{
+		
 	}
 }
