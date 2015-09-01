@@ -84,7 +84,7 @@ public class TextRenderer
 	public static void drawMultiline(Graphics g, int x, int y, int width, int height, HorizontalAlignment h, VerticalAlignment v, String text)
 	{
 		int ht;
-		String string,helpString;
+		String string,helpString="";
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
 		y+=f.getHeight();
@@ -135,6 +135,7 @@ public class TextRenderer
 						break;
 				}
 				y = y+f.getHeight();
+				string = "";
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
@@ -144,13 +145,31 @@ public class TextRenderer
 					break;
 				}
 			}
+		}
+		if( (string == null ? helpString+" " == null : string.equals(helpString+" ")) && f.stringWidth(string)<= width && y < ht )
+		{
+			switch(h)
+				{
+					case NONE:
+						g.drawString(string, x, y);
+						break;
+					case LEFT:
+						g.drawString(string, x, y);
+						break;
+					case RIGHT:
+						g.drawString(string, x+width-f.stringWidth(string), y);
+						break;
+					case CENTER:
+						g.drawString(string, x+(int)(width-f.stringWidth(string))/2, y);
+						break;
+				}
 		}
 	}
 	// выравнивание по умолчанию то же
 	public static void drawMultiline(Graphics g, int x, int y, int width, int height, HorizontalAlignment h, String text)
 	{
 		int wh,ht;
-		String string,helpString;
+		String string,helpString="";
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
 		y+=f.getHeight();
@@ -191,6 +210,7 @@ public class TextRenderer
 						g.drawString(string, x+(int)(width-f.stringWidth(string))/2, y);
 						break;
 				}
+				string = "";
 				y = y+f.getHeight();
 				if( f.stringWidth(helpString) <= width)
 				{
@@ -202,11 +222,29 @@ public class TextRenderer
 				}
 			}
 		}
+		if( (string == null ? helpString+" " == null : string.equals(helpString+" ")) && f.stringWidth(string)<= width && y < ht )
+		{
+			switch(h)
+				{
+					case NONE:
+						g.drawString(string, x, y);
+						break;
+					case LEFT:
+						g.drawString(string, x, y);
+						break;
+					case RIGHT:
+						g.drawString(string, x+width-f.stringWidth(string), y);
+						break;
+					case CENTER:
+						g.drawString(string, x+(int)(width-f.stringWidth(string))/2, y);
+						break;
+				}
+		}
 	}
 	public static void drawMultiline(Graphics g, int x, int y, int width, int height, VerticalAlignment v, String text)
 	{
 		int ht;
-		String string,helpString;
+		String string,helpString="";
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
 		y+=f.getHeight();
@@ -234,6 +272,7 @@ public class TextRenderer
 				string = string.substring(0, string.length()-1);
 				g.drawString(string, x, y);
 				y = y+f.getHeight();
+				string = "";
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
@@ -244,11 +283,15 @@ public class TextRenderer
 				}
 			}
 		}
+		if( (string == null ? helpString+" " == null : string.equals(helpString+" ")) && f.stringWidth(string)<= width && y < ht )
+		{
+			g.drawString(string, x, y);
+		}
 	}
 	public static void drawMultiline(Graphics g, int x, int y, int width, int height, String text)
 	{
 		int ht;
-		String string,helpString;
+		String string,helpString="";
 		FontMetrics f = g.getFontMetrics();
 		StringTokenizer st = new StringTokenizer(text);
 		ht = y+height-f.getHeight();
@@ -267,6 +310,7 @@ public class TextRenderer
 				string = string.substring(0, string.length()-1);
 				g.drawString(string, x, y);
 				y = y+f.getHeight();
+				string = "";
 				if( f.stringWidth(helpString) <= width)
 				{
 					string = helpString+" ";
@@ -276,6 +320,10 @@ public class TextRenderer
 					break;
 				}
 			}
+		}
+		if( (string == null ? helpString+" " == null : string.equals(helpString+" ")) && f.stringWidth(string)<= width && y < ht )
+		{
+			g.drawString(string, x, y);
 		}
 	}
 
