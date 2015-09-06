@@ -2,6 +2,7 @@ package ru.sdevteam.vinv.main;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class Program
 {
@@ -18,6 +19,7 @@ public class Program
 	        }
 		});
 				
+		frame.setAutoRequestFocus(true);
 		frame.setVisible(true);
 	}
 }
