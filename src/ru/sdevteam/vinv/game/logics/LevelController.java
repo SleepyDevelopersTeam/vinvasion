@@ -406,6 +406,7 @@ public class LevelController implements IUpdatable, IDrawable
 			{			
 				Explosion expl = modelOfLevel.getExplosion(((Bug)bug).getX(), (bug).getY(), Type.SLIME);
 				expl.explode();
+				player.addResources(((Bug)bug).getCost());
 				modelOfLevel.markInactive( ((Bug)bug) );
 			}
 		}
