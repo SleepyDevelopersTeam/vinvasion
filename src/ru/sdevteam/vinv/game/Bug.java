@@ -20,6 +20,9 @@ public class Bug extends Destructable
     private int speed;
     public int getSpeed(){return speed;}
 	public void setSpeed(int s){speed=s;}
+	
+	protected int cost;
+	public int getCost(){return cost;}
 
     public Bug()
     {
@@ -51,14 +54,17 @@ public class Bug extends Destructable
             case NULL:   speed = 0;
                          setMaxHp(0);
                          setHp(0);
+						 cost = 0;
                          break;
             case NORMAL: speed = 5;//(int)(2+Math.random()*5);
                          setMaxHp(100);
                          setHp(50);
+						 cost = 2;
                          break;
 			case AIR:	speed = 7;//(int)(2+Math.random()*5);
 						setMaxHp(70);
 						setHp(70);
+						cost = 1;
 						break;
         }
     }
